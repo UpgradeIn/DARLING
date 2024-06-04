@@ -15,6 +15,8 @@ Memastikan peningkatan kompetensi personel secara berkelanjutan, mendukung kenai
 ## Figma
 DARLING [DARLING](https://www.figma.com/proto/uoaCGBiszbrC0VBwYfi1yl/Damri-Course?node-id=163-1444&m=dev&scaling=scale-down-width&page-id=0%3A1&t=pGa3CZl0aFoKQPli-1)
 
+## Data Model
+DARLING [DARLING](https://drive.google.com/file/d/1eupTLRw6maLNToLLx3anij5LtZ2ggTqy/view?usp=sharing)
 
 
 
