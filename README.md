@@ -19,7 +19,7 @@ DARLING [DARLING](https://www.figma.com/proto/uoaCGBiszbrC0VBwYfi1yl/Damri-Cours
 DARLING [DARLING](https://drive.google.com/file/d/1eupTLRw6maLNToLLx3anij5LtZ2ggTqy/view?usp=sharing)
 kok gak bisa ya, test lagi
 
-## erdito
+## erditoo
 
 
 
