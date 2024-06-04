@@ -12,6 +12,9 @@ Bisa diakses eluruh cabang DAMRI
 Website DARLING menawarkan solusi komprehensif untuk kebutuhan pelatihan dan pengembangan SDM DAMRI dengan memanfaatkan teknologi digital. 
 Memastikan peningkatan kompetensi personel secara berkelanjutan, mendukung kenaikan jabatan melalui pelatihan mandatori, learning path dan memberikan akses yang luas dan mudah di seluruh cabang DAMRI. Dengan demikian, website ini membantu DAMRI mencapai tujuan strategisnya dalam pengembangan SDM yang andal dan inovatif.
 
+## Figma
+DARLING [DARLING](https://www.figma.com/proto/uoaCGBiszbrC0VBwYfi1yl/Damri-Course?node-id=163-1444&m=dev&scaling=scale-down-width&page-id=0%3A1&t=pGa3CZl0aFoKQPli-1)
+
 
 
 
