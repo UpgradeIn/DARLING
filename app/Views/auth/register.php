@@ -43,6 +43,13 @@
                             <?= session()->getFlashdata('msg') ?>
                         </div>
                     <?php endif;?>
+
+                    <div class="mb-4" id="form_input">
+                        <label for="fullname" class="block text-sm font-medium dark:text-white">
+                            <span class="sr-only">Nama Lengkap</span>
+                        </label>
+                    <input name="fullname" type="text" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Masukan Nama Lengkap Anda">
+                   
                     <div class="mb-4" id="form_input">
                         <label for="email" class="block text-sm font-medium dark:text-white">
                             <span class="sr-only">Email address</span>
@@ -59,9 +66,9 @@
 
                     <div class="mb-4" id="form_input">
                         <label for="konfirmasi_password" class="block text-sm font-medium dark:text-white">
-                            <span class="sr-only">Password</span>
+                            <span class="sr-only">Konfirmasi Password</span>
                         </label>
-                        <input name="konfirmasi_password" type="password" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Masukan Password Anda">
+                        <input name="konfirmasi_password" type="password" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Masukan Kembali Password Anda">
                     </div>
 
                     <div class="grid" id="from_input">
