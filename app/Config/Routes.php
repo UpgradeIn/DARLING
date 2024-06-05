@@ -54,7 +54,7 @@ $routes->group('', ['filter' => 'pages:officials'], static function($routes) {
 // Pages/Operator
 $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('operator', 'Pages\Operator::dashboard');
-    $routes->get('kelola-course', 'Pages\Operator::kelola_course');
+    $routes->get('manage-course', 'Pages\Operator::manage_course');
 });
 
 // Pages/Profile
