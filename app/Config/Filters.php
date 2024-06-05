@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Filters\ActionsFilter;
+use App\Filters\IsLoginFilter;
+use App\Filters\PagesFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -34,6 +37,9 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'pages'         => PagesFilter::class,
+        'actions'       => ActionsFilter::class,
+        'is_login'      => IsLoginFilter::class,
     ];
 
     /**
