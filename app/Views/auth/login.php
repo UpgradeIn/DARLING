@@ -10,11 +10,13 @@
             
             <div class="hidden md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0 sm:block">
                 <div class="h-full max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800">
-                    <img class="w-full px-5 pt-6" src="<?php echo base_url('assets/images/damribumnlogo.png'); ?>" alt="Card Image" style="max-width: 250px; max-height: 250px;">
+                    <a href="<?= base_url('/')?>">
+                        <img class="w-full px-5 pt-6" src="<?= base_url('assets/images/damribumnlogo.png'); ?>" alt="Card Image" style="max-width: 250px; max-height: 250px;">
+                    </a>
                     <div class="px-7 py-4">
                         <div class="font-bold text-2xl mb-2">Halo, Selamat Datang di Course Darling</div>
                     </div>  
-                    <img class="w-full h-full" src="<?php echo base_url('assets/images/character1.png'); ?>" alt="Card Image" style="height: 400px;">
+                    <img class="w-full h-full" src="<?= base_url('assets/images/character1.png'); ?>" alt="Card Image" style="height: 400px;">
                 </div>
             </div>
 
