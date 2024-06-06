@@ -28,7 +28,7 @@ $routes->group('officials', ['filter' => 'actions:officials'], static function($
 
 // Actions/Operator
 $routes->group('operator', ['filter' => 'actions:operator'], static function($routes) {
-    $routes->post('abc', 'Actions\Operator::abc');
+    $routes->post('crate-learningpath', 'Actions\Operator::createLearningPath');
 });
 
 // Actions/User
