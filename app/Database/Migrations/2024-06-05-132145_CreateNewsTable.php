@@ -31,13 +31,11 @@ class CreateNewsTable extends Migration
                 'type'           => 'INT',
                 'constraint'     => 5,
                 'unsigned'       => true,
-                'auto_increment' => true,
             ],
             'admin_id'       => [
                 'type'           => 'INT',
                 'constraint'     => 5,
                 'unsigned'       => true,
-                'auto_increment' => true,
             ],
             'published_at' => [
                 'type' => 'DATETIME',
