@@ -4,7 +4,8 @@ namespace App\Controllers\Actions;
 
 use App\Controllers\BaseController;
 use App\Models\LearningPathModel;
-use App\Models\CoursesModel;
+use App\Models\CourseModel;
+use App\Models\SubcourseModel;
 use CodeIgniter\I18n\Time;
 
 class Operator extends BaseController
@@ -27,7 +28,7 @@ class Operator extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $model = new CoursesModel();
+            $model = new CourseModel();
             $thumbnail = $this->request->getFile('thumbnail');
 
             $thumbnail->move('images');
@@ -60,7 +61,7 @@ class Operator extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $model = new CoursesModel();
+            $model = new CourseModel();
 
             $thumbnail = $this->request->getFile('thumbnail');
             //caek gambar lama
@@ -89,7 +90,7 @@ class Operator extends BaseController
 
     public function deleteCourse($id)
     {
-        $model = new CoursesModel();
+        $model = new CourseModel();
 
         $thumbnail = $model->find($id);
         unlink('images/' . $thumbnail['thumbnail']);
@@ -99,7 +100,34 @@ class Operator extends BaseController
     }
 
     // Sub Courses
-    
+    public function createSubCourse()
+    {
+        $rules = [
+            'title'     => 'required',
+            'course_id' => 'required'|'numeric',
+            'sequence'  => 'required'|'numeric',
+            'type' => 'required|in_list[video,test,written]',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new SubcourseModel();
+
+            $data = [
+                'course_id' => $this->request->getVar('course_id'),
+                'title'     => $this->request->getVar('title'),
+                'sequence'  => $this->request->getVar('sequence'),
+                'type'      => $this->request->getVar('type'),
+                'created_at'  => Time::now(),
+                'updated_at'  => Time::now(),
+            ];
+            $model->save($data);
+            return redirect()->to('manage-subcourse');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage_subcourse', $data);
+        }
+    }    
+
 
     // Learning Path
     public function createLearningPath()
