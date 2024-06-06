@@ -5,15 +5,8 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-    <head>
-        <link rel="stylesheet" href="<?= base_url('assets/css/preline.css')?>">
-        <script src="https://cdn.jsdelivr.net/npm/preline@2.3.0/dist/preline.min.js"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="<?= base_url('js/script.js') ?>"></script>
-    </head>
-   
     <div class="relative overflow-hidden">
-        <div class="mx-24 max-w-screen-xl mb-4 py-2 px-4 sm:px-6 md:max-w-screen-xl md:py-20 lg:py-2 mt-6 md:px-8 md:flex">
+        <div class="w-full gap-10 px-10 py-10 sm:flex">
             
             <div class="hidden md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0 sm:block">
                 <div class="h-full max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800">
@@ -26,7 +19,7 @@
             </div>
 
             <div class="pt-6 md:pe-8 md:w-1/2 xl:pe-0 xl:w-5/12">
-                <div class="mb-16 text-right">
+                <div class="mb-16 text-left sm:text-right">
                     <span>Belum memiliki akun? </span>
                     <a href="<?= base_url('auth/register')?>" class="text-blue-600 hover:underline">Daftar sekarang</a>
                 </div>
@@ -47,18 +40,18 @@
                         <label for="email" class="block text-sm font-medium dark:text-white">
                             <span class="sr-only">Email address</span>
                         </label>
-                        <input name="email" type="email" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Masukan Email Anda">
+                        <input name="email" type="email" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Masukan Email Anda">
                     </div>
 
                     <div class="mb-4" id="form_input">
                         <label for="password" class="block text-sm font-medium dark:text-white">
                             <span class="sr-only">Password</span>
                         </label>
-                        <input name="password" type="password" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Masukan Password Anda">
+                        <input name="password" type="password" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Masukan Password Anda">
                     </div>
 
                     <div class="grid" id="from_input">
-                        <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                        <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-800 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
                             Login
                         </button>
                     </div>
