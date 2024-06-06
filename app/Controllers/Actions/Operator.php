@@ -18,7 +18,7 @@ class Operator extends BaseController
     }
 
     // Courses
-    public function createCoures()
+    public function createCourse()
     {
         $rules = [
             'name'          => 'required',
