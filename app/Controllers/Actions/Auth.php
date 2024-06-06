@@ -19,8 +19,9 @@ class Auth extends BaseController
     public function register()
     {
         $rules = [
-            'email'         => 'required|min_length[6]|max_length[50]|valid_email|is_unique[tb_users.email]',
-            'password'      => 'required|min_length[6]|max_length[200]',
+            'email'         => 'required|min_length[6]|max_length[100]|valid_email|is_unique[tb_users.email]',
+            'fullname'      => 'required|min_length[3]|max_length[255]',
+            'password'      => 'required|min_length[6]|max_length[255]',
             'konfirmasi_password'  => 'matches[password]'
         ];
          
@@ -38,7 +39,7 @@ class Auth extends BaseController
             return redirect()->to('auth/login');
         }else{
             $data['validation'] = $this->validator;
-            return view('register', $data);
+            return view('auth/register', $data);
         }
     }
 
