@@ -19,12 +19,12 @@ class Auth extends BaseController
     public function register()
     {
         $rules = [
-            'email'         => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
+            'email'         => 'required|min_length[6]|max_length[50]|valid_email|is_unique[tb_users.email]',
             'password'      => 'required|min_length[6]|max_length[200]',
             'konfirmasi_password'  => 'matches[password]'
         ];
-
-        if ($this->validate($rules)) {
+         
+        if($this->validate($rules)){
             $model = new UsersModel();
             $data = [
                 'email'    => $this->request->getVar('email'),
@@ -36,7 +36,7 @@ class Auth extends BaseController
             ];
             $model->save($data);
             return redirect()->to('auth/login');
-        } else {
+        }else{
             $data['validation'] = $this->validator;
             return view('register', $data);
         }
@@ -48,10 +48,9 @@ class Auth extends BaseController
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
         $data = $model->select('tb_users.*, tb_roles.name AS role_name')
-            ->join('role', 'tb_roles.id = users.role_id')
-            ->where('tb_users.email', $email)
-            ->first();
-        dd($data);
+              ->join('tb_roles', 'tb_roles.id = tb_users.role_id')
+              ->where('tb_users.email', $email)
+              ->first();
         if ($data) {
             $pass = $data['password'];
             $verify_pass = password_verify($password, $pass);
@@ -68,7 +67,7 @@ class Auth extends BaseController
                 $this->session->setFlashdata('msg', 'Wrong Password');
                 return redirect()->to('auth/login');
             }
-        } else {
+        } else { 
             $this->session->setFlashdata('msg', 'Email not Found');
             return redirect()->to('auth/login');
         }
