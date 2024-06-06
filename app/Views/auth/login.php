@@ -6,7 +6,7 @@
 
 <?= $this->section('content') ?>
     <div class="relative overflow-hidden">
-        <div class="w-full gap-10 px-10 py-10 sm:flex">
+        <div class="w-full gap-10 px-20 py-10 sm:flex">
             
             <div class="hidden md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0 sm:block">
                 <div class="h-full max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800">
