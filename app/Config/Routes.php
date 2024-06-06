@@ -28,7 +28,12 @@ $routes->group('officials', ['filter' => 'actions:officials'], static function($
 
 // Actions/Operator
 $routes->group('operator', ['filter' => 'actions:operator'], static function($routes) {
-    $routes->post('crate-learningpath', 'Actions\Operator::createLearningPath');
+    $routes->post('create-learningpaths', 'Actions\Operator::createLearningPath');
+    $routes->post('update-learningpaths/(:num)', 'Actions\Operator::updateLearningPath/$1');
+    $routes->get('delete-learningpaths/(:num)', 'Actions\Operator::deleteLearningPath/$1');
+    $routes->post('create-courses', 'Actions\Operator::createCourse');
+    $routes->post('update-courses/(:num)', 'Actions\Operator::updateCourse/$1');
+    $routes->get('delete-courses/(:num)', 'Actions\Operator::deleteCourse/$1');
 });
 
 // Actions/User
