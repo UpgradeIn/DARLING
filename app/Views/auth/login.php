@@ -6,7 +6,7 @@
 
 <?= $this->section('content') ?>
     <div class="relative overflow-hidden">
-        <div class="w-full gap-10 px-10 py-10 sm:flex">
+        <div class="w-full gap-10 px-10 py-10 md:px-20 sm:flex">
             
             <div class="hidden md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0 sm:block">
                 <div class="h-full max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800">
@@ -19,7 +19,7 @@
             </div>
 
             <div class="pt-6 md:pe-8 md:w-1/2 xl:pe-0 xl:w-5/12">
-                <div class="mb-16 text-left sm:text-right">
+                <div class="mb-16 text-left md:text-right">
                     <span>Belum memiliki akun? </span>
                     <a href="<?= base_url('auth/register')?>" class="text-blue-600 hover:underline">Daftar sekarang</a>
                 </div>
@@ -31,11 +31,6 @@
                 </p>
 
                 <form action="<?= base_url('auth/login')?>" method="POST">
-                    <?php if(session()->getFlashdata('msg')):?>
-                        <div>
-                            <?= session()->getFlashdata('msg') ?>
-                        </div>
-                    <?php endif;?>
                     <div class="mb-4" id="form_input">
                         <label for="email" class="block text-sm font-medium dark:text-white">
                             <span class="sr-only">Email address</span>
@@ -55,6 +50,11 @@
                             Login
                         </button>
                     </div>
+                    <?php if(session()->getFlashdata('msg')):?>
+                        <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+                            <?= session()->getFlashdata('msg') ?>
+                        </div>
+                    <?php endif;?>
                 </form>
 
                 <div class="mt-8 grid">
