@@ -99,6 +99,7 @@ class Operator extends BaseController
     }
 
     // Sub Courses
+    
 
     // Learning Path
     public function createLearningPath()
@@ -190,4 +191,5 @@ class Operator extends BaseController
     // Assign Learning Path
 
     // Request Learning Path
+
 }
