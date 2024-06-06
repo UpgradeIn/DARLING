@@ -3,7 +3,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CoursesModel extends Model
+class CourseModel extends Model
 {
     protected $table            = 'tb_courses';
     protected $primaryKey       = 'id';
