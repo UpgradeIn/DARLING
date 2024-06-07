@@ -169,7 +169,7 @@ class Operator extends BaseController
             ];
             if ($model->save($data)) {
                 $insertedID = $model->insertID();
-                if ($type === 'writter') {
+                if ($type === 'written') {
                     $testModel = new WrittenMaterialModel();
                     $dataMaterial = [
                         'subcourse_id' => $insertedID,
@@ -178,7 +178,7 @@ class Operator extends BaseController
                         'updated_at'  => Time::now(),
                     ];
                     $testModel->save($dataMaterial);
-                } else if($type === 'video') {
+                } else if ($type === 'video') {
                     $testModel = new VideoMaterialModel();
                     $dataMaterial = [
                         'subcourse_id' => $insertedID,
@@ -187,7 +187,7 @@ class Operator extends BaseController
                         'updated_at'  => Time::now(),
                     ];
                     $testModel->save($dataMaterial);
-                } else if($type === 'test') {
+                } else if ($type === 'test') {
                     $testModel = new TestMaterialModel();
                     $optionModel = new OptionTestModel();
 
@@ -200,7 +200,7 @@ class Operator extends BaseController
                             'created_at'  => Time::now(),
                             'updated_at'  => Time::now(),
                         ];
-                        
+
                         $testModel->save($dataMaterial);
                         $insertedMaterialID = $testModel->insertID();
                         foreach ($value['options'] as $key => $option) {
@@ -225,6 +225,143 @@ class Operator extends BaseController
         }
     }
 
+    public function updateSubCourse($id)
+    {
+        $rules = [
+            'title'     => 'required',
+            'course_id' => 'required' | 'numeric',
+            'sequence'  => 'required' | 'numeric',
+            'type' => 'required|in_list[video,test,written]',
+            'status'    => 'required|in_list[publish,draft]',
+            'content'   => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'The {field} field is required.'
+                ],
+            ],
+        ];
+
+        // Additional rules based on 'type'
+        $type = $this->request->getPost('type');
+        if ($type === 'video') {
+            $validationRules['content'] = 'required|valid_url';
+        } elseif ($type === 'written') {
+            $validationRules['content'] = 'required|string';
+        } elseif ($type === 'test') {
+            $validationRules['content'] = 'required|array';
+            $validationRules['content.*.sequence'] = 'required|integer';
+            $validationRules['content.*.content'] = 'required|string';
+            $validationRules['content.*.type_test'] = 'required|string';
+            $validationRules['content.*.options'] = 'required|array';
+            $validationRules['content.*.options.*.content'] = 'required|string';
+            $validationRules['content.*.options.*.correct'] = 'required|boolean';
+        }
+
+        if ($this->validate($rules)) {
+            $model = new SubcourseModel();
+
+            $data = [
+                'course_id' => $this->request->getVar('course_id'),
+                'title'     => $this->request->getVar('title'),
+                'sequence'  => $this->request->getVar('sequence'),
+                'type'      => $this->request->getVar('type'),
+                'status'    => $this->request->getVar('status'),
+                'updated_at'  => Time::now(),
+            ];
+            if ($model->update($id, $data)) {
+                if ($type === 'written') {
+                    $writtenModel = new WrittenMaterialModel();
+                    $dataMaterial = [
+                        'subcourse_id' => $id,
+                        'content' => $this->request->getVar('content'),
+                        'updated_at'  => Time::now(),
+                    ];
+                    $writtenModel->where('subcourse_id', $id)->set($dataMaterial)->update();
+                } else if ($type === 'video') {
+                    $videoModel = new VideoMaterialModel();
+                    $dataMaterial = [
+                        'subcourse_id' => $id,
+                        'content' => $this->request->getVar('content'),
+                        'updated_at'  => Time::now(),
+                    ];
+                    $videoModel->where('subcourse_id',$id)->set($dataMaterial)->update();
+                } else if ($type === 'test') {
+                    $testModel = new TestMaterialModel();
+                    $optionModel = new OptionTestModel();
+
+                    // delete old data
+                    $material = $testModel->where('subcourse_id', $id)->findAll();
+                    foreach ($material as $m) {
+                        $options = $optionModel->where('test_material_id', $m['id'])->findAll();
+                        foreach ($options as $o) {
+                            $optionModel->delete($o['id']);
+                        }
+                        $testModel->delete($m['id']);
+                    }
+
+                    // insert new data
+                    foreach ($this->request->getVar('content') as $key => $value) {
+                        $dataMaterial = [
+                            'subcourse_id' => $id,
+                            'content' => $value['content'],
+                            'sequence' => $value['sequence'],
+                            'type_test' => $value['type_test'],
+                            'created_at'  => Time::now(),
+                            'updated_at'  => Time::now(),
+                        ];
+
+                        $testModel->save($dataMaterial);
+                        $insertedMaterialID = $testModel->insertID();
+                        foreach ($value['options'] as $key => $option) {
+                            $dataOption = [
+                                'test_material_id' => $insertedMaterialID,
+                                'answer' => $option['answer'],
+                                'correct' => $option['correct'],
+                                'created_at'  => Time::now(),
+                                'updated_at'  => Time::now(),
+                            ];
+                            $optionModel->save($dataOption);
+                        }
+                    }
+                }
+                return redirect()->to('manage-subcourse');
+            } else {
+                return redirect()->to('manage-subcourse');
+            }
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage_subcourse', $data);
+        }
+    }
+
+    public function deleteSubCourse($id)
+    {
+        $model = new SubcourseModel();
+        $modelWritten = new WrittenMaterialModel();
+        $modelVideo = new VideoMaterialModel();
+        $modelTest = new TestMaterialModel();
+        $modelOption = new OptionTestModel();
+
+        $subcourse = $model->find($id);
+        $type = $subcourse['type'];
+
+        if ($type === 'written') {
+            $material = $modelWritten->where('subcourse_id', $id)->first();
+            $modelWritten->delete($material['id']);
+        } else if ($type === 'video') {
+            $material = $modelVideo->where('subcourse_id', $id)->first();
+            $modelVideo->delete($material['id']);
+        } else if ($type === 'test') {
+            $material = $modelTest->where('subcourse_id', $id)->findAll();
+            foreach ($material as $m) {
+                $options = $modelOption->where('test_material_id', $m['id'])->findAll();
+                foreach ($options as $o) {
+                    $modelOption->delete($o['id']);
+                }
+                $modelTest->delete($m['id']);
+            }
+        }
+    }
 
     // Learning Path
     public function createLearningPath()
@@ -330,5 +467,9 @@ class Operator extends BaseController
     // Assign Learning Path
 
     // Request Learning Path
+
+    // Category
+
+    // News
 
 }
