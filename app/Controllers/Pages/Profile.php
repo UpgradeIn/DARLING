@@ -12,12 +12,12 @@ class Profile extends BaseController
         return redirect()->to('profile/my-profile');
     }
 
-    public function my_profile()
+    public function myProfile()
     {
         return view('profile/my-profile');
     }
 
-    public function my_activity()
+    public function myActivity()
     {
         return view('profile/my-activity');
     }
