@@ -25,7 +25,7 @@ class CreateLearningPathTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
-            'name'       => [
+            'slug'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
