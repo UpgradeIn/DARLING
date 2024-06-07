@@ -60,11 +60,11 @@ $routes->group('', ['filter' => 'pages:officials'], static function($routes) {
 $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('operator', 'Pages\Operator::dashboard');
     $routes->get('manage-assignment-request', 'Pages\Operator::manageAssigmentRequest');
-    $routes->get('manage-assignment/(:num)', 'Pages\Operator::detailAssigment/$1');
-    $routes->get('manage-request/(:num)', 'Pages\Operator::detailRequest/$1');
-    $routes->get('manage-learning-path/(:any)', 'Pages\Operator::detailLearningPath/$1');
+    $routes->get('detail-assignment/(:num)', 'Pages\Operator::detailAssigment/$1');
+    $routes->get('detail-request/(:num)', 'Pages\Operator::detailRequest/$1');
+    $routes->get('detail-learning-path/(:any)', 'Pages\Operator::detailLearningPath/$1');
     $routes->get('manage-course', 'Pages\Operator::manageCourse');
-    $routes->get('manage-course/(:any)', 'Pages\Operator::detailCourse/$1');
+    $routes->get('detail-course/(:any)', 'Pages\Operator::detailCourse/$1');
     $routes->get('add-pre-test', 'Pages\Operator::addPreTest');
     $routes->get('edit-pre-test/(:num)', 'Pages\Operator::editPreTest/$1');
     $routes->get('add-post-test/', 'Pages\Operator::addPostTest');
