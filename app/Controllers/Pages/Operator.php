@@ -17,29 +17,14 @@ class Operator extends BaseController
         return redirect()->to('operator/manage-assigment');
     }
 
-    public function manageAssigment()
-    {
-        return view('operator/manage-assigment');
-    }
-
     public function detailAssigment($id)
     {
         return view('operator/detail-assigment');
     }
 
-    public function manageRequest()
-    {
-        return view('operator/manage-request');
-    }
-
     public function detailRequest($id)
     {
         return view('operator/detail-request');
-    }
-
-    public function manageLearningPath()
-    {
-        return view('operator/manage-learning-path');
     }
 
     public function detailLearningPath($slug)

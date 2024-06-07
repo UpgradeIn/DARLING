@@ -60,11 +60,8 @@ $routes->group('', ['filter' => 'pages:officials'], static function($routes) {
 $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('operator', 'Pages\Operator::dashboard');
     $routes->get('manage-assignment-request', 'Pages\Operator::manageAssigmentRequest');
-    $routes->get('manage-assignment', 'Pages\Operator::manageAssigment');
     $routes->get('manage-assignment/(:num)', 'Pages\Operator::detailAssigment/$1');
-    $routes->get('manage-request', 'Pages\Operator::manageRequest');
     $routes->get('manage-request/(:num)', 'Pages\Operator::detailRequest/$1');
-    $routes->get('manage-learning-path', 'Pages\Operator::manageLearningPath');
     $routes->get('manage-learning-path/(:any)', 'Pages\Operator::detailLearningPath/$1');
     $routes->get('manage-course', 'Pages\Operator::manageCourse');
     $routes->get('manage-course/(:any)', 'Pages\Operator::detailCourse/$1');
