@@ -121,10 +121,39 @@ class Operator extends BaseController
         return redirect()->to('manage-course');
     }
 
+    public function updateCourseSequence($id){ //id learning path
+
+        // $data=[
+        // {
+        //     "id"= 1, //id course
+        //     "sequence"= 1
+        // },
+        // {
+        //     "id"= 3, //id course
+        //     "sequence"= 2
+        // },
+        // {
+        //     "id"= 2, //id course
+        //     "sequence"= 3
+        // },
+        // ];
+
+        $model = new CourseModel();
+        $courses = $model->where('learning_path_id', $id)->findAll();
+        $sequence = 1;
+        foreach ($courses as $course) {
+            $data = [
+                'sequence' => $sequence,
+            ];
+            $model->update($course['id'], $data);
+            $sequence++;
+        }
+    }
+
     // Sub Courses
     public function createSubCourse()
     {
-        $rules = [
+        $validationRules = [
             'title'     => 'required',
             'course_id' => 'required' | 'numeric',
             'sequence'  => 'required' | 'numeric',
@@ -137,25 +166,31 @@ class Operator extends BaseController
                 ],
             ],
         ];
-
-
+        $validationData=$this->request->getPost();
         // Additional rules based on 'type'
-        $type = $this->request->getPost('type');
+        $type = $this->request->getVar('type');
         if ($type === 'video') {
-            $validationRules['content'] = 'required|valid_url';
+            $validationRules['content'] = 'required|string';
         } elseif ($type === 'written') {
             $validationRules['content'] = 'required|string';
         } elseif ($type === 'test') {
-            $validationRules['content'] = 'required|array';
-            $validationRules['content.*.sequence'] = 'required|integer';
-            $validationRules['content.*.content'] = 'required|string';
-            $validationRules['content.*.type_test'] = 'required|string';
-            $validationRules['content.*.options'] = 'required|array';
-            $validationRules['content.*.options.*.content'] = 'required|string';
-            $validationRules['content.*.options.*.correct'] = 'required|boolean';
+            /** @var string|null $jsonData */
+            $jsonData = $this->request->getPost('content');
+            $contentArray = json_decode($jsonData, true);
+
+            // $validationRules['content'] = 'required|array';
+            $validationRules['content.sequence'] = 'required|integer';
+            $validationRules['content.content'] = 'required|string';
+            $validationRules['content.type_test'] = 'required|string';
+            $validationRules['content.options'] = 'required|array';
+            $validationRules['content.options.*.content'] = 'required|string';
+            $validationRules['content.options.*.correct'] = 'required|boolean';
+            // $validationData = ['content' => $contentArray];
+            $validationData['content'] = $contentArray;
+
         }
 
-        if ($this->validate($rules)) {
+        if ($this->validate($validationData, $validationRules)) {
             $model = new SubcourseModel();
 
             $data = [
@@ -227,7 +262,7 @@ class Operator extends BaseController
 
     public function updateSubCourse($id)
     {
-        $rules = [
+        $validationRules = [
             'title'     => 'required',
             'course_id' => 'required' | 'numeric',
             'sequence'  => 'required' | 'numeric',
@@ -240,24 +275,31 @@ class Operator extends BaseController
                 ],
             ],
         ];
-
+        $validationData=$this->request->getPost();
         // Additional rules based on 'type'
-        $type = $this->request->getPost('type');
+        $type = $this->request->getVar('type');
         if ($type === 'video') {
-            $validationRules['content'] = 'required|valid_url';
+            $validationRules['content'] = 'required|string';
         } elseif ($type === 'written') {
             $validationRules['content'] = 'required|string';
         } elseif ($type === 'test') {
-            $validationRules['content'] = 'required|array';
-            $validationRules['content.*.sequence'] = 'required|integer';
-            $validationRules['content.*.content'] = 'required|string';
-            $validationRules['content.*.type_test'] = 'required|string';
-            $validationRules['content.*.options'] = 'required|array';
-            $validationRules['content.*.options.*.content'] = 'required|string';
-            $validationRules['content.*.options.*.correct'] = 'required|boolean';
+            /** @var string|null $jsonData */
+            $jsonData = $this->request->getPost('content');
+            $contentArray = json_decode($jsonData, true);
+
+            // $validationRules['content'] = 'required|array';
+            $validationRules['content.sequence'] = 'required|integer';
+            $validationRules['content.content'] = 'required|string';
+            $validationRules['content.type_test'] = 'required|string';
+            $validationRules['content.options'] = 'required|array';
+            $validationRules['content.options.*.content'] = 'required|string';
+            $validationRules['content.options.*.correct'] = 'required|boolean';
+            // $validationData = ['content' => $contentArray];
+            $validationData['content'] = $contentArray;
+
         }
 
-        if ($this->validate($rules)) {
+        if ($this->validate($validationData, $validationRules)) {
             $model = new SubcourseModel();
 
             $data = [
@@ -326,6 +368,7 @@ class Operator extends BaseController
                 }
                 return redirect()->to('manage-subcourse');
             } else {
+
                 return redirect()->to('manage-subcourse');
             }
         } else {
