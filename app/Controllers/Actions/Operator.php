@@ -10,6 +10,11 @@ use App\Models\WrittenMaterialModel;
 use App\Models\VideoMaterialModel;
 use App\Models\TestMaterialModel;
 use App\Models\OptionTestModel;
+use App\Models\LearningPathCourseModel;
+use App\Models\RequestLearningPathModel;
+use App\Models\AssignLearningPathModel;
+use App\Models\UsersModel;
+
 use CodeIgniter\I18n\Time;
 
 class Operator extends BaseController
@@ -121,32 +126,41 @@ class Operator extends BaseController
         return redirect()->to('manage-course');
     }
 
-    public function updateCourseSequence($id){ //id learning path
+    public function updateCourseSequence() // update urutan subcourse pada course
+    {
 
         // $data=[
         // {
-        //     "id"= 1, //id course
+        //     "id"= 1, //id subcourse
         //     "sequence"= 1
         // },
         // {
-        //     "id"= 3, //id course
+        //     "id"= 3, //id subcourse
         //     "sequence"= 2
         // },
         // {
-        //     "id"= 2, //id course
+        //     "id"= 2, //id subcourse
         //     "sequence"= 3
         // },
         // ];
 
-        $model = new CourseModel();
-        $courses = $model->where('learning_path_id', $id)->findAll();
-        $sequence = 1;
-        foreach ($courses as $course) {
-            $data = [
-                'sequence' => $sequence,
-            ];
-            $model->update($course['id'], $data);
-            $sequence++;
+        /** @var string|null $jsonData */
+        $jsonData = $this->request->getPost('subcourses');
+        $contentArray = json_decode($jsonData, true);
+        $validationData = ['contentArray' => $contentArray];
+        $rules = [
+            'contentArray.*.id' => 'required|numeric',
+            'contentArray.*.sequence' => 'required|numeric',
+        ];
+
+        if ($this->validate($validationData, $rules)) {
+            $model = new SubcourseModel();
+            foreach ($contentArray as $course) {
+                $data = [
+                    'sequence' => $course['sequence'],
+                ];
+                $model->update($course['id'], $data);
+            }
         }
     }
 
@@ -166,7 +180,7 @@ class Operator extends BaseController
                 ],
             ],
         ];
-        $validationData=$this->request->getPost();
+        $validationData = $this->request->getPost();
         // Additional rules based on 'type'
         $type = $this->request->getVar('type');
         if ($type === 'video') {
@@ -187,7 +201,6 @@ class Operator extends BaseController
             $validationRules['content.options.*.correct'] = 'required|boolean';
             // $validationData = ['content' => $contentArray];
             $validationData['content'] = $contentArray;
-
         }
 
         if ($this->validate($validationData, $validationRules)) {
@@ -226,28 +239,26 @@ class Operator extends BaseController
                     $testModel = new TestMaterialModel();
                     $optionModel = new OptionTestModel();
 
-                    foreach ($this->request->getVar('content') as $key => $value) {
-                        $dataMaterial = [
-                            'subcourse_id' => $insertedID,
-                            'content' => $value['content'],
-                            'sequence' => $value['sequence'],
-                            'type_test' => $value['type_test'],
+                    $dataMaterial = [
+                        'subcourse_id' => $insertedID,
+                        'content' => $validationData['content']['content'],
+                        'sequence' => $validationData['content']['sequence'],
+                        'type_test' => $validationData['content']['type_test'],
+                        'created_at'  => Time::now(),
+                        'updated_at'  => Time::now(),
+                    ];
+
+                    $testModel->save($dataMaterial);
+                    $insertedMaterialID = $testModel->insertID();
+                    foreach ($validationData['content']['options'] as $key => $option) {
+                        $dataOption = [
+                            'test_material_id' => $insertedMaterialID,
+                            'answer' => $option['answer'],
+                            'correct' => $option['correct'],
                             'created_at'  => Time::now(),
                             'updated_at'  => Time::now(),
                         ];
-
-                        $testModel->save($dataMaterial);
-                        $insertedMaterialID = $testModel->insertID();
-                        foreach ($value['options'] as $key => $option) {
-                            $dataOption = [
-                                'test_material_id' => $insertedMaterialID,
-                                'answer' => $option['answer'],
-                                'correct' => $option['correct'],
-                                'created_at'  => Time::now(),
-                                'updated_at'  => Time::now(),
-                            ];
-                            $optionModel->save($dataOption);
-                        }
+                        $optionModel->save($dataOption);
                     }
                 }
                 return redirect()->to('manage-subcourse');
@@ -275,7 +286,7 @@ class Operator extends BaseController
                 ],
             ],
         ];
-        $validationData=$this->request->getPost();
+        $validationData = $this->request->getPost();
         // Additional rules based on 'type'
         $type = $this->request->getVar('type');
         if ($type === 'video') {
@@ -296,7 +307,6 @@ class Operator extends BaseController
             $validationRules['content.options.*.correct'] = 'required|boolean';
             // $validationData = ['content' => $contentArray];
             $validationData['content'] = $contentArray;
-
         }
 
         if ($this->validate($validationData, $validationRules)) {
@@ -326,44 +336,38 @@ class Operator extends BaseController
                         'content' => $this->request->getVar('content'),
                         'updated_at'  => Time::now(),
                     ];
-                    $videoModel->where('subcourse_id',$id)->set($dataMaterial)->update();
+                    $videoModel->where('subcourse_id', $id)->set($dataMaterial)->update();
                 } else if ($type === 'test') {
                     $testModel = new TestMaterialModel();
                     $optionModel = new OptionTestModel();
 
-                    // delete old data
-                    $material = $testModel->where('subcourse_id', $id)->findAll();
-                    foreach ($material as $m) {
-                        $options = $optionModel->where('test_material_id', $m['id'])->findAll();
-                        foreach ($options as $o) {
-                            $optionModel->delete($o['id']);
-                        }
-                        $testModel->delete($m['id']);
+                    $material = $testModel->where('subcourse_id', $id)->first();
+                    $options = $optionModel->where('test_material_id', $material['id'])->findAll();
+                    foreach ($options as $o) {
+                        $optionModel->delete($o['id']);
                     }
+                    $testModel->delete($material['id']);
 
-                    // insert new data
-                    foreach ($this->request->getVar('content') as $key => $value) {
-                        $dataMaterial = [
-                            'subcourse_id' => $id,
-                            'content' => $value['content'],
-                            'sequence' => $value['sequence'],
-                            'type_test' => $value['type_test'],
+                    $dataMaterial = [
+                        'subcourse_id' => $id,
+                        'content' => $validationData['content']['content'],
+                        'sequence' => $validationData['content']['sequence'],
+                        'type_test' => $validationData['content']['type_test'],
+                        'created_at'  => Time::now(),
+                        'updated_at'  => Time::now(),
+                    ];
+
+                    $testModel->update($dataMaterial);
+                    $insertedMaterialID = $testModel->insertID();
+                    foreach ($validationData['content']['options'] as $key => $option) {
+                        $dataOption = [
+                            'test_material_id' => $insertedMaterialID,
+                            'answer' => $option['answer'],
+                            'correct' => $option['correct'],
                             'created_at'  => Time::now(),
                             'updated_at'  => Time::now(),
                         ];
-
-                        $testModel->save($dataMaterial);
-                        $insertedMaterialID = $testModel->insertID();
-                        foreach ($value['options'] as $key => $option) {
-                            $dataOption = [
-                                'test_material_id' => $insertedMaterialID,
-                                'answer' => $option['answer'],
-                                'correct' => $option['correct'],
-                                'created_at'  => Time::now(),
-                                'updated_at'  => Time::now(),
-                            ];
-                            $optionModel->save($dataOption);
-                        }
+                        $optionModel->save($dataOption);
                     }
                 }
                 return redirect()->to('manage-subcourse');
@@ -406,6 +410,43 @@ class Operator extends BaseController
         }
     }
 
+    public function updateCourseTest() // update urutan soal test material pada subcourse
+    {
+
+        // $data=[
+        // {
+        //     "id"= 1, //id test material
+        //     "sequence"= 1
+        // },
+        // {
+        //     "id"= 3, //id test material
+        //     "sequence"= 2
+        // },
+        // {
+        //     "id"= 2, //id test material
+        //     "sequence"= 3
+        // },
+        // ];
+
+        /** @var string|null $jsonData */
+        $jsonData = $this->request->getPost('testmaterials');
+        $contentArray = json_decode($jsonData, true);
+        $validationData = ['contentArray' => $contentArray];
+        $rules = [
+            'contentArray.*.id' => 'required|numeric',
+            'contentArray.*.sequence' => 'required|numeric',
+        ];
+
+        if ($this->validate($validationData, $rules)) {
+            $model = new TestMaterialModel();
+            foreach ($contentArray as $course) {
+                $data = [
+                    'sequence' => $course['sequence'],
+                ];
+                $model->update($course['id'], $data);
+            }
+        }
+    }
     // Learning Path
     public function createLearningPath()
     {
@@ -506,12 +547,116 @@ class Operator extends BaseController
     }
 
     // Learning Path Courses
+    public function addCourseToLearningPath($id) //id learning path
+    {
+        /** @var string|null $jsonData */
+        $jsonData = $this->request->getPost('courses');
+        $contentArray = json_decode($jsonData, true);
+        $validationData = ['contentArray' => $contentArray];
+        $rules = [
+            'contentArray.*.id' => 'required|numeric',
+            'contentArray.*.sequence' => 'required|numeric',
+        ];
+
+        if ($this->validate($validationData, $rules)) {
+            $learningPathCourseModel = new LearningPathCourseModel();
+            foreach ($contentArray as $course) {
+                $data = [
+                    'learning_path_id' => $id,
+                    'course_id' => $course['id'],
+                    'sequence' => $course['sequence'],
+                    'created_at'  => Time::now(),
+                    'updated_at'  => Time::now(),
+                ];
+                $learningPathCourseModel->save($data);
+            }
+        }
+    }
+
+    public function updateSequenceLearningpathCourses($id) //id learning path
+    {
+        /** @var string|null $jsonData */
+        $jsonData = $this->request->getPost('courses');
+        $contentArray = json_decode($jsonData, true);
+        $validationData = ['contentArray' => $contentArray];
+        $rules = [
+            'contentArray.*.id' => 'required|numeric',
+            'contentArray.*.sequence' => 'required|numeric',
+        ];
+
+        if ($this->validate($validationData, $rules)) {
+            $learningPathCourseModel = new LearningPathCourseModel();
+            foreach ($contentArray as $course) {
+                $data = [
+                    'sequence' => $course['sequence'],
+                ];
+                $learningPathCourseModel->update($course['id'], $data);
+            }
+        }
+    }
 
     // Assign Learning Path
+    public function assignLearningPath()
+    {
+        $rules = [
+            'user_id'          => 'required',
+            'learning_path_id' => 'required',
+            'status'           => 'required|in_list[pending,approved,rejected]',
+            'message'          => 'required',
+        ];
 
-    // Request Learning Path
+        if ($this->validate($rules)) {
+            $model = new AssignLearningPathModel();
+            $userModel = new UsersModel();
+            $email = session('email');
+            $user = $userModel->where('email', $email)
+                ->first();
+
+            $data = [
+                'user_id'          => $this->request->getVar('user_id'),
+                'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'admin_id'         => $user['id'],
+                'created_at'  => Time::now(),
+                'updated_at'  => Time::now(),
+            ];
+            $model->save($data);
+            return redirect()->to('manage-assign-learningpath');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-assign-learningpath', $data);
+        }
+    }
+
+    // Response Request Learning Path
+    public function requestLearningPath($id)
+    {
+        $rules = [
+            'status'           => 'required|in_list[approved,rejected]'
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new RequestLearningPathModel();
+            $userModel = new UsersModel();
+            $email = session('email');
+            $user = $userModel->where('email', $email)
+                ->first();
+
+            $data = [
+                'status'           => $this->request->getVar('status'),
+                'admin_id'         => $user['id'],
+                'responded_at'  => Time::now(),
+            ];
+            $model->update($id, $data);
+            return redirect()->to('manage-request-learningpath');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-request-learningpath', $data);
+        }
+    }
+
 
     // Category
+    
 
     // News
 
