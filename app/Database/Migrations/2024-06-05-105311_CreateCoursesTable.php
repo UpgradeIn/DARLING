@@ -24,6 +24,10 @@ class CreateCoursesTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
+            'slug'       => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
             'description' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
