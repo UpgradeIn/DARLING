@@ -149,6 +149,7 @@ class Operator extends BaseController
             $validationRules['content'] = 'required|array';
             $validationRules['content.*.sequence'] = 'required|integer';
             $validationRules['content.*.content'] = 'required|string';
+            $validationRules['content.*.type_test'] = 'required|string';
             $validationRules['content.*.options'] = 'required|array';
             $validationRules['content.*.options.*.content'] = 'required|string';
             $validationRules['content.*.options.*.correct'] = 'required|boolean';
@@ -195,6 +196,7 @@ class Operator extends BaseController
                             'subcourse_id' => $insertedID,
                             'content' => $value['content'],
                             'sequence' => $value['sequence'],
+                            'type_test' => $value['type_test'],
                             'created_at'  => Time::now(),
                             'updated_at'  => Time::now(),
                         ];
