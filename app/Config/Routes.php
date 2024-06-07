@@ -59,20 +59,36 @@ $routes->group('', ['filter' => 'pages:officials'], static function($routes) {
 // Pages/Operator
 $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('operator', 'Pages\Operator::dashboard');
-    $routes->get('manage-course', 'Pages\Operator::manage_course');
+    $routes->get('manage-assignment-request', 'Pages\Operator::manageAssigmentRequest');
+    $routes->get('manage-assignment', 'Pages\Operator::manageAssigment');
+    $routes->get('manage-assignment/(:num)', 'Pages\Operator::detailAssigment/$1');
+    $routes->get('manage-request', 'Pages\Operator::manageRequest');
+    $routes->get('manage-request/(:num)', 'Pages\Operator::detailRequest/$1');
+    $routes->get('manage-learning-path', 'Pages\Operator::manageLearningPath');
+    $routes->get('manage-learning-path/(:any)', 'Pages\Operator::detailLearningPath/$1');
+    $routes->get('manage-course', 'Pages\Operator::manageCourse');
+    $routes->get('manage-course/(:any)', 'Pages\Operator::detailCourse/$1');
+    $routes->get('add-pre-test', 'Pages\Operator::addPreTest');
+    $routes->get('edit-pre-test/(:num)', 'Pages\Operator::editPreTest/$1');
+    $routes->get('add-post-test/', 'Pages\Operator::addPostTest');
+    $routes->get('edit-post-test/(:num)', 'Pages\Operator::editPostTest/$1');
 });
 
 // Pages/Profile
 $routes->group('profile', ['filter' => "pages:$role"],static function($routes) {
     $routes->get('/', 'Pages\Profile::profile');
-    $routes->get('my-profile', 'Pages\Profile::my_profile');
-    $routes->get('my-activity', 'Pages\Profile::my_activity');
+    $routes->get('my-profile', 'Pages\Profile::myProfile');
+    $routes->get('my-activity', 'Pages\Profile::myActivity');
 });
 
 // Pages/User
 $routes->group('', ['filter' => 'pages:user'], static function($routes) {
     $routes->get('user', 'Pages\User::home');
     $routes->get('course', 'Pages\User::course');
+    $routes->get('course/(:any)', 'Pages\User::detailCourse/$1');
+    $routes->get('course/(:any)/sub/(:num)', 'Pages\User::subCourse/$1/$2');
+    $routes->get('learning-path', 'Pages\User::learningPath');
+    $routes->get('learning-path/(:any)', 'Pages\User::detailLearningPath/$1');
 });
 
 $routes->get('/', 'Index::index');
