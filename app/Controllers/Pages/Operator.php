@@ -27,7 +27,7 @@ class Operator extends BaseController
         return view('operator/detail-request');
     }
 
-    public function detailLearningPath($slug)
+    public function detailLearningPath()
     {
         return view('operator/detail-learning-path');
     }
@@ -37,7 +37,7 @@ class Operator extends BaseController
         return view('operator/manage-course');
     }
 
-    public function detailCourse($slug)
+    public function detailCourse()
     {
         return view('operator/detail-course');
     }
