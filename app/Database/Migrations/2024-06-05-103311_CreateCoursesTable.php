@@ -37,6 +37,10 @@ class CreateCoursesTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'published_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
@@ -48,6 +52,9 @@ class CreateCoursesTable extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('tb_courses');
+
+        // Adding ENUM field manually
+        $this->db->query("ALTER TABLE tb_courses ADD COLUMN status ENUM('publish', 'draft') AFTER module");
     }
 
     public function down()

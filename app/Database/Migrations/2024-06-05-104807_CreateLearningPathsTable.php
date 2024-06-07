@@ -38,6 +38,10 @@ class CreateLearningPathTable extends Migration
                 'type'       => 'INT',
                 'constraint' => 3,
             ],
+            'published_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
@@ -49,6 +53,9 @@ class CreateLearningPathTable extends Migration
         ]);
         $this->forge->addKey('id', true);
         $this->forge->createTable('tb_learning_paths');
+        
+        // Adding ENUM field manually
+        $this->db->query("ALTER TABLE tb_learning_paths ADD COLUMN status ENUM('publish', 'draft') AFTER period");
     }
 
     public function down()
