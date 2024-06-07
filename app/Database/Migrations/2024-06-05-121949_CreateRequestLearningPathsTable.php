@@ -35,6 +35,10 @@ class CreateRequestLearningPathsTable extends Migration
                 'constraint' => ['pending', 'approved', 'rejected'],
                 'default' => 'pending',
             ],
+            'message' => [
+                'type' => 'varchar',
+                'constraint' => 255,
+            ],
             'responded_at' => [
                 'type' => 'DATETIME',
                 'null' => true,

@@ -24,6 +24,10 @@ class CreateNewsTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'slug'       => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'content'       => [
                 'type'       => 'TEXT',
             ],
@@ -55,6 +59,9 @@ class CreateNewsTable extends Migration
         $this->forge->addForeignKey('category_id', 'tb_categories', 'id', 'RESTRICT', 'CASCADE');
         $this->forge->addForeignKey('admin_id', 'tb_users', 'id', 'RESTRICT', 'CASCADE');
         $this->forge->createTable('tb_news');
+
+        // Adding ENUM field manually
+        $this->db->query("ALTER TABLE tb_news ADD COLUMN status ENUM('publish', 'draft') AFTER admin_id");
     }
 
     public function down()
