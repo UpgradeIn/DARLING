@@ -25,6 +25,7 @@ class Operator extends BaseController
             'description'   => 'required',
             'module'        => 'required',
             'thumbnail'     => 'uploaded[thumbnail]|max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'        => 'required|in_list[publish,draft]',
         ];
 
         if ($this->validate($rules)) {
@@ -40,9 +41,17 @@ class Operator extends BaseController
                 'name'          => $this->request->getVar('name'),
                 'description'   => $this->request->getVar('description'),
                 'module'        => $this->request->getVar('module'),
+                'status'        => $this->request->getVar('status'),
                 'created_at'  => Time::now(),
                 'updated_at'  => Time::now(),
             ];
+
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
+
             $model->save($data);
             return redirect()->to('manage-course');
         } else {
@@ -58,6 +67,7 @@ class Operator extends BaseController
             'description'   => 'required',
             'module'        => 'required',
             'thumbnail'     => 'max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'        => 'required|in_list[publish,draft]',
         ];
 
         if ($this->validate($rules)) {
@@ -79,7 +89,15 @@ class Operator extends BaseController
                 'description'   => $this->request->getVar('description'),
                 'module'        => $this->request->getVar('module'),
                 'updated_at'    => Time::now(),
+                'status'        => $this->request->getVar('status'),
             ];
+
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
+
             $model->update($id, $data);
             return redirect()->to('manage-course');
         } else {
@@ -104,9 +122,10 @@ class Operator extends BaseController
     {
         $rules = [
             'title'     => 'required',
-            'course_id' => 'required'|'numeric',
-            'sequence'  => 'required'|'numeric',
+            'course_id' => 'required' | 'numeric',
+            'sequence'  => 'required' | 'numeric',
             'type' => 'required|in_list[video,test,written]',
+            'status'    => 'required|in_list[publish,draft]',
         ];
 
         if ($this->validate($rules)) {
@@ -117,6 +136,7 @@ class Operator extends BaseController
                 'title'     => $this->request->getVar('title'),
                 'sequence'  => $this->request->getVar('sequence'),
                 'type'      => $this->request->getVar('type'),
+                'status'    => $this->request->getVar('status'),
                 'created_at'  => Time::now(),
                 'updated_at'  => Time::now(),
             ];
@@ -126,7 +146,7 @@ class Operator extends BaseController
             $data['validation'] = $this->validator;
             return view('manage_subcourse', $data);
         }
-    }    
+    }
 
 
     // Learning Path
@@ -137,6 +157,7 @@ class Operator extends BaseController
             'description'   => 'required',
             'period'        => 'required|numeric',
             'thumbnail'     => 'uploaded[thumbnail]|max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'        => 'required|in_list[publish,draft]',
         ];
 
         if ($this->validate($rules)) {
@@ -153,9 +174,15 @@ class Operator extends BaseController
                 'name'          => $this->request->getVar('name'),
                 'description'   => $this->request->getVar('description'),
                 'period'        => $this->request->getVar('period'),
+                'status'        => $this->request->getVar('status'),
                 'created_at'  => Time::now(),
                 'updated_at'  => Time::now(),
             ];
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
             $model->save($data);
             return redirect()->to('manage-learningpath');
         } else {
@@ -173,6 +200,7 @@ class Operator extends BaseController
             'description'   => 'required',
             'period'        => 'required|numeric',
             'thumbnail'     => 'max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'        => 'required|in_list[publish,draft]',
         ];
 
         if ($this->validate($rules)) {
@@ -193,8 +221,14 @@ class Operator extends BaseController
                 'name'          => $this->request->getVar('name'),
                 'description'   => $this->request->getVar('description'),
                 'period'        => $this->request->getVar('period'),
+                'status'        => $this->request->getVar('status'),
                 'updated_at'    => Time::now(),
             ];
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
             $model->update($id, $data);
             return redirect()->to('manage-learningpath');
         } else {
