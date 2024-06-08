@@ -7,8 +7,8 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class User extends BaseController
 {
-    public function index()
+    public function requestLearningPath($slug)
     {
-        //
+        
     }
 }

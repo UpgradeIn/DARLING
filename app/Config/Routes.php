@@ -27,7 +27,7 @@ $routes->group('officials', ['filter' => 'actions:officials'], static function($
 });
 
 // Actions/Operator
-$routes->group('operator', ['filter' => 'actions:operator'], static function($routes) {
+$routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->post('create-learningpaths', 'Actions\Operator::createLearningPath');
     $routes->post('update-learningpaths/(:num)', 'Actions\Operator::updateLearningPath/$1');
     $routes->delete('delete-learningpaths/(:num)', 'Actions\Operator::deleteLearningPath/$1');
@@ -67,7 +67,7 @@ $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('detail-course/(:any)', 'Pages\Operator::detailCourse/$1');
     $routes->get('add-pre-test', 'Pages\Operator::addPreTest');
     $routes->get('edit-pre-test/(:num)', 'Pages\Operator::editPreTest/$1');
-    $routes->get('add-post-test/', 'Pages\Operator::addPostTest');
+    $routes->get('add-post-test', 'Pages\Operator::addPostTest');
     $routes->get('edit-post-test/(:num)', 'Pages\Operator::editPostTest/$1');
 });
 
@@ -82,8 +82,8 @@ $routes->group('profile', ['filter' => "pages:$role"],static function($routes) {
 $routes->group('', ['filter' => 'pages:user'], static function($routes) {
     $routes->get('user', 'Pages\User::home');
     $routes->get('course', 'Pages\User::course');
-    $routes->get('course/(:any)', 'Pages\User::detailCourse/$1');
-    $routes->get('course/(:any)/sub/(:num)', 'Pages\User::subCourse/$1/$2');
+    $routes->get('course/(:segment)', 'Pages\User::detailCourse/$1');
+    $routes->get('course/(:segment)/sub/(:num)', 'Pages\User::subCourse/$1/$2');
     $routes->get('learning-path', 'Pages\User::learningPath');
     $routes->get('learning-path/(:any)', 'Pages\User::detailLearningPath/$1');
 });
