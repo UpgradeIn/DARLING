@@ -105,7 +105,7 @@
                 <div class="p-4 md:p-5">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="text-xl group-hover:text-xl text-blue-600 font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+                            <h3 class="text-xl group-hover:text-xl tebg-[#FBB926] font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                             Akuntansi
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-neutral-500">
@@ -116,7 +116,7 @@
                     <!-- Progress -->
                     <div class="flex items-center gap-x-3 whitespace-nowrap">
                         <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                            <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                            <div class="flex flex-col justify-center rounded-full overflow-hidden bg-[#FBB926] text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
                         </div>
                         <div class="w-10 text-end">
                             <span class="text-sm text-gray-800 dark:text-white">50%</span>
@@ -132,7 +132,7 @@
                 <div class="p-4 md:p-5">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="text-xl group-hover:text-xl text-blue-600 font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+                            <h3 class="text-xl group-hover:text-xl tebg-[#FBB926] font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                             Management
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-neutral-500">
@@ -143,7 +143,7 @@
                     <!-- Progress -->
                     <div class="flex items-center gap-x-3 whitespace-nowrap">
                         <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                            <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                            <div class="flex flex-col justify-center rounded-full overflow-hidden bg-[#FBB926] text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
                         </div>
                         <div class="w-10 text-end">
                             <span class="text-sm text-gray-800 dark:text-white">50%</span>
@@ -184,8 +184,8 @@
                 <!-- Grid -->
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Card -->
-                    <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="#">
-                    <div class="h-52 flex flex-col justify-center items-center bg-blue-600 rounded-t-xl">
+                    <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                    <div class="h-52 flex flex-col justify-center items-center bg-[#FBB926] rounded-t-xl">
                         <img src="https://img.freepik.com/free-photo/people-working-call-center_23-2149288184.jpg?t=st=1717836311~exp=1717839911~hmac=6e8159fdbd6575776d5718f8abc25d091d211f9fc1584b9e8814ebaf2c785d8d&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail">
                     </div>
                     <div class="p-4 md:p-6">
@@ -200,20 +200,24 @@
                         </p>
                         <!-- Progress -->
                         <div class="flex items-center gap-x-3 whitespace-nowrap">
-                            <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                            <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-[#FBB926] text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
                             </div>
                             <div class="w-10 text-end">
                                 <span class="text-sm text-gray-800 dark:text-white">50%</span>
                             </div>
                         </div>
                         <!-- End Progress -->
+                        <!-- Button Lanjut Belajar --> 
+                        <div class="flex justify-center mt-4">
+                            <button class="w-full px-4 py-2 bg-blue-900 text-white rounded-md hover:shadow-lg">Lanjut Belajar</button>
+                        </div>
                     </div>
-                    </a>
+                    </div>
                     <!-- End Card -->
 
                     <!-- Card -->
-                    <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="#">
+                    <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
                     <div class="h-52 flex flex-col justify-center items-center bg-rose-500 rounded-t-xl">
                         <img src="https://img.freepik.com/free-photo/professional-car-mechanic-repair-shop_342744-262.jpg?t=st=1717836180~exp=1717839780~hmac=c44709f1de012f4fd001335fd85989d194aab0e3cd024cd3525ce3bb6348eb07&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail">
                     </div>
@@ -230,19 +234,23 @@
                         <!-- Progress -->
                         <div class="flex items-center gap-x-3 whitespace-nowrap">
                             <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-[#FBB926] text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
                             </div>
                             <div class="w-10 text-end">
                                 <span class="text-sm text-gray-800 dark:text-white">50%</span>
                             </div>
                         </div>
                         <!-- End Progress -->
+                        <!-- Button Lanjut Belajar --> 
+                        <div class="flex justify-center mt-4">
+                            <button class="w-full px-4 py-2 bg-blue-900 text-white rounded-md hover:shadow-lg">Lanjut Belajar</button>
+                        </div>
                     </div>
-                    </a>
+                    </div>
                     <!-- End Card -->
 
                     <!-- Card -->
-                    <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="#">
+                    <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
                     <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
                         <img src="https://img.freepik.com/free-photo/colleagues-with-safety-equipment-working-with-blueprints_23-2148908431.jpg?t=st=1717836460~exp=1717840060~hmac=8845f2595ea53eab452ddaf4aa1c15087acda922acd0113bc1b1a100cba0d463&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail">
                     </div>
@@ -259,15 +267,19 @@
                         <!-- Progress -->
                         <div class="flex items-center gap-x-3 whitespace-nowrap">
                             <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-[#FBB926] text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
                             </div>
                             <div class="w-10 text-end">
                                 <span class="text-sm text-gray-800 dark:text-white">50%</span>
                             </div>
                         </div>
                         <!-- End Progress -->
+                        <!-- Button Lanjut Belajar --> 
+                        <div class="flex justify-center mt-4">
+                            <button class="w-full px-4 py-2 bg-blue-900 text-white rounded-md hover:shadow-lg">Lanjut Belajar</button>
+                        </div>
                     </div>
-                    </a>
+                    </div>
                     <!-- End Card -->
                 </div>
                 <!-- End Grid -->
