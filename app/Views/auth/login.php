@@ -7,7 +7,7 @@
 <?= $this->section('content') ?>
     <section class="w-full mx-auto py-5 px-10 sm:py-10 lg:px-20 lg:h-screen">
         <div class="flex h-full gap-10 justify-center md:justify-between lg:grow">
-            <div class="hidden sm:block">
+            <div class="hidden lg:block">
                 <div
                     class="h-full rounded-xl shadow-lg md:flex justify-start dark:bg-neutral-800"
                 >
@@ -39,9 +39,9 @@
             <div class="mx-auto w-full pt-6 md:pe-0 md:w-2/3 lg:pe-0 xl:w-5/12">
                 <div class="mb-16 text-left lg:text-right">
                     <span>Belum memiliki akun? </span>
-                    <a href="" class="text-blue-600 hover:underline">Daftar sekarang</a>
+                    <a href="<?= base_url('auth/register')?>" class="text-blue-600 hover:underline">Daftar sekarang</a>
                 </div>
-                <div class="space-y-5 sm:space-y-16">
+                <div class="space-y-3 sm:space-y-12">
                     <div class="space-y-2">
                         <h1
                             class="text-3xl text-gray-800 font-bold md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight dark:text-neutral-200"
@@ -54,8 +54,8 @@
                     </div>
 
                     <form action="<?= base_url('auth/login')?>" method="POST">
-                        <div class="space-y-5">
-                            <div class="space-y-5">
+                        <div class="space-y-3">
+                            <div class="space-y-2">
                                 <div class="" id="form_input">
                                     <label
                                     for="email"
@@ -87,7 +87,7 @@
                                 </div>
                                 </div>
 
-                                <div class="grid sm:pt-5" id="from_input">
+                                <div class="grid sm:pt-6" id="from_input">
                                     <button
                                         type="submit"
                                         class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-800 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
