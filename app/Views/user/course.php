@@ -105,7 +105,7 @@
                 <div class="p-4 md:p-5">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="text-xl group-hover:text-xl tebg-[#FBB926] font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+                            <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                             Akuntansi
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-neutral-500">
@@ -132,7 +132,7 @@
                 <div class="p-4 md:p-5">
                     <div class="flex justify-between items-center">
                         <div>
-                            <h3 class="text-xl group-hover:text-xl tebg-[#FBB926] font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+                            <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                             Management
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-neutral-500">

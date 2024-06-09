@@ -6,183 +6,209 @@ Home User | Damri Course
 
 <?= $this->section('content') ?>
 
-<!-- Slider -->
-<div data-hs-carousel='{
+<section class="container mx-auto px-5 py-8 sm:px-20 sm:py-10 mt-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 ">
+        <!-- Slider -->
+        <div data-hs-carousel='{
     "loadingClasses": "opacity-0",
     "isAutoPlay": true
-  }' class="relative px-20 py-10">
-    <div class="hs-carousel relative overflow-hidden w-full min-h-96 bg-white rounded-lg">
-        <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
-            <div class="hs-carousel-slide">
-                <div class="flex justify-center h-full bg-gray-100 p-6 dark:bg-neutral-900">
-                    <span class="self-center text-4xl text-gray-800 transition duration-700 dark:text-white">First slide</span>
-                    <!-- <img src="https://t3.ftcdn.net/jpg/03/83/80/38/240_F_383803880_hnKFZy4QDkMgoHSVCORLI3qMymVTrdeP.jpg" alt=""> -->
+  }' class="relative">
+            <div class="hs-carousel relative overflow-hidden w-full min-h-96 bg-white rounded-lg">
+                <div class="hs-carousel-body absolute top-0 bottom-0 start-0 flex flex-nowrap transition-transform duration-700 opacity-0">
+                    <div class="hs-carousel-slide flex-none w-full">
+                        <div class="flex justify-center h-full w-full bg-gray-200 dark:bg-neutral-600">
+                            <img class="object-cover w-full h-full" src="https://img.freepik.com/free-vector/flat-design-online-college-sale-banner_23-2150548522.jpg?t=st=1717860661~exp=1717864261~hmac=0771fd9e63a470a8e82ce163a60fa4590632c0cb9a18254ec334468ba84b6668&w=1380" alt="">
+                        </div>
+                    </div>
+                    <div class="hs-carousel-slide flex-none w-full">
+                        <div class="flex justify-center h-full w-full bg-gray-200 dark:bg-neutral-600">
+                            <img class="object-cover w-full h-full" src="https://img.freepik.com/free-vector/flat-design-online-college-sale-banner_23-2150548522.jpg?t=st=1717860661~exp=1717864261~hmac=0771fd9e63a470a8e82ce163a60fa4590632c0cb9a18254ec334468ba84b6668&w=1380" alt="">
+                        </div>
+                    </div>
+                    <div class="hs-carousel-slide flex-none w-full">
+                        <div class="flex justify-center h-full w-full bg-gray-200 dark:bg-neutral-600">
+                            <img class="object-cover w-full h-full" src="https://img.freepik.com/free-vector/flat-design-online-college-sale-banner_23-2150548522.jpg?t=st=1717860661~exp=1717864261~hmac=0771fd9e63a470a8e82ce163a60fa4590632c0cb9a18254ec334468ba84b6668&w=1380" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="hs-carousel-slide">
-                <div class="flex justify-center h-full bg-gray-200 p-6 dark:bg-neutral-800">
-                    <span class="self-center text-4xl text-gray-800 transition duration-700 dark:text-white">Second slide</span>
-                </div>
-            </div>
-            <div class="hs-carousel-slide">
-                <div class="flex justify-center h-full bg-gray-300 p-6 dark:bg-neutral-700">
-                    <span class="self-center text-4xl text-gray-800 transition duration-700 dark:text-white">Third slide</span>
-                </div>
+
+            <button type="button" class="hs-carousel-prev hs-carousel:disabled:opacity-50 disabled:pointer-events-none absolute inset-y-0 left-0 inline-flex justify-center items-center w-[46px] h-full text-gray-800">
+                <span class="text-2xl" aria-hidden="true">
+                    <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6"></path>
+                    </svg>
+                </span>
+                <span class="sr-only">Previous</span>
+            </button>
+            <button type="button" class="hs-carousel-next hs-carousel:disabled:opacity-50 disabled:pointer-events-none absolute inset-y-0 right-0 inline-flex justify-center items-center w-[46px] h-full text-gray-800 ">
+                <span class="sr-only">Next</span>
+                <span class="text-2xl" aria-hidden="true">
+                    <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </span>
+            </button>
+
+            <div class="hs-carousel-pagination flex justify-center absolute bottom-3 start-0 end-0 space-x-2">
+                <span class="hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500"></span>
+                <span class="hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500"></span>
+                <span class="hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500"></span>
             </div>
         </div>
+        <!-- End Slider -->
     </div>
+</section>
+<section class="md:container md:mx-auto px-5 py-8 mt-10 sm:px-20 sm:py-10">
+    <div class="md:container md:mx-auto">
+        <div class="w-full mx-auto text-3xl font-bold">
+            <h1>Course Terakhir Dikerjakan</h1>
+        </div>
+        <!-- Card Blog -->
+        <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <!-- Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Card -->
+                <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                    <div class="h-52 flex flex-col justify-center items-center bg-[#FBB926] rounded-t-xl">
+                        <img src="https://img.freepik.com/free-photo/people-working-call-center_23-2149288184.jpg?t=st=1717836311~exp=1717839911~hmac=6e8159fdbd6575776d5718f8abc25d091d211f9fc1584b9e8814ebaf2c785d8d&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Pelayanan Pelanggan
+                        </h3>
+                        <h2 class="text-m font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Akuntansi
+                        </h2>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-neutral-500">
+                            Progress Saya
+                        </p>
+                        <!-- Progress -->
+                        <div class="flex items-center gap-x-3 whitespace-nowrap">
+                            <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                            </div>
+                            <div class="w-10 text-end">
+                                <span class="text-sm text-gray-800 dark:text-white">50%</span>
+                            </div>
+                        </div>
+                        <!-- End Progress -->
+                        <div class="flex justify-center mt-4">
+                            <button type="button" class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                Lanjut Belajar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Card -->
 
-    <button type="button" class="hs-carousel-prev hs-carousel:disabled:opacity-50 disabled:pointer-events-none absolute inset-y-0 start-20 inline-flex justify-center items-center w-[46px] h-full text-gray-800">
-        <span class="text-2xl" aria-hidden="true">
-            <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m15 18-6-6 6-6"></path>
-            </svg>
-        </span>
-        <span class="sr-only">Previous</span>
-    </button>
-    <button type="button" class="hs-carousel-next hs-carousel:disabled:opacity-50 disabled:pointer-events-none absolute inset-y-0 end-20 inline-flex justify-center items-center w-[46px] h-full text-gray-800">
-        <span class="sr-only">Next</span>
-        <span class="text-2xl" aria-hidden="true">
-            <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m9 18 6-6-6-6"></path>
-            </svg>
-        </span>
-    </button>
+                <!-- Card -->
+                <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                    <div class="h-52 flex flex-col justify-center items-center bg-rose-500 rounded-t-xl">
+                        <img src="https://img.freepik.com/free-photo/professional-car-mechanic-repair-shop_342744-262.jpg?t=st=1717836180~exp=1717839780~hmac=c44709f1de012f4fd001335fd85989d194aab0e3cd024cd3525ce3bb6348eb07&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Perawatan Armada
+                        </h3>
+                        <h2 class="text-m font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Akuntansi
+                        </h2>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-neutral-500">
+                            Progress Saya
+                        </p>
+                        <!-- Progress -->
+                        <div class="flex items-center gap-x-3 whitespace-nowrap">
+                            <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                            </div>
+                            <div class="w-10 text-end">
+                                <span class="text-sm text-gray-800 dark:text-white">50%</span>
+                            </div>
+                        </div>
+                        <!-- End Progress -->
+                        <div class="flex justify-center mt-4">
+                            <button type="button" class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                Lanjut Belajar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Card -->
 
-    <div class="hs-carousel-pagination flex justify-center absolute bottom-3 start-0 end-0 space-x-2">
-        <span class="hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500"></span>
-        <span class="hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500"></span>
-        <span class="hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-3 border border-gray-400 rounded-full cursor-pointer dark:border-neutral-600 dark:hs-carousel-active:bg-blue-500 dark:hs-carousel-active:border-blue-500"></span>
+                <!-- Card -->
+                <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                    <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
+                        <img src="https://img.freepik.com/free-photo/colleagues-with-safety-equipment-working-with-blueprints_23-2148908431.jpg?t=st=1717836460~exp=1717840060~hmac=8845f2595ea53eab452ddaf4aa1c15087acda922acd0113bc1b1a100cba0d463&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Keselamatan Kerja
+                        </h3>
+                        <h2 class="text-m font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Akuntansi
+                        </h2>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-neutral-500">
+                            Progress Saya
+                        </p>
+                        <!-- Progress -->
+                        <div class="flex items-center gap-x-3 whitespace-nowrap">
+                            <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                            </div>
+                            <div class="w-10 text-end">
+                                <span class="text-sm text-gray-800 dark:text-white">50%</span>
+                            </div>
+                        </div>
+                        <!-- End Progress -->
+                        <div class="flex justify-center mt-4">
+                            <button type="button" class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                Lanjut Belajar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Card -->
+
+                <!-- Card -->
+                <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                    <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
+                        <img src="https://images.unsplash.com/photo-1658203897339-0b8c64a42fba?q=80&w=2062&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail">
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Microsoft Excel
+                        </h3>
+                        <h2 class="text-m font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                            Akuntansi
+                        </h2>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-neutral-500">
+                            Progress Saya
+                        </p>
+                        <!-- Progress -->
+                        <div class="flex items-center gap-x-3 whitespace-nowrap">
+                            <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
+                            </div>
+                            <div class="w-10 text-end">
+                                <span class="text-sm text-gray-800 dark:text-white">50%</span>
+                            </div>
+                        </div>
+                        <!-- End Progress -->
+                        <div class="flex justify-center mt-4">
+                            <button type="button" class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                                Lanjut Belajar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Grid -->
+        </div>
+        <!-- End Card Blog -->
     </div>
-</div>
-<!-- End Slider -->
-
-<!-- Card Blog -->
-<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 py-20 mx-auto">
-
-    <!-- Grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 px-20">
-        <!-- Card -->
-        <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-            <div class="h-52 flex flex-col justify-center items-center bg-blue-600 rounded-t-xl">
-                <svg class="size-28" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="56" height="56" rx="10" fill="white" />
-                    <path d="M20.2819 26.7478C20.1304 26.5495 19.9068 26.4194 19.6599 26.386C19.4131 26.3527 19.1631 26.4188 18.9647 26.5698C18.848 26.6622 18.7538 26.78 18.6894 26.9144L10.6019 43.1439C10.4874 43.3739 10.4686 43.6401 10.5496 43.884C10.6307 44.1279 10.805 44.3295 11.0342 44.4446C11.1681 44.5126 11.3163 44.5478 11.4664 44.5473H22.7343C22.9148 44.5519 23.0927 44.5037 23.2462 44.4084C23.3998 44.3132 23.5223 44.1751 23.5988 44.011C26.0307 38.9724 24.5566 31.3118 20.2819 26.7478Z" fill="url(#paint0_linear_2204_541)" />
-                    <path d="M28.2171 11.9791C26.201 15.0912 25.026 18.6755 24.8074 22.3805C24.5889 26.0854 25.3342 29.7837 26.9704 33.1126L32.403 44.0113C32.4833 44.1724 32.6067 44.3079 32.7593 44.4026C32.912 44.4973 33.088 44.5475 33.2675 44.5476H44.5331C44.6602 44.5479 44.7861 44.523 44.9035 44.4743C45.0209 44.4257 45.1276 44.3543 45.2175 44.2642C45.3073 44.1741 45.3785 44.067 45.427 43.9492C45.4755 43.8314 45.5003 43.7052 45.5 43.5777C45.5001 43.4274 45.4659 43.2791 45.3999 43.1441L29.8619 11.9746C29.7881 11.8184 29.6717 11.6864 29.5261 11.594C29.3805 11.5016 29.2118 11.4525 29.0395 11.4525C28.8672 11.4525 28.6984 11.5016 28.5529 11.594C28.4073 11.6864 28.2908 11.8184 28.2171 11.9746V11.9791Z" fill="#2684FF" />
-                    <defs>
-                        <linearGradient id="paint0_linear_2204_541" x1="24.734" y1="29.2284" x2="16.1543" y2="44.0429" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#0052CC" />
-                            <stop offset="0.92" stop-color="#2684FF" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
-            <div class="p-4 md:p-6">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-                    Microsoft Teams
-                </h2>
-                <h3 class="text-m font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-                    Divisi
-                </h3>
-                <!-- Progress -->
-                <div class="flex items-center gap-x-3 whitespace-nowrap">
-                    <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
-                    </div>
-                    <div class="w-10 text-end">
-                        <span class="text-sm text-gray-800 dark:text-white">50%</span>
-                    </div>
-                </div>
-                <!-- End Progress -->
-                <button type="button" class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                    Button
-                </button>
-            </div>
-        </div>
-        <!-- End Card -->
-
-        <!-- Card -->
-        <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-            <div class="h-52 flex flex-col justify-center items-center bg-rose-500 rounded-t-xl">
-                <svg class="size-28" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="56" height="56" rx="10" fill="white" />
-                    <g clip-path="url(#clip0_2204_541)">
-                        <path d="M37.0409 28.8697C33.1968 28.8697 30.0811 31.9854 30.0811 35.8288C30.0811 39.6726 33.1968 42.789 37.0409 42.789C40.8843 42.789 44 39.6726 44 35.8288C44 31.9854 40.8843 28.8697 37.0409 28.8697ZM18.9594 28.8701C15.116 28.8704 12 31.9854 12 35.8292C12 39.6726 15.116 42.7886 18.9594 42.7886C22.8032 42.7886 25.9192 39.6726 25.9192 35.8292C25.9192 31.9854 22.8032 28.8701 18.9591 28.8701H18.9594ZM34.9595 20.1704C34.9595 24.0138 31.8438 27.1305 28.0004 27.1305C24.1563 27.1305 21.0406 24.0138 21.0406 20.1704C21.0406 16.3269 24.1563 13.2109 28.0003 13.2109C31.8438 13.2109 34.9591 16.3269 34.9591 20.1704H34.9595Z" fill="url(#paint0_radial_2204_541)" />
-                    </g>
-                    <defs>
-                        <radialGradient id="paint0_radial_2204_541" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(28.0043 29.3944) scale(21.216 19.6102)">
-                            <stop offset="0%" stop-color="#FFB900" />
-                            <stop offset="0.6" stop-color="#F95D8F" />
-                            <stop offset="0.999" stop-color="#F95353" />
-                        </radialGradient>
-                        <clipPath id="clip0_2204_541">
-                            <rect width="32" height="29.5808" fill="white" transform="translate(12 13.2096)" />
-                        </clipPath>
-                    </defs>
-                </svg>
-            </div>
-            <div class="p-4 md:p-6">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-                    Microsoft Teams
-                </h2>
-                <h3 class="text-m font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-                    Divisi
-                </h3>
-                <!-- Progress -->
-                <div class="flex items-center gap-x-3 whitespace-nowrap">
-                    <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
-                    </div>
-                    <div class="w-10 text-end">
-                        <span class="text-sm text-gray-800 dark:text-white">50%</span>
-                    </div>
-                </div>
-                <!-- End Progress -->
-                <button type="button" class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                    Button
-                </button>
-            </div>
-        </div>
-        <!-- End Card -->
-
-        <!-- Card -->
-        <div class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
-            <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
-                <svg class="size-28" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="56" height="56" rx="10" fill="white" />
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M23.7326 11.968C21.9637 11.9693 20.5321 13.4049 20.5334 15.1738C20.5321 16.9427 21.965 18.3782 23.7339 18.3795H26.9345V15.1751C26.9358 13.4062 25.5029 11.9706 23.7326 11.968C23.7339 11.968 23.7339 11.968 23.7326 11.968M23.7326 20.5184H15.2005C13.4316 20.5197 11.9987 21.9553 12 23.7242C11.9974 25.4931 13.4303 26.9286 15.1992 26.9312H23.7326C25.5016 26.9299 26.9345 25.4944 26.9332 23.7255C26.9345 21.9553 25.5016 20.5197 23.7326 20.5184V20.5184Z" fill="#36C5F0" />
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M44.0001 23.7242C44.0014 21.9553 42.5684 20.5197 40.7995 20.5184C39.0306 20.5197 37.5977 21.9553 37.599 23.7242V26.9312H40.7995C42.5684 26.9299 44.0014 25.4944 44.0001 23.7242ZM35.4666 23.7242V15.1738C35.4679 13.4062 34.0363 11.9706 32.2674 11.968C30.4985 11.9693 29.0656 13.4049 29.0669 15.1738V23.7242C29.0643 25.4931 30.4972 26.9286 32.2661 26.9312C34.035 26.9299 35.4679 25.4944 35.4666 23.7242Z" fill="#2EB67D" />
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M32.2661 44.0322C34.035 44.0309 35.4679 42.5953 35.4666 40.8264C35.4679 39.0575 34.035 37.622 32.2661 37.6207H29.0656V40.8264C29.0642 42.594 30.4972 44.0295 32.2661 44.0322ZM32.2661 35.4804H40.7995C42.5684 35.4791 44.0013 34.0436 44 32.2747C44.0026 30.5058 42.5697 29.0702 40.8008 29.0676H32.2674C30.4985 29.0689 29.0656 30.5045 29.0669 32.2734C29.0656 34.0436 30.4972 35.4791 32.2661 35.4804V35.4804Z" fill="#ECB22E" />
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 32.2746C11.9987 34.0435 13.4316 35.479 15.2005 35.4804C16.9694 35.479 18.4024 34.0435 18.401 32.2746V29.0688H15.2005C13.4316 29.0702 11.9987 30.5057 12 32.2746ZM20.5334 32.2746V40.825C20.5308 42.5939 21.9637 44.0295 23.7326 44.0321C25.5016 44.0308 26.9345 42.5952 26.9332 40.8263V32.2772C26.9358 30.5083 25.5029 29.0728 23.7339 29.0702C21.9637 29.0702 20.5321 30.5057 20.5334 32.2746C20.5334 32.2759 20.5334 32.2746 20.5334 32.2746Z" fill="#E01E5A" />
-                </svg>
-            </div>
-            <div class="p-4 md:p-6">
-                <h2 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-                    Microsoft Teams
-                </h2>
-                <h3 class="text-m font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
-                    Divisi
-                </h3>
-                <!-- Progress -->
-                <div class="flex items-center gap-x-3 whitespace-nowrap">
-                    <div class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden dark:bg-neutral-700" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-                        <div class="flex flex-col justify-center rounded-full overflow-hidden bg-blue-600 text-xs text-white text-center whitespace-nowrap transition duration-500 dark:bg-blue-500" style="width: 50%"></div>
-                    </div>
-                    <div class="w-10 text-end">
-                        <span class="text-sm text-gray-800 dark:text-white">50%</span>
-                    </div>
-                </div>
-                <!-- End Progress -->
-                <button type="button" class="w-full py-2 px-3 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-                    Button
-                </button>
-            </div>
-        </div>
-        <!-- End Card -->
-    </div>
-    <!-- End Grid -->
-</div>
-<!-- End Card Blog -->
+</section>
 
 </section>
 <!-- End Hero Section -->
