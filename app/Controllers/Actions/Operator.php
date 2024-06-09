@@ -11,6 +11,7 @@ use App\Models\VideoMaterialModel;
 use App\Models\TestMaterialModel;
 use App\Models\OptionTestModel;
 use App\Models\LearningPathCourseModel;
+use App\Models\UserLearningPathModel;
 use App\Models\RequestLearningPathModel;
 use App\Models\AssignLearningPathModel;
 use App\Models\UsersModel;
@@ -681,6 +682,22 @@ class Operator extends BaseController
                 'updated_at'  => Time::now(),
             ];
             $model->save($data);
+
+            // add User Learning Path
+
+            // get data learning path
+            $modelLearningPath = new LearningPathModel();
+            $learningPath = $modelLearningPath->find($this->request->getVar('learning_path_id'));
+
+            $userLearningPathModel = new UserLearningPathModel();
+            $data = [
+                'user_id' => $this->request->getVar('user_id'),
+                'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'start_date' => Time::now(),
+                'end_date' => Time::now()->addMonths($learningPath['period']),
+            ];
+            $userLearningPathModel->save($data);
+
             return redirect()->to('manage-assign-learningpath');
         } else {
             $data['validation'] = $this->validator;
@@ -708,13 +725,30 @@ class Operator extends BaseController
                 'responded_at'  => Time::now(),
             ];
             $model->update($id, $data);
+
+            // add User Learning Path
+            if ($this->request->getVar('status') == 'approved') {
+                $request = $model->find($id);
+                // get data learning path
+                $modelLearningPath = new LearningPathModel();
+                $learningPath = $modelLearningPath->find($request['learning_path_id']);
+
+                $userLearningPathModel = new UserLearningPathModel();
+                $data = [
+                    'user_id' => $request['user_id'],
+                    'learning_path_id' => $request['learning_path_id'],
+                    'start_date' => Time::now(),
+                    'end_date' => Time::now()->addMonths($learningPath['period']),
+                ];
+                $userLearningPathModel->save($data);
+            }
+
             return redirect()->to('manage-request-learningpath');
         } else {
             $data['validation'] = $this->validator;
             return view('manage-request-learningpath', $data);
         }
     }
-
 
     // Category
     public function createCategory()
