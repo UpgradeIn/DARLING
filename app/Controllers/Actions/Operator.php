@@ -14,6 +14,8 @@ use App\Models\LearningPathCourseModel;
 use App\Models\RequestLearningPathModel;
 use App\Models\AssignLearningPathModel;
 use App\Models\UsersModel;
+use App\Models\CategoryModel;
+use App\Models\NewsModel;
 
 use CodeIgniter\I18n\Time;
 
@@ -656,8 +658,95 @@ class Operator extends BaseController
 
 
     // Category
-    
+    public function createCategory()
+    {
+        $rules = [
+            'name'          => 'required',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new CategoryModel();
+
+            $data = [
+                'name'          => $this->request->getVar('name'),
+                'created_at'  => Time::now(),
+                'updated_at'  => Time::now(),
+            ];
+            $model->save($data);
+            return redirect()->to('manage-category');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-category', $data);
+        }
+    }
+
+    public function updateCategory($id)
+    {
+        $rules = [
+            'name'          => 'required',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new CategoryModel();
+
+            $data = [
+                'name'          => $this->request->getVar('name'),
+                'updated_at'    => Time::now(),
+            ];
+            $model->update($id, $data);
+            return redirect()->to('manage-category');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-category', $data);
+        }
+    }
+
+    public function deleteCategory($id)
+    {
+        $model = new CategoryModel();
+
+        $model->delete($id);
+        return redirect()->to('manage-category');
+    }
 
     // News
+
+    public function createNews(){
+        $rules = [
+            'title'          => 'required',
+            'content'        => 'required',
+            'thumbnail'      => 'uploaded[thumbnail]|max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'         => 'required|in_list[publish,draft]',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new NewsModel();
+            $thumbnail = $this->request->getFile('thumbnail');
+
+            //generate random name
+            $nameThumbnail = $thumbnail->getRandomName();
+
+            $thumbnail->move('images', $nameThumbnail);
+
+            $data = [
+                'thumbnail'     => $nameThumbnail,
+                'title'          => $this->request->getVar('title'),
+                'content'        => $this->request->getVar('content'),
+                'status'         => $this->request->getVar('status'),
+                'created_at'  => Time::now(),
+                'updated_at'  => Time::now(),
+            ];
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
+            $model->save($data);
+            return redirect()->to('manage-news');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-news', $data);
+        }
+    }
 
 }
