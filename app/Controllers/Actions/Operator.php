@@ -172,7 +172,7 @@ class Operator extends BaseController
         }
     }
 
-    public function coursePath($id)
+    public function publisCourse($id)
     {
         $model = new CourseModel();
         $data = [
@@ -428,7 +428,7 @@ class Operator extends BaseController
         }
     }
 
-    public function updateCourseTest() // update urutan soal test material pada subcourse
+    public function updateSubcourseTestSequence() // update urutan soal test material pada subcourse
     {
 
         // $data=[
@@ -586,6 +586,7 @@ class Operator extends BaseController
             'contentArray.*.sequence' => 'required|numeric',
         ];
 
+
         if ($this->validate($validationData, $rules)) {
             $learningPathCourseModel = new LearningPathCourseModel();
             foreach ($contentArray as $course) {
@@ -601,7 +602,39 @@ class Operator extends BaseController
         }
     }
 
-    public function updateSequenceLearningpathCourses($id) //id learning path
+    public function updateCourseToLearningPath($id) //id learning path
+    {
+        /** @var string|null $jsonData */
+        $jsonData = $this->request->getPost('courses');
+        $contentArray = json_decode($jsonData, true);
+        $validationData = ['contentArray' => $contentArray];
+        $rules = [
+            'contentArray.*.id' => 'required|numeric',
+            'contentArray.*.sequence' => 'required|numeric',
+        ];
+
+        if ($this->validate($validationData, $rules)) {
+            $learningPathCourseModel = new LearningPathCourseModel();
+
+            $learningPathCourses = $learningPathCourseModel->where('learning_path_id', $id)->findAll();
+            foreach ($learningPathCourses as $learningPathCourse) {
+                $learningPathCourseModel->delete($learningPathCourse['id']);
+            }
+
+            foreach ($contentArray as $course) {
+                $data = [
+                    'learning_path_id' => $id,
+                    'course_id' => $course['id'],
+                    'sequence' => $course['sequence'],
+                    'created_at'  => Time::now(),
+                    'updated_at'  => Time::now(),
+                ];
+                $learningPathCourseModel->save($data);
+            }
+        }
+    }
+
+    public function updateSequenceLearningpathCourses() //id learning path
     {
         /** @var string|null $jsonData */
         $jsonData = $this->request->getPost('courses');
@@ -839,6 +872,7 @@ class Operator extends BaseController
         $model->update($id, $data);
     }
 
+    // Upload Image for content wriiten materials
     public function uploadImage()
     {
         $file = $this->request->getFile('file');
