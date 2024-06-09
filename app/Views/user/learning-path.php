@@ -6,15 +6,15 @@
 
 <?= $this->section('content') ?>
 <section class="w-full mx-auto px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-20">
-    <div class="flex justify-between items-center w-full mx-auto text-3xl font-bold">
-        <h1>Daftar Learning Path</h1>
-        <div class="hidden sm:block w-1/4">
+    <div class="flex flex-col sm:flex-row justify-between items-center w-full mx-auto text-3xl font-bold space-y-4 sm:space-y-0">
+        <h1 class="w-full sm:w-auto text-center sm:text-left">Daftar Learning Path</h1>
+        <div class="w-full sm:w-1/4">
             <label for="icon" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-4">
                     <svg class="flex-shrink-0 size-4 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 </div>
-                <input type="text" id="searchInput" name="icon" class="py-2 px-4 ps-11 pe-20 block w-full bg-transparent border-gray-300 shadow-sm rounded-lg text-sm text-gray-700 focus:z-10 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500 dark:border-neutral-700 dark:text-neutral-500 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Cari Learning Path" onkeyup="filterCards()">
+                <input type="text" id="searchInput" name="icon" class="py-2 px-4 ps-11 block w-full bg-transparent border-gray-300 shadow-sm rounded-lg text-sm text-gray-700 focus:z-10 focus:border-gray-900 focus:ring-gray-600 placeholder:text-gray-500 dark:border-neutral-700 dark:text-neutral-500 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Cari Learning Path" onkeyup="filterCards()">
             </div>
         </div>
     </div>
@@ -115,24 +115,5 @@
     </div>
     <!-- End Card Learning Path -->
 </section>
-
-<script>
-    function filterCards() {
-        var input, filter, cardContainer, cards, title, i;
-        input = document.getElementById("searchInput");
-        filter = input.value.toLowerCase();
-        cardContainer = document.getElementById("cardContainer");
-        cards = cardContainer.getElementsByTagName("a");
-
-        for (i = 0; i < cards.length; i++) {
-            title = cards[i].getAttribute("data-title");
-            if (title.toLowerCase().indexOf(filter) > -1) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
-            }
-        }
-    }
-</script>
 
 <?= $this->endSection() ?>
