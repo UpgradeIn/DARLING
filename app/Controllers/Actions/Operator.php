@@ -40,7 +40,7 @@ class Operator extends BaseController
             'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
-        $slug = url_title($this->request->getVar('course_name'), '-', true); 
+        $slug = url_title($this->request->getVar('course_name'), '-', true);
         if ($this->courseModel->where('slug', $slug)->first() != null) {
             $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
             return redirect()->to('manage-course');
@@ -50,7 +50,7 @@ class Operator extends BaseController
             $thumbnail = $this->request->getFile('course_thumbnail');
             $thumbnail->move('images-thumbnail');
             $nameThumbnail = $thumbnail->getName();
-            
+
             $module = $this->request->getFile('module');
             $module->move('module-course');
             $nameModule = $module->getName();
@@ -180,7 +180,7 @@ class Operator extends BaseController
             'published_at' => Time::now(),
         ];
         $model->update($id, $data);
-    } 
+    }
 
     // Sub Courses
     public function createSubCourse()
@@ -737,7 +737,8 @@ class Operator extends BaseController
 
     // News
 
-    public function createNews(){
+    public function createNews()
+    {
         $rules = [
             'title'          => 'required',
             'content'        => 'required',
@@ -775,4 +776,13 @@ class Operator extends BaseController
         }
     }
 
+    public function publishNews($id)
+    {
+        $model = new NewsModel();
+        $data = [
+            'status' => 'publish',
+            'published_at' => Time::now(),
+        ];
+        $model->update($id, $data);
+    }
 }
