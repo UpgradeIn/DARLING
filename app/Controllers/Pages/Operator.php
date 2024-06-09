@@ -8,10 +8,12 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class Operator extends BaseController
 {
+    protected $session;
     protected $courseModel;
 
     public  function __construct()
     {
+        $this->session = session();
         $this->courseModel = new CourseModel();    
     }
 
@@ -35,7 +37,7 @@ class Operator extends BaseController
         return view('operator/detail-request');
     }
 
-    public function detailLearningPath($slug)
+    public function detailLearningPath()
     {
         return view('operator/detail-learning-path');
     }
@@ -52,10 +54,13 @@ class Operator extends BaseController
     public function detailCourse($slug)
     {
         $course = $this->courseModel->where('slug', $slug)->first();
+        if (!$course) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
         $data = [
-            'course' => $course
+            'course' => $course,
         ];
-        return view('operator/detail-course', $data);
+        return view('operator/abs-detail-course', $data);
     }
     
     public function addPreTest()

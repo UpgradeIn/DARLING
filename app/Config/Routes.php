@@ -28,12 +28,41 @@ $routes->group('officials', ['filter' => 'actions:officials'], static function($
 
 // Actions/Operator
 $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
+    // learning paths
     $routes->post('create-learningpaths', 'Actions\Operator::createLearningPath');
     $routes->post('update-learningpaths/(:num)', 'Actions\Operator::updateLearningPath/$1');
     $routes->delete('delete-learningpaths/(:num)', 'Actions\Operator::deleteLearningPath/$1');
+    $routes->post('publish-learningpaths', 'Actions\Operator::publisLearningPath');
+    // courses
     $routes->post('create-courses', 'Actions\Operator::createCourse');
     $routes->post('update-courses/(:num)', 'Actions\Operator::updateCourse/$1');
     $routes->delete('delete-courses/(:num)', 'Actions\Operator::deleteCourse/$1');
+    $routes->post('update-courses-sequence', 'Actions\Operator::updateCourseSequence');
+    $routes->post('publish-courses', 'Actions\Operator::publisCourse');
+    // sub courses
+    $routes->post('create-subcourses', 'Actions\Operator::createSubCourse');
+    $routes->post('update-subcourses/(:num)', 'Actions\Operator::updateSubCourse/$1');
+    $routes->delete('delete-subcourses/(:num)', 'Actions\Operator::deleteSubCourse/$1');
+    $routes->post('update-subcourses-sequence', 'Actions\Operator::updateSubcourseTestSequence');
+    // Learning Path Courses
+    $routes->post('create-learningpath-courses', 'Actions\Operator::addCourseToLearningPath');
+    $routes->post('update-learningpath-courses/(:num)', 'Actions\Operator::updateCourseToLearningPath/$1');
+    $routes->post('update-learningpath-courses-sequence', 'Actions\Operator::updateSequenceLearningpathCourses');
+    // Assign Learning Path
+    $routes->post('assign-learningpath', 'Actions\Operator::assignLearningPath');
+    // Response Request Learning Path
+    $routes->post('response-request-learningpath/(:num)', 'Actions\Operator::requestLearningPath/$1');
+    // Category News
+    $routes->post('create-category-news', 'Actions\Operator::createCategoryNews');
+    $routes->post('update-category-news/(:num)', 'Actions\Operator::updateCategoryNews/$1');
+    $routes->delete('delete-category-news/(:num)', 'Actions\Operator::deleteCategoryNews/$1');
+    // News
+    $routes->post('create-news', 'Actions\Operator::createNews');
+    $routes->post('update-news/(:num)', 'Actions\Operator::updateNews/$1');
+    $routes->delete('delete-news/(:num)', 'Actions\Operator::deleteNews/$1');
+    $routes->post('publish-news/(:num)', 'Actions\Operator::publishNews/$1');
+    // Upload Image For Written Material
+    $routes->post('upload-image', 'Actions\Operator::uploadImage');
 });
 
 // Actions/User

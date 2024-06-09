@@ -11,9 +11,12 @@ use App\Models\VideoMaterialModel;
 use App\Models\TestMaterialModel;
 use App\Models\OptionTestModel;
 use App\Models\LearningPathCourseModel;
+use App\Models\UserLearningPathModel;
 use App\Models\RequestLearningPathModel;
 use App\Models\AssignLearningPathModel;
 use App\Models\UsersModel;
+use App\Models\CategoryModel;
+use App\Models\NewsModel;
 
 use CodeIgniter\I18n\Time;
 
@@ -38,7 +41,7 @@ class Operator extends BaseController
             'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
-        $slug = url_title($this->request->getVar('course_name'), '-', true); 
+        $slug = url_title($this->request->getVar('course_name'), '-', true);
         if ($this->courseModel->where('slug', $slug)->first() != null) {
             $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
             return redirect()->to('manage-course');
@@ -48,7 +51,7 @@ class Operator extends BaseController
             $thumbnail = $this->request->getFile('course_thumbnail');
             $thumbnail->move('images-thumbnail');
             $nameThumbnail = $thumbnail->getName();
-            
+
             $module = $this->request->getFile('module');
             $module->move('module-course');
             $nameModule = $module->getName();
@@ -78,46 +81,60 @@ class Operator extends BaseController
 
     public function updateCourse($id)
     {
+        $slug = url_title($this->request->getVar('course_name'), '-', true);
+        $exists_slug = $this->courseModel->where('slug', $slug)->first();
+        $course = $this->courseModel->find($id);
+        if ($exists_slug != null && $exists_slug['id'] != $id) {
+            $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
+            return redirect()->to('detail-course/'.$course['slug']);
+        }
+
         $rules = [
             'course_name'          => 'required',
             'course_description'   => 'required',
-            'module'               => 'uploaded[module]|max_size[module,5120]',
-            'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
+            'module'               => 'max_size[module,5120]',
+            'course_thumbnail'     => 'max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
         if ($this->validate($rules)) {
             $model = new CourseModel();
 
-            $thumbnail = $this->request->getFile('thumbnail');
-            //caek gambar lama
+            $thumbnail = $this->request->getFile('course_thumbnail');
+            //cek thumbnail lama
             if ($thumbnail->getError() == 4) {
-                $nameThumbnail = $this->request->getVar('oldThumbnail');
+                $nameThumbnail = $this->request->getVar('old_course_thumbnail');
             } else {
-                $thumbnail->move('images');
+                $thumbnail->move('images-thumbnail');
                 $nameThumbnail = $thumbnail->getName();
-                unlink('images/' . $this->request->getVar('oldThumbnail'));
+                unlink('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'));
+            }
+
+            $module = $this->request->getFile('module');
+            //cek module lama
+            if ($module->getError() == 4) {
+                $nameModule = $this->request->getVar('old_module');
+            } else {
+                $module->move('module-course');
+                $nameModule = $module->getName();
+                unlink('module-course/' . $this->request->getVar('old_module'));
             }
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
-                'name'          => $this->request->getVar('name'),
-                'description'   => $this->request->getVar('description'),
-                'module'        => $this->request->getVar('module'),
-                'updated_at'    => Time::now(),
-                'status'        => $this->request->getVar('status'),
+                'name'          => $this->request->getVar('course_name'),
+                'slug'          => $slug,
+                'description'   => $this->request->getVar('course_description'),
+                'module'        => $nameModule,
+                'status'        => 'draft',
+                'published_at'  => null,
             ];
 
-            if ($this->request->getVar('status') == 'publish') {
-                $data['published_at'] = Time::now();
-            } else {
-                $data['published_at'] = null;
-            }
-
             $model->update($id, $data);
-            return redirect()->to('manage-course');
+            $this->session->setFlashdata('msg', 'Berhasil mengubah course');
+            return redirect()->to('detail-course/'.$slug);
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage_course', $data);
+            $validation = $this->validator;
+            return redirect()->to('detail-course/'.$course['slug'])->withInput()->with('errors', $validation->getErrors());
         }
     }
 
@@ -126,9 +143,10 @@ class Operator extends BaseController
         $model = new CourseModel();
 
         $thumbnail = $model->find($id);
-        unlink('images/' . $thumbnail['thumbnail']);
+        unlink('images-thumbnail/' . $thumbnail['thumbnail']);
 
         $model->delete($id);
+        $this->session->setFlashdata('msg', 'Berhasil menghapus course');
         return redirect()->to('manage-course');
     }
 
@@ -168,6 +186,16 @@ class Operator extends BaseController
                 $model->update($course['id'], $data);
             }
         }
+    }
+
+    public function publisCourse($id)
+    {
+        $model = new CourseModel();
+        $data = [
+            'status' => 'publish',
+            'published_at' => Time::now(),
+        ];
+        $model->update($id, $data);
     }
 
     // Sub Courses
@@ -416,7 +444,7 @@ class Operator extends BaseController
         }
     }
 
-    public function updateCourseTest() // update urutan soal test material pada subcourse
+    public function updateSubcourseTestSequence() // update urutan soal test material pada subcourse
     {
 
         // $data=[
@@ -552,6 +580,16 @@ class Operator extends BaseController
         return redirect()->to('manage-learningpath');
     }
 
+    public function publisLearningPath($id)
+    {
+        $model = new LearningPathModel();
+        $data = [
+            'status' => 'publish',
+            'published_at' => Time::now(),
+        ];
+        $model->update($id, $data);
+    }
+
     // Learning Path Courses
     public function addCourseToLearningPath($id) //id learning path
     {
@@ -563,6 +601,7 @@ class Operator extends BaseController
             'contentArray.*.id' => 'required|numeric',
             'contentArray.*.sequence' => 'required|numeric',
         ];
+
 
         if ($this->validate($validationData, $rules)) {
             $learningPathCourseModel = new LearningPathCourseModel();
@@ -579,7 +618,39 @@ class Operator extends BaseController
         }
     }
 
-    public function updateSequenceLearningpathCourses($id) //id learning path
+    public function updateCourseToLearningPath($id) //id learning path
+    {
+        /** @var string|null $jsonData */
+        $jsonData = $this->request->getPost('courses');
+        $contentArray = json_decode($jsonData, true);
+        $validationData = ['contentArray' => $contentArray];
+        $rules = [
+            'contentArray.*.id' => 'required|numeric',
+            'contentArray.*.sequence' => 'required|numeric',
+        ];
+
+        if ($this->validate($validationData, $rules)) {
+            $learningPathCourseModel = new LearningPathCourseModel();
+
+            $learningPathCourses = $learningPathCourseModel->where('learning_path_id', $id)->findAll();
+            foreach ($learningPathCourses as $learningPathCourse) {
+                $learningPathCourseModel->delete($learningPathCourse['id']);
+            }
+
+            foreach ($contentArray as $course) {
+                $data = [
+                    'learning_path_id' => $id,
+                    'course_id' => $course['id'],
+                    'sequence' => $course['sequence'],
+                    'created_at'  => Time::now(),
+                    'updated_at'  => Time::now(),
+                ];
+                $learningPathCourseModel->save($data);
+            }
+        }
+    }
+
+    public function updateSequenceLearningpathCourses() //id learning path
     {
         /** @var string|null $jsonData */
         $jsonData = $this->request->getPost('courses');
@@ -626,6 +697,22 @@ class Operator extends BaseController
                 'updated_at'  => Time::now(),
             ];
             $model->save($data);
+
+            // add User Learning Path
+
+            // get data learning path
+            $modelLearningPath = new LearningPathModel();
+            $learningPath = $modelLearningPath->find($this->request->getVar('learning_path_id'));
+
+            $userLearningPathModel = new UserLearningPathModel();
+            $data = [
+                'user_id' => $this->request->getVar('user_id'),
+                'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'start_date' => Time::now(),
+                'end_date' => Time::now()->addMonths($learningPath['period']),
+            ];
+            $userLearningPathModel->save($data);
+
             return redirect()->to('manage-assign-learningpath');
         } else {
             $data['validation'] = $this->validator;
@@ -653,6 +740,24 @@ class Operator extends BaseController
                 'responded_at'  => Time::now(),
             ];
             $model->update($id, $data);
+
+            // add User Learning Path
+            if ($this->request->getVar('status') == 'approved') {
+                $request = $model->find($id);
+                // get data learning path
+                $modelLearningPath = new LearningPathModel();
+                $learningPath = $modelLearningPath->find($request['learning_path_id']);
+
+                $userLearningPathModel = new UserLearningPathModel();
+                $data = [
+                    'user_id' => $request['user_id'],
+                    'learning_path_id' => $request['learning_path_id'],
+                    'start_date' => Time::now(),
+                    'end_date' => Time::now()->addMonths($learningPath['period']),
+                ];
+                $userLearningPathModel->save($data);
+            }
+
             return redirect()->to('manage-request-learningpath');
         } else {
             $data['validation'] = $this->validator;
@@ -660,10 +765,168 @@ class Operator extends BaseController
         }
     }
 
-
     // Category
-    
+    public function createCategory()
+    {
+        $rules = [
+            'name'          => 'required',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new CategoryModel();
+
+            $data = [
+                'name'          => $this->request->getVar('name'),
+                'created_at'  => Time::now(),
+                'updated_at'  => Time::now(),
+            ];
+            $model->save($data);
+            return redirect()->to('manage-category');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-category', $data);
+        }
+    }
+
+    public function updateCategory($id)
+    {
+        $rules = [
+            'name'          => 'required',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new CategoryModel();
+
+            $data = [
+                'name'          => $this->request->getVar('name'),
+                'updated_at'    => Time::now(),
+            ];
+            $model->update($id, $data);
+            return redirect()->to('manage-category');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-category', $data);
+        }
+    }
+
+    public function deleteCategory($id)
+    {
+        $model = new CategoryModel();
+
+        $model->delete($id);
+        return redirect()->to('manage-category');
+    }
 
     // News
 
+    public function createNews()
+    {
+        $rules = [
+            'title'          => 'required',
+            'content'        => 'required',
+            'thumbnail'      => 'uploaded[thumbnail]|max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'         => 'required|in_list[publish,draft]',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new NewsModel();
+            $thumbnail = $this->request->getFile('thumbnail');
+
+            //generate random name
+            $nameThumbnail = $thumbnail->getRandomName();
+
+            $thumbnail->move('thumbnailNews', $nameThumbnail);
+
+            $data = [
+                'thumbnail'     => $nameThumbnail,
+                'title'          => $this->request->getVar('title'),
+                'content'        => $this->request->getVar('content'),
+                'status'         => $this->request->getVar('status'),
+                'created_at'  => Time::now(),
+                'updated_at'  => Time::now(),
+            ];
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
+            $model->save($data);
+            return redirect()->to('manage-news');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-news', $data);
+        }
+    }
+
+    public function updateNews($id)
+    {
+        $rules = [
+            'title'          => 'required',
+            'content'        => 'required',
+            'thumbnail'      => 'max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'         => 'required|in_list[publish,draft]',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new NewsModel();
+
+            $thumbnail = $this->request->getFile('thumbnail');
+            //caek gambar lama
+            if ($thumbnail->getError() == 4) {
+                $nameThumbnail = $this->request->getVar('oldThumbnail');
+            } else {
+                $nameThumbnail = $thumbnail->getRandomName();
+                $thumbnail->move('thumbnailNews', $nameThumbnail);
+                unlink('thumbnailNews/' . $this->request->getVar('oldThumbnail'));
+            }
+
+            $data = [
+                'thumbnail'     => $nameThumbnail,
+                'title'          => $this->request->getVar('title'),
+                'content'        => $this->request->getVar('content'),
+                'status'         => $this->request->getVar('status'),
+                'updated_at'    => Time::now(),
+            ];
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
+            $model->update($id, $data);
+            return redirect()->to('manage-news');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-news', $data);
+        }
+    }
+
+    public function deleteNews($id)
+    {
+        $model = new NewsModel();
+
+        $thumbnail = $model->find($id);
+        unlink('thumbnailNews/' . $thumbnail['thumbnail']);
+
+        $model->delete($id);
+        return redirect()->to('manage-news');
+    }
+
+    public function publishNews($id)
+    {
+        $model = new NewsModel();
+        $data = [
+            'status' => 'publish',
+            'published_at' => Time::now(),
+        ];
+        $model->update($id, $data);
+    }
+
+    // Upload Image for content wriiten materials
+    public function uploadImage()
+    {
+        $file = $this->request->getFile('file');
+        $name = $file->getRandomName();
+        $file->move('images', $name);
+        return $this->response->setJSON(['location' => base_url('images/' . $name)]);
+    }
 }
