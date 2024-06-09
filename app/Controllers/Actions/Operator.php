@@ -172,7 +172,7 @@ class Operator extends BaseController
         }
     }
 
-    public function publisLearningPath($id)
+    public function coursePath($id)
     {
         $model = new CourseModel();
         $data = [
@@ -562,6 +562,16 @@ class Operator extends BaseController
 
         $model->delete($id);
         return redirect()->to('manage-learningpath');
+    }
+
+    public function publisLearningPath($id)
+    {
+        $model = new LearningPathModel();
+        $data = [
+            'status' => 'publish',
+            'published_at' => Time::now(),
+        ];
+        $model->update($id, $data);
     }
 
     // Learning Path Courses
