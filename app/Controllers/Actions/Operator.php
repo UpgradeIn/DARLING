@@ -172,6 +172,16 @@ class Operator extends BaseController
         }
     }
 
+    public function publisLearningPath($id)
+    {
+        $model = new CourseModel();
+        $data = [
+            'status' => 'publish',
+            'published_at' => Time::now(),
+        ];
+        $model->update($id, $data);
+    } 
+
     // Sub Courses
     public function createSubCourse()
     {
