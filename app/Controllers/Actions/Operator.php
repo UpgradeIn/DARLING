@@ -81,46 +81,60 @@ class Operator extends BaseController
 
     public function updateCourse($id)
     {
+        $slug = url_title($this->request->getVar('course_name'), '-', true);
+        $exists_slug = $this->courseModel->where('slug', $slug)->first();
+        $course = $this->courseModel->find($id);
+        if ($exists_slug != null && $exists_slug['id'] != $id) {
+            $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
+            return redirect()->to('detail-course/'.$course['slug']);
+        }
+
         $rules = [
             'course_name'          => 'required',
             'course_description'   => 'required',
-            'module'               => 'uploaded[module]|max_size[module,5120]',
-            'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
+            'module'               => 'max_size[module,5120]',
+            'course_thumbnail'     => 'max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
         if ($this->validate($rules)) {
             $model = new CourseModel();
 
-            $thumbnail = $this->request->getFile('thumbnail');
-            //caek gambar lama
+            $thumbnail = $this->request->getFile('course_thumbnail');
+            //cek thumbnail lama
             if ($thumbnail->getError() == 4) {
-                $nameThumbnail = $this->request->getVar('oldThumbnail');
+                $nameThumbnail = $this->request->getVar('old_course_thumbnail');
             } else {
-                $thumbnail->move('images');
+                $thumbnail->move('images-thumbnail');
                 $nameThumbnail = $thumbnail->getName();
-                unlink('images/' . $this->request->getVar('oldThumbnail'));
+                unlink('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'));
+            }
+
+            $module = $this->request->getFile('module');
+            //cek module lama
+            if ($module->getError() == 4) {
+                $nameModule = $this->request->getVar('old_module');
+            } else {
+                $module->move('module-course');
+                $nameModule = $module->getName();
+                unlink('module-course/' . $this->request->getVar('old_module'));
             }
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
-                'name'          => $this->request->getVar('name'),
-                'description'   => $this->request->getVar('description'),
-                'module'        => $this->request->getVar('module'),
-                'updated_at'    => Time::now(),
-                'status'        => $this->request->getVar('status'),
+                'name'          => $this->request->getVar('course_name'),
+                'slug'          => $slug,
+                'description'   => $this->request->getVar('course_description'),
+                'module'        => $nameModule,
+                'status'        => 'draft',
+                'published_at'  => null,
             ];
 
-            if ($this->request->getVar('status') == 'publish') {
-                $data['published_at'] = Time::now();
-            } else {
-                $data['published_at'] = null;
-            }
-
             $model->update($id, $data);
-            return redirect()->to('manage-course');
+            $this->session->setFlashdata('msg', 'Berhasil mengubah course');
+            return redirect()->to('detail-course/'.$slug);
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage_course', $data);
+            $validation = $this->validator;
+            return redirect()->to('detail-course/'.$course['slug'])->withInput()->with('errors', $validation->getErrors());
         }
     }
 
@@ -129,9 +143,10 @@ class Operator extends BaseController
         $model = new CourseModel();
 
         $thumbnail = $model->find($id);
-        unlink('images/' . $thumbnail['thumbnail']);
+        unlink('images-thumbnail/' . $thumbnail['thumbnail']);
 
         $model->delete($id);
+        $this->session->setFlashdata('msg', 'Berhasil menghapus course');
         return redirect()->to('manage-course');
     }
 
