@@ -50,7 +50,7 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->post('update-learningpath-courses-sequence', 'Actions\Operator::updateSequenceLearningpathCourses');
     // Assign Learning Path
     $routes->post('assign-learningpath', 'Actions\Operator::assignLearningPath');
-    // Request Learning Path
+    // Response Request Learning Path
     $routes->post('response-request-learningpath/(:num)', 'Actions\Operator::requestLearningPath/$1');
     // Category News
     $routes->post('create-category-news', 'Actions\Operator::createCategoryNews');
