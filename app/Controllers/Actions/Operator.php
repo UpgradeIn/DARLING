@@ -753,7 +753,7 @@ class Operator extends BaseController
             //generate random name
             $nameThumbnail = $thumbnail->getRandomName();
 
-            $thumbnail->move('images', $nameThumbnail);
+            $thumbnail->move('thumbnailNews', $nameThumbnail);
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
@@ -776,6 +776,59 @@ class Operator extends BaseController
         }
     }
 
+    public function updateNews($id)
+    {
+        $rules = [
+            'title'          => 'required',
+            'content'        => 'required',
+            'thumbnail'      => 'max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
+            'status'         => 'required|in_list[publish,draft]',
+        ];
+
+        if ($this->validate($rules)) {
+            $model = new NewsModel();
+
+            $thumbnail = $this->request->getFile('thumbnail');
+            //caek gambar lama
+            if ($thumbnail->getError() == 4) {
+                $nameThumbnail = $this->request->getVar('oldThumbnail');
+            } else {
+                $nameThumbnail = $thumbnail->getRandomName();
+                $thumbnail->move('thumbnailNews', $nameThumbnail);
+                unlink('thumbnailNews/' . $this->request->getVar('oldThumbnail'));
+            }
+
+            $data = [
+                'thumbnail'     => $nameThumbnail,
+                'title'          => $this->request->getVar('title'),
+                'content'        => $this->request->getVar('content'),
+                'status'         => $this->request->getVar('status'),
+                'updated_at'    => Time::now(),
+            ];
+            if ($this->request->getVar('status') == 'publish') {
+                $data['published_at'] = Time::now();
+            } else {
+                $data['published_at'] = null;
+            }
+            $model->update($id, $data);
+            return redirect()->to('manage-news');
+        } else {
+            $data['validation'] = $this->validator;
+            return view('manage-news', $data);
+        }
+    }
+
+    public function deleteNews($id)
+    {
+        $model = new NewsModel();
+
+        $thumbnail = $model->find($id);
+        unlink('thumbnailNews/' . $thumbnail['thumbnail']);
+
+        $model->delete($id);
+        return redirect()->to('manage-news');
+    }
+
     public function publishNews($id)
     {
         $model = new NewsModel();
@@ -784,5 +837,13 @@ class Operator extends BaseController
             'published_at' => Time::now(),
         ];
         $model->update($id, $data);
+    }
+
+    public function uploadImage()
+    {
+        $file = $this->request->getFile('file');
+        $name = $file->getRandomName();
+        $file->move('images', $name);
+        return $this->response->setJSON(['location' => base_url('images/' . $name)]);
     }
 }
