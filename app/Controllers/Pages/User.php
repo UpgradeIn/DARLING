@@ -19,15 +19,17 @@ class User extends BaseController
     
     public function detailCourse($slug)
     {
-        // select * from course where slug = $slug
-        // select * from sub_course where course_id = $course_id
-        $id_subcourse = 1;
-        return redirect()->to("course/$slug/sub/$id_subcourse");;
+        $pre_test_id = 1;
+        return redirect()->to("/course/$slug/sub/$pre_test_id");
     }
 
     public function subCourse($slug, $id)
     {
-        return view('user/sub-course');
+        $data = [
+            'slug' => $slug,
+            'id' => $id
+        ];
+        return view('user/sub-course', $data);
     }
 
     public function learningPath()

@@ -3,10 +3,18 @@
 namespace App\Controllers\Pages;
 
 use App\Controllers\BaseController;
+use App\Models\CourseModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Operator extends BaseController
 {
+    protected $courseModel;
+
+    public  function __construct()
+    {
+        $this->courseModel = new CourseModel();    
+    }
+
     public function dashboard()
     {
         return redirect()->to('/');
@@ -34,12 +42,20 @@ class Operator extends BaseController
 
     public function manageCourse()
     {
-        return view('operator/manage-course');
+        $courses = $this->courseModel->findAll();
+        $data = [
+            'courses' => $courses
+        ];
+        return view('operator/manage-course', $data);
     }
 
     public function detailCourse($slug)
     {
-        return view('operator/detail-course');
+        $course = $this->courseModel->where('slug', $slug)->first();
+        $data = [
+            'course' => $course
+        ];
+        return view('operator/detail-course', $data);
     }
     
     public function addPreTest()

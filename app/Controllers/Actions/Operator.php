@@ -22,63 +22,69 @@ use CodeIgniter\I18n\Time;
 class Operator extends BaseController
 {
     protected $session;
+    protected $courseModel;
 
     public function __construct()
     {
         $this->session = session();
+        $this->courseModel = new CourseModel();
     }
 
     // Courses
     public function createCourse()
     {
         $rules = [
-            'name'          => 'required',
-            'description'   => 'required',
-            'module'        => 'required',
-            'thumbnail'     => 'uploaded[thumbnail]|max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-            'status'        => 'required|in_list[publish,draft]',
+            'course_name'          => 'required',
+            'course_description'   => 'required',
+            'module'               => 'uploaded[module]|max_size[module,5120]',
+            'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
+        $slug = url_title($this->request->getVar('course_name'), '-', true); 
+        if ($this->courseModel->where('slug', $slug)->first() != null) {
+            $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
+            return redirect()->to('manage-course');
+        }
+
         if ($this->validate($rules)) {
-            $model = new CourseModel();
-            $thumbnail = $this->request->getFile('thumbnail');
-
-            $thumbnail->move('images');
-
+            $thumbnail = $this->request->getFile('course_thumbnail');
+            $thumbnail->move('images-thumbnail');
             $nameThumbnail = $thumbnail->getName();
+            
+            $module = $this->request->getFile('module');
+            $module->move('module-course');
+            $nameModule = $module->getName();
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
-                'name'          => $this->request->getVar('name'),
-                'description'   => $this->request->getVar('description'),
-                'module'        => $this->request->getVar('module'),
-                'status'        => $this->request->getVar('status'),
-                'created_at'  => Time::now(),
-                'updated_at'  => Time::now(),
+                'name'          => $this->request->getVar('course_name'),
+                'slug'          => $slug,
+                'description'   => $this->request->getVar('course_description'),
+                'module'        => $nameModule,
+                'status'        => 'draft',
+                'published_at'  => null,
             ];
 
-            if ($this->request->getVar('status') == 'publish') {
-                $data['published_at'] = Time::now();
-            } else {
-                $data['published_at'] = null;
-            }
-
-            $model->save($data);
+            $this->courseModel->save($data);
+            $this->session->setFlashdata('msg', 'Berhasil menambahkan course baru');
             return redirect()->to('manage-course');
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage_course', $data);
+            $courses = $this->courseModel->findAll();
+            $data = [
+                'courses' => $courses,
+                'validation' => $this->validator
+            ];
+            return view('operator/manage-course', $data);
         }
     }
 
     public function updateCourse($id)
     {
         $rules = [
-            'name'          => 'required',
-            'description'   => 'required',
-            'module'        => 'required',
-            'thumbnail'     => 'max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-            'status'        => 'required|in_list[publish,draft]',
+            'course_name'          => 'required',
+            'course_description'   => 'required',
+            'module'               => 'uploaded[module]|max_size[module,5120]',
+            'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
         if ($this->validate($rules)) {
