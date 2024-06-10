@@ -8,7 +8,7 @@ Profile Saya | Damri Course
 <section class="col-span-4 px-5 py-4 sm:px-2 sm:py-2">
     <div class="">
         <div class="w-full mx-auto text-3xl font-bold text-center">
-            <h1>Welcome, <?= session('email') ?></h1>
+            <h1>Welcome, <?= session('fullname') ?></h1>
         </div>
         <div class="w-full mx-auto text-xl text-center">
             <h3>Informasi mengenai profile, divisi, dan jabatan</h3>
@@ -26,7 +26,7 @@ Profile Saya | Damri Course
                     Nama Lengkap
                 </label>
 
-                <input id="af-submit-app-project-name" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Nama Lengkap" value="<?= session('nama_lengkap') ?>">
+                <input id="af-submit-app-project-name" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Nama Lengkap" value="<?= session('fullname') ?>">
             </div>
 
             <div class="space-y-2">
