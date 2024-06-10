@@ -81,9 +81,13 @@ class Operator extends BaseController
 
     public function updateCourse($id)
     {
+        $course = $this->courseModel->find($id);
+        if ($course == null) {
+            $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
+            return redirect()->back();
+        }
         $slug = url_title($this->request->getVar('course_name'), '-', true);
         $exists_slug = $this->courseModel->where('slug', $slug)->first();
-        $course = $this->courseModel->find($id);
         if ($exists_slug != null && $exists_slug['id'] != $id) {
             $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
             return redirect()->to('detail-course/'.$course['slug']);
@@ -97,8 +101,6 @@ class Operator extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $model = new CourseModel();
-
             $thumbnail = $this->request->getFile('course_thumbnail');
             //cek thumbnail lama
             if ($thumbnail->getError() == 4) {
@@ -129,55 +131,42 @@ class Operator extends BaseController
                 'published_at'  => null,
             ];
 
-            $model->update($id, $data);
+            $this->courseModel->update($id, $data);
             $this->session->setFlashdata('msg', 'Berhasil mengubah course');
             return redirect()->to('detail-course/'.$slug);
         } else {
             $validation = $this->validator;
-            return redirect()->to('detail-course/'.$course['slug'])->withInput()->with('errors', $validation->getErrors());
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
     public function deleteCourse($id)
     {
-        $model = new CourseModel();
+        $course = $this->courseModel->find($id);
+        if ($course == null) {
+            $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
+            return redirect()->back();
+        }
+        unlink('images-thumbnail/' . $course['thumbnail']);
 
-        $thumbnail = $model->find($id);
-        unlink('images-thumbnail/' . $thumbnail['thumbnail']);
-
-        $model->delete($id);
+        $this->courseModel->delete($id);
         $this->session->setFlashdata('msg', 'Berhasil menghapus course');
         return redirect()->to('manage-course');
     }
 
-    public function updateCourseSequence() // update urutan subcourse pada course
+    public function updateSubcourseSequence() // update urutan subcourse pada course
     {
-
-        // $data=[
-        // {
-        //     "id"= 1, //id subcourse
-        //     "sequence"= 1
-        // },
-        // {
-        //     "id"= 3, //id subcourse
-        //     "sequence"= 2
-        // },
-        // {
-        //     "id"= 2, //id subcourse
-        //     "sequence"= 3
-        // },
-        // ];
-
         /** @var string|null $jsonData */
-        $jsonData = $this->request->getPost('subcourses');
+        $jsonData = $this->request->getPost('result');
         $contentArray = json_decode($jsonData, true);
-        $validationData = ['contentArray' => $contentArray];
+        $validationData['result'] = $contentArray;
+
         $rules = [
-            'contentArray.*.id' => 'required|numeric',
-            'contentArray.*.sequence' => 'required|numeric',
+            'result.*.id' => 'required|numeric',
+            'result.*.sequence' => 'required|numeric',
         ];
 
-        if ($this->validate($validationData, $rules)) {
+        if ($this->validateData($validationData, $rules)) {
             $model = new SubcourseModel();
             foreach ($contentArray as $course) {
                 $data = [
@@ -185,7 +174,13 @@ class Operator extends BaseController
                 ];
                 $model->update($course['id'], $data);
             }
+        } else {
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
+
+        $this->session->setFlashdata('msg', 'Berhasil mengubah urutan subcourse');
+        return redirect()->back();
     }
 
     public function publisCourse($id)
@@ -203,10 +198,9 @@ class Operator extends BaseController
     {
         $validationRules = [
             'title'     => 'required',
-            'course_id' => 'required' | 'numeric',
-            'sequence'  => 'required' | 'numeric',
+            'course_id' => 'required|numeric',
+            'sequence'  => 'required|numeric',
             'type' => 'required|in_list[video,test,written]',
-            'status'    => 'required|in_list[publish,draft]',
             'content'   => [
                 'rules' => 'required',
                 'errors' => [
@@ -214,7 +208,7 @@ class Operator extends BaseController
                 ],
             ],
         ];
-        $validationData = $this->request->getPost();
+        // $validationData = $this->request->getPost('content');
         // Additional rules based on 'type'
         $type = $this->request->getVar('type');
         if ($type === 'video') {
@@ -234,10 +228,10 @@ class Operator extends BaseController
             $validationRules['content.options.*.content'] = 'required|string';
             $validationRules['content.options.*.correct'] = 'required|boolean';
             // $validationData = ['content' => $contentArray];
-            $validationData['content'] = $contentArray;
+            // $validationData['content'] = $contentArray;
         }
 
-        if ($this->validate($validationData, $validationRules)) {
+        if ($this->validate($validationRules)) {
             $model = new SubcourseModel();
 
             $data = [
@@ -245,9 +239,6 @@ class Operator extends BaseController
                 'title'     => $this->request->getVar('title'),
                 'sequence'  => $this->request->getVar('sequence'),
                 'type'      => $this->request->getVar('type'),
-                'status'    => $this->request->getVar('status'),
-                'created_at'  => Time::now(),
-                'updated_at'  => Time::now(),
             ];
             if ($model->save($data)) {
                 $insertedID = $model->insertID();
@@ -256,17 +247,13 @@ class Operator extends BaseController
                     $dataMaterial = [
                         'subcourse_id' => $insertedID,
                         'content' => $this->request->getVar('content'),
-                        'created_at'  => Time::now(),
-                        'updated_at'  => Time::now(),
                     ];
                     $testModel->save($dataMaterial);
                 } else if ($type === 'video') {
                     $testModel = new VideoMaterialModel();
                     $dataMaterial = [
                         'subcourse_id' => $insertedID,
-                        'content' => $this->request->getVar('content'),
-                        'created_at'  => Time::now(),
-                        'updated_at'  => Time::now(),
+                        'video_url' => $this->request->getVar('content'),
                     ];
                     $testModel->save($dataMaterial);
                 } else if ($type === 'test') {
@@ -275,16 +262,16 @@ class Operator extends BaseController
 
                     $dataMaterial = [
                         'subcourse_id' => $insertedID,
-                        'content' => $validationData['content']['content'],
-                        'sequence' => $validationData['content']['sequence'],
-                        'type_test' => $validationData['content']['type_test'],
+                        'content' => $contentArray['content']['content'],
+                        'sequence' => $contentArray['content']['sequence'],
+                        'type_test' => $contentArray['content']['type_test'],
                         'created_at'  => Time::now(),
                         'updated_at'  => Time::now(),
                     ];
 
                     $testModel->save($dataMaterial);
                     $insertedMaterialID = $testModel->insertID();
-                    foreach ($validationData['content']['options'] as $key => $option) {
+                    foreach ($contentArray['content']['options'] as $key => $option) {
                         $dataOption = [
                             'test_material_id' => $insertedMaterialID,
                             'answer' => $option['answer'],
@@ -295,13 +282,15 @@ class Operator extends BaseController
                         $optionModel->save($dataOption);
                     }
                 }
-                return redirect()->to('manage-subcourse');
+                $this->session->setFlashdata('msg', 'Berhasil menambahkan subcourse baru');
+                return redirect()->back();
             } else {
-                return redirect()->to('manage-subcourse');
+                $this->session->setFlashdata('msg-failed', 'Gagal menambahkan subcourse baru');
+                return redirect()->back();
             }
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage_subcourse', $data);
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 

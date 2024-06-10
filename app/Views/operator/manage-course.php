@@ -450,9 +450,9 @@
                           <span
                             class="text-xs dark:text-neutral-400"
                           >
-                            <?php if ($course['status'] === 'Published'): ?>
+                            <?php if ($course['status'] === 'published'): ?>
                             <span class="text-green-800 bg-green-100 py-1 px-1.5 rounded-full">Published</span>
-                            <?php elseif ($course['status'] === 'Draft'): ?>
+                            <?php elseif ($course['status'] === 'draft'): ?>
                             <span class="text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-full">Draft</span>
                             <?php else: ?>
                             <span class="text-red-800 bg-red-100 py-1 px-1.5 rounded-full">Unpublished</span>

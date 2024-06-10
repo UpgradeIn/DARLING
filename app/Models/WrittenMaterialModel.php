@@ -7,7 +7,7 @@ class WrittenMaterialModel extends Model
 {
     protected $table            = 'tb_written_materials';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['subcourse_id', 'content', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['subcourse_id', 'content'];
 
     // Dates
     protected $useTimestamps = true;

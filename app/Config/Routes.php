@@ -37,13 +37,13 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->post('create-courses', 'Actions\Operator::createCourse');
     $routes->post('update-courses/(:num)', 'Actions\Operator::updateCourse/$1');
     $routes->delete('delete-courses/(:num)', 'Actions\Operator::deleteCourse/$1');
-    $routes->post('update-courses-sequence', 'Actions\Operator::updateCourseSequence');
+    $routes->post('update-subcourses-sequence', 'Actions\Operator::updateSubcourseSequence');
     $routes->post('publish-courses', 'Actions\Operator::publisCourse');
     // sub courses
     $routes->post('create-subcourses', 'Actions\Operator::createSubCourse');
     $routes->post('update-subcourses/(:num)', 'Actions\Operator::updateSubCourse/$1');
     $routes->delete('delete-subcourses/(:num)', 'Actions\Operator::deleteSubCourse/$1');
-    $routes->post('update-subcourses-sequence', 'Actions\Operator::updateSubcourseTestSequence');
+    $routes->post('update-subcourses-test-sequence', 'Actions\Operator::updateSubcourseTestSequence');
     // Learning Path Courses
     $routes->post('create-learningpath-courses', 'Actions\Operator::addCourseToLearningPath');
     $routes->post('update-learningpath-courses/(:num)', 'Actions\Operator::updateCourseToLearningPath/$1');

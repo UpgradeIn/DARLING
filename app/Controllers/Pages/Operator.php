@@ -4,17 +4,20 @@ namespace App\Controllers\Pages;
 
 use App\Controllers\BaseController;
 use App\Models\CourseModel;
+use App\Models\SubcourseModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Operator extends BaseController
 {
     protected $session;
     protected $courseModel;
+    protected $subcourseModel;
 
     public  function __construct()
     {
         $this->session = session();
-        $this->courseModel = new CourseModel();    
+        $this->courseModel = new CourseModel();
+        $this->subcourseModel = new SubcourseModel();   
     }
 
     public function dashboard()
@@ -57,10 +60,13 @@ class Operator extends BaseController
         if (!$course) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $subcourses = $this->subcourseModel->where('course_id', $course['id'])->orderBy('sequence', 'ASC')->findAll();
         $data = [
             'course' => $course,
+            'subcourses' => $subcourses
         ];
-        return view('operator/abs-detail-course', $data);
+        // dd($data);
+        return view('operator/detail-course', $data);
     }
     
     public function addPreTest()

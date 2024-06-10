@@ -30,24 +30,31 @@
                     <?= $course['name'] ?>
                   </h1>
 
-                  <div class="space-x-2">
-                    <button
-                      class="py-2 px-3 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500"
-                    >
-                      Simpan
-                    </button>
+                  <div class="space-x-2 flex">
+                    <form id="updateSubcourseSequenceForm" action="<?= base_url('update-subcourses-sequence') ?>" method="POST" class="flex">
+                      <?= csrf_field(); ?>
+                      <input type="hidden" name="result" id="resultInput">
+                      <button id="saveSubcourseSequence"
+                        class="py-2 px-3 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500"
+                      >
+                        Simpan
+                      </button>
+                    </form>
                     <button
                       class="py-2 px-6 text-sm font-semibold text-gray-800 bg-yellow-400 rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all dark:bg-yellow-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500"
                       data-hs-overlay="#hs-edit-learning-path"
                     >
                       Edit
                     </button>
-
-                    <button
-                      class="py-2 px-4 text-sm font-semibold text-gray-800 bg-red-400 rounded-md shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-500"
-                    >
-                      Hapus
-                    </button>
+                    <form action="<?= base_url('delete-courses/').$course['id']; ?>" method="POST" class="flex">
+                      <?= csrf_field(); ?>
+                      <input type="hidden" name="_method" value="DELETE">
+                      <button
+                        class="py-2 px-4 text-sm font-semibold text-gray-800 bg-red-400 rounded-md shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-500"
+                      >
+                        Hapus
+                      </button>
+                    </form>
                   </div>
 
                   <!-- Modal edit Learning Path -->
@@ -272,6 +279,21 @@
 
     <!-- Tabel Sub Course -->
     <section class="w-full mx-auto pb-8 px-5 sm:px-20 sm:pb-10">
+      <?php if (session()->has('errors')): ?>
+          <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+              <?php $errors = session('errors'); echo esc(array_shift($errors))?>
+          </div>
+      <?php endif; ?>
+      <?php if(session()->getFlashdata('msg')):?>
+              <div class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg">
+                  <?= session()->getFlashdata('msg') ?>
+              </div>
+          <?php endif;?>
+      <?php if(session()->getFlashdata('msg-failed')):?>
+              <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+                  <?= session()->getFlashdata('msg-failed') ?>
+              </div>
+      <?php endif;?>
       <div class="pb-5">
         <h1
           class="text-xl font-semibold text-gray-800 md-text-xl lg:text-2xl dark:text-neutral-200"
@@ -323,7 +345,7 @@
                         class="md:px-4 hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
                       >
                         <form
-                          action="<?= base_url('create-video'); ?>"
+                          action="<?= base_url('create-subcourses'); ?>"
                           method="POST"
                           enctype="multipart/form-data"
                         >
@@ -354,16 +376,19 @@
                                   <!-- form -->
                                   <div class="space-y-4">
                                     <!-- Judul Sub Materi Video -->
+                                    <input type="hidden" name="type" value="video">
+                                    <input type="hidden" name="course_id" value="<?= $course['id']; ?>">
+                                    <input type="hidden" name="sequence" value="<?= count($subcourses) + 1 ?>">
                                     <div>
                                       <label
-                                        for="judul_video"
+                                        for="title"
                                         class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
                                         >Judul Sub Materi</label
                                       >
                                       <input
                                         type="text"
-                                        name="judul_video"
-                                        id="judul_video"
+                                        name="title"
+                                        id="title"
                                         placeholder="Inputkan judul sub materi"
                                         class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                       />
@@ -373,14 +398,14 @@
                                     <!-- Link Video -->
                                     <div>
                                       <label
-                                        for="video_url"
+                                        for="content"
                                         class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
                                         >Link Video</label
                                       >
                                       <input
                                         type="text"
-                                        name="video_url"
-                                        id="video_url"
+                                        name="content"
+                                        id="content"
                                         placeholder="Inputkan link video"
                                         class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                       />
@@ -434,7 +459,7 @@
                         class="md:px-4 hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
                       >
                         <form
-                          action="<?= base_url('create-materi-teks'); ?>"
+                          action="<?= base_url('create-subcourses'); ?>"
                           method="POST"
                           enctype="multipart/form-data"
                         >
@@ -465,16 +490,19 @@
                                   <!-- form -->
                                   <div class="space-y-4">
                                     <!-- Judul Materi Teks -->
+                                    <input type="hidden" name="type" value="written">
+                                    <input type="hidden" name="course_id" value="<?= $course['id']; ?>">
+                                    <input type="hidden" name="sequence" value="<?= count($subcourses) + 1 ?>">
                                     <div>
                                       <label
-                                        for="judul_materi_teks"
+                                        for="title"
                                         class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
                                         >Judul Materi Teks</label
                                       >
                                       <input
                                         type="text"
-                                        name="judul_materi_teks"
-                                        id="judul_materi_teks"
+                                        name="title"
+                                        id="title"
                                         placeholder="Inputkan judul materi teks"
                                         class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                       />
@@ -700,21 +728,22 @@
                     id="sortable"
                     class="divide-y divide-gray-200 dark:divide-neutral-700"
                   >
-                    <tr class="hover:bg-gray-100 cursor-move">
+                    <?php foreach ($subcourses as $subcourse): ?>
+                    <tr class="hover:bg-gray-100 cursor-move" id="<?= $subcourse['id'] ?>">
                       <td class="size-px whitespace-nowrap">
                         <div class="px-6 py-3">
                           <span
                             id="sequence"
                             class="text-sm text-gray-600 dark:text-neutral-400"
-                            >1</span
-                          >
+                            ><?= $subcourse['sequence'] ?></span
+                          >.
                         </div>
                       </td>
                       <td class="size-px whitespace-nowrap">
                         <div class="px-6 py-3">
                           <span
                             class="text-sm text-gray-600 dark:text-neutral-400"
-                            >Pre Test</span
+                            ><?= $subcourse['title'] ?></span
                           >
                         </div>
                       </td>
@@ -722,7 +751,7 @@
                         <div class="flex justify-center px-6 py-3">
                           <span
                             class="text-sm text-gray-600 dark:text-neutral-400"
-                            >10 Soal</span
+                            ><?= $subcourse['type'] ?></span
                           >
                         </div>
                       </td>
@@ -775,156 +804,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr class="hover:bg-gray-100 cursor-move">
-                      <td class="size-px whitespace-nowrap">
-                        <div class="px-6 py-3">
-                          <span
-                            id="sequence"
-                            class="text-sm text-gray-600 dark:text-neutral-400"
-                            >2</span
-                          >
-                        </div>
-                      </td>
-                      <td class="size-px whitespace-nowrap">
-                        <div class="px-6 py-3">
-                          <span
-                            class="text-sm text-gray-600 dark:text-neutral-400"
-                            >Pengenalan Microsoft Excel</span
-                          >
-                        </div>
-                      </td>
-                      <td class="size-px whitespace-nowrap">
-                        <div class="flex justify-center px-6 py-3">
-                          <span
-                            class="text-sm text-gray-600 dark:text-neutral-400"
-                            >05:30</span
-                          >
-                        </div>
-                      </td>
-                      <td class="size-px whitespace-nowrap">
-                        <div class="flex justify-end space-x-2 px-6 py-3">
-                          <button
-                            type="button"
-                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="flex-shrink-0 size-4"
-                            >
-                              <path
-                                d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            type="button"
-                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-red-400 text-gray-800 hover:bg-red-500 disabled:opacity-50 disabled:pointer-events-none"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="flex-shrink-0 size-4"
-                            >
-                              <path d="M3 6h18" />
-                              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                              <line x1="10" x2="10" y1="11" y2="17" />
-                              <line x1="14" x2="14" y1="11" y2="17" />
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr class="hover:bg-gray-100 cursor-move">
-                      <td class="size-px whitespace-nowrap">
-                        <div class="px-6 py-3">
-                          <span
-                            id="sequence"
-                            class="text-sm text-gray-600 dark:text-neutral-400"
-                            >3</span
-                          >
-                        </div>
-                      </td>
-                      <td class="size-px whitespace-nowrap">
-                        <div class="px-6 py-3">
-                          <span
-                            class="text-sm text-gray-600 dark:text-neutral-400"
-                            >Post Test</span
-                          >
-                        </div>
-                      </td>
-                      <td class="size-px whitespace-nowrap">
-                        <div class="flex justify-center px-6 py-3">
-                          <span
-                            class="text-sm text-gray-600 dark:text-neutral-400"
-                            >20 Soal</span
-                          >
-                        </div>
-                      </td>
-                      <td class="size-px whitespace-nowrap">
-                        <div class="flex justify-end space-x-2 px-6 py-3">
-                          <button
-                            type="button"
-                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="flex-shrink-0 size-4"
-                            >
-                              <path
-                                d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            type="button"
-                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-red-400 text-gray-800 hover:bg-red-500 disabled:opacity-50 disabled:pointer-events-none"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              class="flex-shrink-0 size-4"
-                            >
-                              <path d="M3 6h18" />
-                              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                              <line x1="10" x2="10" y1="11" y2="17" />
-                              <line x1="14" x2="14" y1="11" y2="17" />
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
+                    <?php endforeach; ?>
                   </tbody>
                 </table>
                 <!-- End Table -->
@@ -989,4 +869,9 @@
       <!-- End Table Sub Course -->
     </section>
     <!-- End Table Sub Course -->
+<?= $this->endSection() ?>
+
+
+<?= $this->section('add_js') ?>
+    <script src="<?= base_url('assets/js/update-sequence-subcourse.js') ?>"></script>
 <?= $this->endSection() ?>
