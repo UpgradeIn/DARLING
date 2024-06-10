@@ -55,6 +55,8 @@ class CreateCoursesTable extends Migration
 
         // Adding ENUM field manually
         $this->db->query("ALTER TABLE tb_courses ADD COLUMN status ENUM('publish', 'draft') AFTER module");
+        $this->db->query("ALTER TABLE tb_courses ADD COLUMN skill_type ENUM('soft-skill', 'hard-skill') AFTER status");
+        $this->db->query("ALTER TABLE tb_courses ADD COLUMN course_type ENUM('mandatory', 'optional') AFTER skill_type");
     }
 
     public function down()

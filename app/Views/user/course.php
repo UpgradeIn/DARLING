@@ -39,11 +39,19 @@
                             <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
                             Kepemimpinan
                             </h3>
-                            <p class="mt-3 text-gray-500 dark:text-neutral-500">
-                                <i class="fas fa-users"></i> 1196 Peserta
+                            <p class="mt-3 text-gray-500 dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user" style="margin-right: 8px;">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                1196 Peserta
                             </p>
-                            <p class="mt-3 text-gray-500 dark:text-neutral-500">
-                                <i class="fas fa-video"></i> 10 Video
+                            <p class="mt-3 text-gray-500 dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-video" style="margin-right: 8px;">
+                                    <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/>
+                                    <rect x="2" y="6" width="14" height="12" rx="2"/>
+                                </svg>
+                                10 Video
                             </p>
                         </div>
                     </a>
@@ -57,11 +65,19 @@
                             <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
                                 Perawatan Server
                             </h3>
-                            <p class="mt-3 text-gray-500 dark:text-neutral-500">
-                                <i class="fas fa-users"></i> 1196 Peserta
+                            <p class="mt-3 text-gray-500 dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user" style="margin-right: 8px;">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                1196 Peserta
                             </p>
-                            <p class="mt-3 text-gray-500 dark:text-neutral-500">
-                                <i class="fas fa-video"></i> 10 Video
+                            <p class="mt-3 text-gray-500 dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-video" style="margin-right: 8px;">
+                                    <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/>
+                                    <rect x="2" y="6" width="14" height="12" rx="2"/>
+                                </svg>
+                                10 Video
                             </p>
                         </div>
                     </a>
@@ -76,11 +92,19 @@
                             <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">
                             Strategi Pemasaran
                             </h3>
-                            <p class="mt-3 text-gray-500 dark:text-neutral-500">
-                                <i class="fas fa-users"></i> 1196 Peserta
+                            <p class="mt-3 text-gray-500 dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user" style="margin-right: 8px;">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                1196 Peserta
                             </p>
-                            <p class="mt-3 text-gray-500 dark:text-neutral-500">
-                                <i class="fas fa-video"></i> 10 Video
+                            <p class="mt-3 text-gray-500 dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-video" style="margin-right: 8px;">
+                                    <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/>
+                                    <rect x="2" y="6" width="14" height="12" rx="2"/>
+                                </svg>
+                                10 Video
                             </p>
                         </div>
                     </a>

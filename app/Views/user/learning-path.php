@@ -29,7 +29,11 @@
                             <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                                 Akuntansi
                             </h3>
-                            <p class="text-sm dark:text-neutral-500">
+                            <p class="text-sm dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" style="margin-right: 4px;">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
                                 12 Courses
                             </p>
                         </div>
@@ -44,7 +48,11 @@
                             <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                                 IT
                             </h3>
-                            <p class="text-sm dark:text-neutral-500">
+                            <p class="text-sm dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" style="margin-right: 4px;">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
                                 12 Courses
                             </p>
                         </div>
@@ -59,7 +67,11 @@
                             <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                                 Management
                             </h3>
-                            <p class="text-sm dark:text-neutral-500">
+                            <p class="text-sm dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" style="margin-right: 4px;">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
                                 12 Courses
                             </p>
                         </div>
@@ -74,7 +86,11 @@
                             <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                                 Human Resources
                             </h3>
-                            <p class="text-sm dark:text-neutral-500">
+                            <p class="text-sm dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" style="margin-right: 4px;">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
                                 12 Courses
                             </p>
                         </div>
@@ -89,7 +105,11 @@
                             <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                                 Logistics
                             </h3>
-                            <p class="text-sm dark:text-neutral-500">
+                            <p class="text-sm dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" style="margin-right: 4px;">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
                                 12 Courses
                             </p>
                         </div>
@@ -104,7 +124,11 @@
                             <h3 class="text-xl group-hover:text-xl text-black font-semibold text-gray-800 dark:group-hover:text-neutral-400 dark:text-neutral-200">
                                 Operational
                             </h3>
-                            <p class="text-sm dark:text-neutral-500">
+                            <p class="text-sm dark:text-neutral-500" style="display: flex; align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" style="margin-right: 4px;">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                                </svg>
                                 12 Courses
                             </p>
                         </div>
@@ -115,5 +139,24 @@
     </div>
     <!-- End Card Learning Path -->
 </section>
+
+<script>
+    function filterCards() {
+  var input, filter, cardContainer, cards, title, i;
+  input = document.getElementById("searchInput");
+  filter = input.value.toLowerCase();
+  cardContainer = document.getElementById("cardContainer");
+  cards = cardContainer.getElementsByTagName("a");
+
+  for (i = 0; i < cards.length; i++) {
+    title = cards[i].getAttribute("data-title");
+    if (title.toLowerCase().indexOf(filter) > -1) {
+      cards[i].style.display = "";
+    } else {
+      cards[i].style.display = "none";
+    }
+  }
+}
+</script>
 
 <?= $this->endSection() ?>
