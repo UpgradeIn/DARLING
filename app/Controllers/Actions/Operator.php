@@ -208,7 +208,7 @@ class Operator extends BaseController
                 ],
             ],
         ];
-        // $validationData = $this->request->getPost('content');
+        $validationData = $this->request->getPost();
         // Additional rules based on 'type'
         $type = $this->request->getVar('type');
         if ($type === 'video') {
@@ -228,10 +228,10 @@ class Operator extends BaseController
             $validationRules['content.options.*.content'] = 'required|string';
             $validationRules['content.options.*.correct'] = 'required|boolean';
             // $validationData = ['content' => $contentArray];
-            // $validationData['content'] = $contentArray;
+            $validationData['content'] = $contentArray;
         }
 
-        if ($this->validate($validationRules)) {
+        if ($this->validateData($validationData, $validationRules)) {
             $model = new SubcourseModel();
 
             $data = [
@@ -262,16 +262,16 @@ class Operator extends BaseController
 
                     $dataMaterial = [
                         'subcourse_id' => $insertedID,
-                        'content' => $contentArray['content']['content'],
-                        'sequence' => $contentArray['content']['sequence'],
-                        'type_test' => $contentArray['content']['type_test'],
+                        'content' => $validationData['content']['content'],
+                        'sequence' => $validationData['content']['sequence'],
+                        'type_test' => $validationData['content']['type_test'],
                         'created_at'  => Time::now(),
                         'updated_at'  => Time::now(),
                     ];
 
                     $testModel->save($dataMaterial);
                     $insertedMaterialID = $testModel->insertID();
-                    foreach ($contentArray['content']['options'] as $key => $option) {
+                    foreach ($validationData['content']['options'] as $key => $option) {
                         $dataOption = [
                             'test_material_id' => $insertedMaterialID,
                             'answer' => $option['answer'],
