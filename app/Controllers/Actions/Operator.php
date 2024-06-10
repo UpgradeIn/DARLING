@@ -463,7 +463,7 @@ class Operator extends BaseController
             'contentArray.*.sequence' => 'required|numeric',
         ];
 
-        if ($this->validate($validationData, $rules)) {
+        if ($this->validateData($validationData, $rules)) {
             $model = new TestMaterialModel();
             foreach ($contentArray as $course) {
                 $data = [

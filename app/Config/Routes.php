@@ -67,7 +67,7 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
 
 // Actions/User
 $routes->group('user', ['filter' => 'actions:user'], static function($routes) {
-    $routes->post('abc', 'Actions\User::abc');
+    $routes->post('status-subcourse/(:num)', 'Actions\User::statusSubCourse/$1');
 });
 
 /* ---------------------------------------------------------------------------------------- */
