@@ -15,8 +15,8 @@
             <div class="aspect-w-10 aspect-h-10 lg:aspect-none">
               <img
                 class="w-full h-auto object-cover shadow-md rounded-xl"
-                src="https://github.com/intern-monitoring/intern-monitoring.github.io/assets/94734096/a0007238-6732-4aa7-a0eb-13bf8af0bc60"
-                alt="Image Description"
+                src="<?= base_url('images-thumbnail/').$learningPaths['thumbnail'] ?>"
+                alt="Thumbnail Learning Path"
               />
             </div>
           </div>
@@ -27,34 +27,37 @@
                   <h1
                     class="text-2xl font-bold text-gray-800 md:text-3xl lg:text-4xl"
                   >
-                    Akuntansi
+                  <?= $learningPaths['name'] ?>
                   </h1>
 
-                  <div class="space-x-2">
+                  <div class="space-x-2 flex">
                     <button
-                      class="py-2 px-3 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500"
+                      class="py-2 px-4 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-green-500 dark:focus:ring-green-500"
+                      data-hs-overlay="#hs-publish-course"
                     >
-                      Simpan
+                      Publish
                     </button>
                     <button
                       class="py-2 px-6 text-sm font-semibold text-gray-800 bg-yellow-400 rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all dark:bg-yellow-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500"
-                      data-hs-overlay="#hs-edit-learning-path"
+                      data-hs-overlay="#hs-edit-course"
                     >
                       Edit
                     </button>
-
-                    <button
-                      class="py-2 px-4 text-sm font-semibold text-gray-800 bg-red-400 rounded-md shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-500"
-                    >
-                      Hapus
-                    </button>
+                    <form action="<?= base_url('delete-learningpaths/').$learningPaths['id']; ?>" method="POST" class="flex">
+                      <?= csrf_field(); ?>
+                      <input type="hidden" name="_method" value="DELETE">
+                      <button
+                        class="py-2 px-4 text-sm font-semibold text-gray-800 bg-red-400 rounded-md shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-500"
+                      >
+                        Hapus
+                      </button>
+                    </form>
                   </div>
 
                   <!-- Modal edit Learning Path -->
                   <div
                     id="hs-edit-learning-path"
-                    class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none"
-                  >
+                    class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
                     <div
                       class="flex justify-center items-center hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
                     >
@@ -239,11 +242,7 @@
                 <p
                   class="text-md text-gray-600 md:text-lg lg:text-lg dark:text-neutral-400"
                 >
-                  Learning Path Akuntansi ini memberikan pemahaman komprehensif
-                  tentang prinsip dan praktik akuntansi. Peserta akan
-                  mempelajari laporan keuangan, analisis keuangan, dan audit.
-                  Jalur ini mempersiapkan peserta menghadapi tantangan akuntansi
-                  profesional dengan percaya diri.
+                  <?= $learningPaths['description'] ?>
                 </p>
               </div>
             </div>
@@ -261,7 +260,7 @@
                 <p
                   class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"
                 >
-                  1214054
+                  <?= $learningPaths['id'] ?>
                 </p>
               </div>
               <div
@@ -289,7 +288,7 @@
                 <p
                   class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"
                 >
-                  07/06/24
+                  <?= $learningPaths['published_at'] ? $learningPaths['published_at'] : 'Belum dipublikasi' ?>
                 </p>
               </div>
               <div class="text-start lg:text-center">

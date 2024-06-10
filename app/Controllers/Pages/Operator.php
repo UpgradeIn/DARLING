@@ -4,6 +4,7 @@ namespace App\Controllers\Pages;
 
 use App\Controllers\BaseController;
 use App\Models\CourseModel;
+use App\Models\LearningPathModel;
 use App\Models\SubcourseModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -11,12 +12,14 @@ class Operator extends BaseController
 {
     protected $session;
     protected $courseModel;
+    protected $learningPathsModel;
     protected $subcourseModel;
 
     public  function __construct()
     {
         $this->session = session();
         $this->courseModel = new CourseModel();
+        $this->learningPathsModel = new LearningPathModel();
         $this->subcourseModel = new SubcourseModel();   
     }
 
@@ -40,16 +43,28 @@ class Operator extends BaseController
         return view('operator/detail-request');
     }
 
-    public function detailLearningPath()
+    public function detailLearningPath($slug)
     {
-        return view('operator/detail-learning-path');
+        $learningPaths = $this->learningPathsModel->where('slug', $slug)->first();
+        if (!$learningPaths) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        // $courses = $this->courseModel->where('learning_path_id', $learningPaths['id'])->orderBy('sequence', 'ASC')->findAll();
+        $data = [
+            'learningPaths' => $learningPaths
+            // 'courses' => $courses
+        ];
+        return view('operator/detail-learning-path', $data);
     }
 
     public function manageCourse()
     {
         $courses = $this->courseModel->findAll();
+        $learningPaths = $this->learningPathsModel->findAll();
+
         $data = [
-            'courses' => $courses
+            'courses' => $courses,
+            'learningPaths' => $learningPaths
         ];
         return view('operator/manage-course', $data);
     }

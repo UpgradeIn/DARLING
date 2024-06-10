@@ -24,11 +24,14 @@ class Operator extends BaseController
 {
     protected $session;
     protected $courseModel;
+    protected $learningpathModel;
+
 
     public function __construct()
     {
         $this->session = session();
         $this->courseModel = new CourseModel();
+        $this->learningpathModel = new LearningPathModel();
     }
 
     // Courses
@@ -474,41 +477,43 @@ class Operator extends BaseController
     public function createLearningPath()
     {
         $rules = [
-            'name'          => 'required',
-            'description'   => 'required',
-            'period'        => 'required|numeric',
-            'thumbnail'     => 'uploaded[thumbnail]|max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-            'status'        => 'required|in_list[publish,draft]',
+            'learning_path_name'            => 'required',
+            'learning_path_description'     => 'required',
+            'period'                        => 'required|numeric',
+            'learning_path_thumbnail'       => 'uploaded[learning_path_thumbnail]|max_size[learning_path_thumbnail,5120]|is_image[learning_path_thumbnail]|mime_in[learning_path_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
+        $slug = url_title($this->request->getVar('learning_path_name'), '-', true);
+        if ($this->learningpathModel->where('slug', $slug)->first() != null) {
+            $this->session->setFlashdata('msg-failed', 'Judul learning path sudah ada');
+            return redirect()->to('manage-learningpath');
+        }
+
         if ($this->validate($rules)) {
-            $model = new LearningPathModel();
-            $thumbnail = $this->request->getFile('thumbnail');
-
-            //generate random name
-            $nameThumbnail = $thumbnail->getRandomName();
-
-            $thumbnail->move('images', $nameThumbnail);
+            $thumbnail = $this->request->getFile('learning_path_thumbnail');
+            $thumbnail->move('images-thumbnail');
+            $nameThumbnail = $thumbnail->getName();
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
-                'name'          => $this->request->getVar('name'),
-                'description'   => $this->request->getVar('description'),
+                'name'          => $this->request->getVar('learning_path_name'),
+                'slug'          => $slug,
+                'description'   => $this->request->getVar('learning_path_description'),
                 'period'        => $this->request->getVar('period'),
-                'status'        => $this->request->getVar('status'),
-                'created_at'  => Time::now(),
-                'updated_at'  => Time::now(),
+                'status'        => 'draft',
+                'published_at'  => null,
             ];
-            if ($this->request->getVar('status') == 'publish') {
-                $data['published_at'] = Time::now();
-            } else {
-                $data['published_at'] = null;
-            }
-            $model->save($data);
-            return redirect()->to('manage-learningpath');
+
+           $this->learningpathModel->save($data);
+            $this->session->setFlashdata('msg', 'Berhasil menambahkan learning path baru');
+            return redirect()->to('manage-course');
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage-learningpath', $data);
+            $learningPaths = $this->learningpathModel->findAll();
+            $data = [
+                'learningPaths' => $learningPaths,
+                'validation' => $this->validator
+            ];
+            return view('operator/manage-course', $data);
         }
     }
 
@@ -560,13 +565,16 @@ class Operator extends BaseController
 
     public function deleteLearningPath($id)
     {
-        $model = new LearningPathModel();
+        $learningPath = $this->learningpathModel->find($id);
+        if ($learningPath == null) {
+            $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
+            return redirect()->back();
+        }
+        unlink('images-thumbnail/' . $learningPath['thumbnail']);
 
-        $thumbnail = $model->find($id);
-        unlink('images/' . $thumbnail['thumbnail']);
-
-        $model->delete($id);
-        return redirect()->to('manage-learningpath');
+        $this->learningpathModel->delete($id);
+        $this->session->setFlashdata('msg', 'Berhasil menghapus Learning Path');
+        return redirect()->to('manage-course');
     }
 
     public function publisLearningPath($id)
