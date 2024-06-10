@@ -8,7 +8,7 @@ class CourseModel extends Model
 {
     protected $table            = 'tb_courses';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['thumbnail', 'name', 'slug', 'description', 'module', 'status', 'published_at'];
+    protected $allowedFields    = ['thumbnail', 'name', 'slug', 'description', 'module', 'skill_type', 'course_type', 'status', 'published_at'];
 
     // Dates
     protected $useTimestamps = true;

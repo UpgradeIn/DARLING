@@ -62,6 +62,8 @@ class Operator extends BaseController
                 'slug'          => $slug,
                 'description'   => $this->request->getVar('course_description'),
                 'module'        => $nameModule,
+                'skill_type'    => $this->request->getVar('skill_type'),
+                'course_type'   => $this->request->getVar('course_type'),
                 'status'        => 'draft',
                 'published_at'  => null,
             ];
@@ -127,6 +129,8 @@ class Operator extends BaseController
                 'slug'          => $slug,
                 'description'   => $this->request->getVar('course_description'),
                 'module'        => $nameModule,
+                'skill_type'    => $this->request->getVar('skill_type'),
+                'course_type'   => $this->request->getVar('course_type'),
                 'status'        => 'draft',
                 'published_at'  => null,
             ];
@@ -185,12 +189,11 @@ class Operator extends BaseController
 
     public function publisCourse($id)
     {
-        $model = new CourseModel();
         $data = [
             'status' => 'publish',
             'published_at' => Time::now(),
         ];
-        $model->update($id, $data);
+        $this->courseModel->update($id, $data);
     }
 
     // Sub Courses
