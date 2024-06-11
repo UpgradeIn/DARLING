@@ -5,7 +5,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-    <section class="w-full mx-auto px-5 mt-12 pb-8 sm:px-20 sm:mt-24 sm:pb-10"> 
+    <section class="w-full min-h-screen mx-auto px-5 mt-12 pb-8 sm:px-20 sm:mt-24 sm:pb-10"> 
       <div class="pb-5">
         <h1
           class="text-xl font-semibold text-gray-800 md-text-xl lg:text-2xl dark:text-neutral-200"
