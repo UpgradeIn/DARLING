@@ -6,23 +6,20 @@
 <?= $this->section('content') ?>
 <section class="w-full mx-auto px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-14">
   <div class="pb-5">
-    <?php if(isset($validation)):?>
-    <?= $validation->listErrors() ?>
-    <?php endif;?>
-
+  <?php if (session()->has('errors')): ?>
+        <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+            <?php $errors = session('errors'); echo esc(array_shift($errors))?>
+        </div>
+    <?php endif; ?>
     <?php if(session()->getFlashdata('msg')):?>
-    <div
-      class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg"
-    >
-      <?= session()->getFlashdata('msg') ?>
-    </div>
-    <?php endif;?>
+            <div class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg">
+                <?= session()->getFlashdata('msg') ?>
+            </div>
+        <?php endif;?>
     <?php if(session()->getFlashdata('msg-failed')):?>
-    <div
-      class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg"
-    >
-      <?= session()->getFlashdata('msg-failed') ?>
-    </div>
+            <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+                <?= session()->getFlashdata('msg-failed') ?>
+            </div>
     <?php endif;?>
     <h1
       class="text-xl font-semibold text-gray-800 md-text-xl lg:text-2xl dark:text-neutral-200"

@@ -3,24 +3,33 @@
 namespace App\Controllers\Pages;
 
 use App\Controllers\BaseController;
+use App\Models\AssignLearningPathModel;
 use App\Models\CourseModel;
 use App\Models\LearningPathModel;
 use App\Models\SubcourseModel;
+use App\Models\UserLearningPathModel;
+use App\Models\UsersModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Operator extends BaseController
 {
     protected $session;
+    protected $usersModel;
     protected $courseModel;
     protected $learningPathsModel;
     protected $subcourseModel;
+    protected $userLearningPathModel;
+    protected $assignLearningPathModel;
 
     public  function __construct()
     {
         $this->session = session();
+        $this->usersModel = new UsersModel();
         $this->courseModel = new CourseModel();
         $this->learningPathsModel = new LearningPathModel();
-        $this->subcourseModel = new SubcourseModel();   
+        $this->subcourseModel = new SubcourseModel();
+        $this->userLearningPathModel = new UserLearningPathModel();
+        $this->assignLearningPathModel = new AssignLearningPathModel();
     }
 
     public function dashboard()
@@ -30,7 +39,16 @@ class Operator extends BaseController
 
     public function manageAssigmentRequest()
     {
-        return redirect()->to('operator/manage-assigment');
+        $assign_learning_paths = $this->assignLearningPathModel->getAssignLearningPaths();
+        $users = $this->usersModel->getUsersNotInLearningPath(); 
+        // dd($users);
+        $learningPaths = $this->learningPathsModel->findAll();
+        $data = [
+            'assign_learning_paths' => $assign_learning_paths,
+            'users' => $users,
+            'learningPaths' => $learningPaths
+        ];
+        return view('operator/abs-manage-assignment-request', $data);
     }
 
     public function detailAssigment($id)
