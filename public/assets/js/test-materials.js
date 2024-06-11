@@ -50,23 +50,25 @@ const getUnsavedQuestionHtml = (questionId, questionSequence) => `
 `;
 
 const getSavedQuestionHtml = (question, questionSequence) => `
-  <div class="border border-blue-500 p-4 rounded mb-2 relative">
+  <div class="p-4 rounded mb-2 relative">
     <button
       type="button"
       class="absolute top-2 right-2 flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500"
       onclick="editQuestion('${question.id}')"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 size-4 p-1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 size-4">
         <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
       </svg>
     </button>
-    <p class="font-bold mb-2">Pertanyaan ${questionSequence}:</p>
-    <p>${question.text}</p>
+    <p class="text-lg text-gray-800 font-bold mb-2">Pertanyaan ${questionSequence}:</p>
+    <p class="text-gray-800">${question.text}</p>
     <div class="ml-5">
       ${question.options
         .map(
           (opt, index) => `
-        <p class="${question.correctOption === index ? "text-green-500" : ""}">
+        <p class="${
+          question.correctOption === index ? "font-semibold text-green-500" : ""
+        }">
           ${String.fromCharCode(65 + index)}. ${opt}
         </p>
       `
@@ -133,8 +135,8 @@ const editQuestion = (questionId) => {
   }
 };
 
-const savePreTest = () => {
-  alert("Pre-Test saved!");
+const saveMaterialsTest = () => {
+  alert("Materials-Test saved!");
   console.log(questions);
 };
 

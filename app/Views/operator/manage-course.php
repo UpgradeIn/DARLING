@@ -4,7 +4,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<section class="w-full mx-auto px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-14">
+<section class="w-full min-h-screen mx-auto px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-14">
   <div class="pb-5">
   <?php if (session()->has('errors')): ?>
         <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">

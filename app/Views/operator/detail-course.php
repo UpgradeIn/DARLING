@@ -568,10 +568,10 @@
                     <!-- End Create Teks -->
 
                     <!-- Create Post Test -->
-                    <button
-                      class="py-1 px-2 bg-blue-800 text-white rounded-md hover:bg-blue-900">
+                    <a
+                      class="py-1 px-2 cursor-pointer bg-blue-800 text-white rounded-md hover:bg-blue-900"  href="<?= base_url('add-post-test'); ?>">
                       + Post Test
-                    </button>
+                    </a>
                     <!-- End Create Post Test -->
 
                     <!-- Create Module -->
