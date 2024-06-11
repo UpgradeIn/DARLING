@@ -243,8 +243,8 @@
                                           for="tipe_skill"
                                           class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
                                           >Tipe Skill</label>
-                                        <select class="py-3 px-3 pe-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                                          <option selected disabled>Tipe Skill</option>
+                                        <select name="skill_type" class="py-3 px-3 pe-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                          <option selected disabled value="">Tipe Skill</option>
                                           <option value="soft-skill">Soft Skill</option>
                                           <option value="hard-skill">Hard Skill</option>
                                         </select>
@@ -256,9 +256,9 @@
                                           for="tipe_course"
                                           class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
                                           >Tipe Course</label>
-                                        <select class="py-3 px-3 pe-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-                                          <option selected disabled>Tipe Course</option>
-                                          <option value="wajib">Wajib</option>
+                                        <select name="course_type" class="py-3 px-3 pe-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                                          <option selected disabled value="">Tipe Course</option>
+                                          <option value="mandatory">Wajib</option>
                                           <option value="opsional">Opsional</option>
                                         </select>
                                       </div>
