@@ -40,6 +40,8 @@ class Operator extends BaseController
         $rules = [
             'course_name'          => 'required',
             'course_description'   => 'required',
+            'skill_type'           => 'required',
+            'course_type'          => 'required',
             'module'               => 'uploaded[module]|max_size[module,5120]',
             'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
