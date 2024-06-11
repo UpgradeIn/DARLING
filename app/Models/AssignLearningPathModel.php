@@ -8,7 +8,7 @@ class AssignLearningPathModel extends Model
 {
     protected $table            = 'tb_assign_learning_paths';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['user_id', 'learning_path_id', 'admin_id'];
+    protected $allowedFields    = ['user_id', 'learning_path_id', 'admin_id', 'message_assignment'];
 
     // Dates
     protected $useTimestamps = true;
