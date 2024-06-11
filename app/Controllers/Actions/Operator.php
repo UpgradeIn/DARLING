@@ -74,13 +74,9 @@ class Operator extends BaseController
             $this->courseModel->save($data);
             $this->session->setFlashdata('msg', 'Berhasil menambahkan course baru');
             return redirect()->to('manage-course');
-        } else {
-            $courses = $this->courseModel->findAll();
-            $data = [
-                'courses' => $courses,
-                'validation' => $this->validator
-            ];
-            return view('operator/manage-course', $data);
+        } else {;
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
@@ -482,14 +478,14 @@ class Operator extends BaseController
         $rules = [
             'learning_path_name'            => 'required',
             'learning_path_description'     => 'required',
-            'period'                        => 'required|numeric',
+            'period'                        => 'required|numeric|max_length[3]',
             'learning_path_thumbnail'       => 'uploaded[learning_path_thumbnail]|max_size[learning_path_thumbnail,5120]|is_image[learning_path_thumbnail]|mime_in[learning_path_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
         $slug = url_title($this->request->getVar('learning_path_name'), '-', true);
         if ($this->learningpathModel->where('slug', $slug)->first() != null) {
             $this->session->setFlashdata('msg-failed', 'Judul learning path sudah ada');
-            return redirect()->to('manage-learningpath');
+            return redirect()->to('manage-course');
         }
 
         if ($this->validate($rules)) {
@@ -511,19 +507,13 @@ class Operator extends BaseController
             $this->session->setFlashdata('msg', 'Berhasil menambahkan learning path baru');
             return redirect()->to('manage-course');
         } else {
-            $learningPaths = $this->learningpathModel->findAll();
-            $data = [
-                'learningPaths' => $learningPaths,
-                'validation' => $this->validator
-            ];
-            return view('operator/manage-course', $data);
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
     public function updateLearningPath($id)
     {
-
-
         $rules = [
             'name'          => 'required',
             'description'   => 'required',
@@ -674,12 +664,11 @@ class Operator extends BaseController
 
     // Assign Learning Path
     public function assignLearningPath()
-    {
+    { 
         $rules = [
-            'user_id'          => 'required',
-            'learning_path_id' => 'required',
-            'status'           => 'required|in_list[pending,approved,rejected]',
-            'message'          => 'required',
+            'user_id'                     => 'required',
+            'learning_path_id'            => 'required',
+            'message_assignment'          => 'required',
         ];
 
         if ($this->validate($rules)) {
@@ -693,8 +682,7 @@ class Operator extends BaseController
                 'user_id'          => $this->request->getVar('user_id'),
                 'learning_path_id' => $this->request->getVar('learning_path_id'),
                 'admin_id'         => $user['id'],
-                'created_at'  => Time::now(),
-                'updated_at'  => Time::now(),
+                'message_assignment' => $this->request->getVar('message_assignment'),
             ];
             $model->save($data);
 
@@ -708,15 +696,17 @@ class Operator extends BaseController
             $data = [
                 'user_id' => $this->request->getVar('user_id'),
                 'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'status' => 'not-started',
                 'start_date' => Time::now(),
                 'end_date' => Time::now()->addMonths($learningPath['period']),
             ];
             $userLearningPathModel->save($data);
 
-            return redirect()->to('manage-assign-learningpath');
+            $this->session->setFlashdata('msg', 'Berhasil menambahkan learning path ke user');
+            return redirect()->to('manage-assignment-request');
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage-assign-learningpath', $data);
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
