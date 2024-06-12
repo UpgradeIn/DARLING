@@ -58,6 +58,7 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->delete('delete-category-news/(:num)', 'Actions\Operator::deleteCategoryNews/$1');
     // News
     $routes->post('create-news', 'Actions\Operator::createNews');
+    $routes->get('manage-news', 'Pages\Operator::manageNews');
     $routes->post('update-news/(:num)', 'Actions\Operator::updateNews/$1');
     $routes->delete('delete-news/(:num)', 'Actions\Operator::deleteNews/$1');
     $routes->post('publish-news/(:num)', 'Actions\Operator::publishNews/$1');
