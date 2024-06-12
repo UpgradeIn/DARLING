@@ -21,7 +21,7 @@
     <!-- Card Learning Path -->
     <div class="h-full mt-4 bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
         <div id="cardContainer" class="p-4 md:p-6 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
-            <?php foreach ($learning_paths as $learning_path) : ?>        
+            <?php foreach ($data_learning_path as $learning_path) : ?>        
             <a class="group flex flex-row bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800" href="<?= base_url('learning-path/').$learning_path['slug'] ?>" data-title="Akuntansi">
                 <img src="<?= base_url('images-thumbnail/').$learning_path['thumbnail'] ?>" alt="Deskripsi Gambar" class="w-1/4 object-cover rounded-l-xl" />
                 <div class="p-4 md:p-5 w-3/4">
