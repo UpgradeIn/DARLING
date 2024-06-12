@@ -11,19 +11,19 @@ Detail Assignment | Damri Course
         <div class="flex flex-col lg:flex-row justify-between w-full mt-4 lg:mt-0 lg:ml-4">
             <div class="p-4 lg:p-5 text-center">
                 <h3 class="text-md text-gray-500 dark:text-white">Kode Penugasan</h3>
-                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">12140546789</p>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400"><?= $detailAssignment['id'] ?></p>
             </div>
             <div class="p-4 lg:p-5 text-center">
                 <h3 class="text-md text-gray-500 dark:text-white">Divisi Saat Ini</h3>
-                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">FINANCE</p>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400"><?= $detailAssignment['divisi'] ?></p>
             </div>
             <div class="p-4 lg:p-5 text-center">
                 <h3 class="text-md text-gray-500 dark:text-white">Jabatan Saat Ini</h3>
-                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">MANAJER</p>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400"><?= $detailAssignment['position'] ?></p>
             </div>
             <div class="p-4 lg:p-5 text-center">
                 <h3 class="text-md text-gray-500 dark:text-white">Learning Path yang Ditugaskan</h3>
-                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">ACCOUNTANCY</p>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400"><?= $detailAssignment['name'] ?></p>
             </div>
         </div>
     </div>
@@ -31,13 +31,13 @@ Detail Assignment | Damri Course
     <!-- Seksi Biodata -->
     <div class="flex flex-col lg:flex-row justify-start w-full mt-4 lg:mt-6">
         <div class="p-4 lg:p-5 text-start">
-            <h3 class="text-lg text-gray-800 font-bold dark:text-white">Dimas Ardianto</h3>
-            <p class="mt-1 text-gray-500 dark:text-neutral-400">dimasardnt6@gmail.com</p>
+            <h3 class="text-lg text-gray-800 font-bold dark:text-white"><?= $detailAssignment['fullname'] ?></h3>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400"><?= $detailAssignment['email'] ?></p>
         </div>
         <div class="p-4 lg:p-5 text-start">
-            <p class="mt-1 text-gray-500 dark:text-neutral-400">Bandung, Jawa Barat, Indonesia</p>
-            <p class="mt-1 text-gray-500 dark:text-neutral-400">22 Tahun</p>
-            <p class="mt-1 text-gray-500 dark:text-neutral-400">Laki - Laki</p>
+            <!-- <p class="mt-1 text-gray-500 dark:text-neutral-400">Bandung, Jawa Barat, Indonesia</p> -->
+            <p class="mt-1 text-gray-500 dark:text-neutral-400"><?= $detailAssignment['birthday'] ?></p>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400"><?= $detailAssignment['gender'] ?></p>
         </div>
     </div>
 
@@ -45,7 +45,7 @@ Detail Assignment | Damri Course
     <div class="flex flex-col justify-start w-full mt-4 lg:mt-6">
         <div class="p-4 lg:p-5 text-start">
             <h3 class="text-lg text-gray-800 font-bold dark:text-white">Deskripsi Pengajuan</h3>
-            <p class="mt-1 text-gray-500 dark:text-neutral-400">Selamat datang di Learning Path kami! Pesan kepada Anda adalah untuk tetap berkomitmen dan bersemangat dalam proses belajar ini. Manfaatkan setiap materi dan latihan dengan sepenuh hati, serta jangan ragu untuk bertanya atau berdiskusi dengan instruktur dan sesama peserta. Ingatlah bahwa proses belajar adalah perjalanan yang berkelanjutan, jadi tetaplah terbuka untuk belajar dari setiap pengalaman dan kesalahan. Dengan ketekunan dan dedikasi, Anda akan mencapai kemajuan yang luar biasa dalam pengembangan keterampilan Anda. Selamat belajar, dan semoga sukses!</p>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400"><?= $detailAssignment['description'] ?></p>
         </div>
     </div>
 </section>

@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\AssignLearningPathModel;
 use App\Models\CourseModel;
 use App\Models\LearningPathModel;
+use App\Models\RequestLearningPathModel;
 use App\Models\SubcourseModel;
 use App\Models\UserLearningPathModel;
 use App\Models\UsersModel;
@@ -20,6 +21,7 @@ class Operator extends BaseController
     protected $subcourseModel;
     protected $userLearningPathModel;
     protected $assignLearningPathModel;
+    protected $requestLearningPathModel;
 
     public  function __construct()
     {
@@ -30,6 +32,7 @@ class Operator extends BaseController
         $this->subcourseModel = new SubcourseModel();
         $this->userLearningPathModel = new UserLearningPathModel();
         $this->assignLearningPathModel = new AssignLearningPathModel();
+        $this->requestLearningPathModel = new RequestLearningPathModel();
     }
 
     public function dashboard()
@@ -40,20 +43,29 @@ class Operator extends BaseController
     public function manageAssigmentRequest()
     {
         $assign_learning_paths = $this->assignLearningPathModel->getAssignLearningPaths();
+        $request_learning_paths = $this->requestLearningPathModel->getRequestLearningPaths();
         $users = $this->usersModel->getUsersNotInLearningPath(); 
-        // dd($users);
+        // dd($assign_learning_paths);
         $learningPaths = $this->learningPathsModel->findAll();
         $data = [
             'assign_learning_paths' => $assign_learning_paths,
+            'request_learning_paths' => $request_learning_paths,
             'users' => $users,
             'learningPaths' => $learningPaths
         ];
         return view('operator/manage-assignment-request', $data);
     }
 
-    public function detailAssigment($id)
+    public function detailAssignment($id)
     {
-        return view('operator/detail-assigment');
+        $detailAssignment = $this->assignLearningPathModel->getDetailAssignLearningPath($id);
+        if (!$detailAssignment) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $data = [
+            'detailAssignment' => $detailAssignment
+        ];
+        return view('operator/detail-assigment', $data);
     }
 
     public function detailRequest($id)
