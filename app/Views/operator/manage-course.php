@@ -457,11 +457,11 @@
                             class="text-xs dark:text-neutral-400"
                           >
                             <?php if ($course['status'] === 'published'): ?>
-                            <span class="text-green-800 bg-green-100 py-1 px-1.5 rounded-full">Published</span>
+                            <span class="text-xs text-green-800 bg-green-100 py-1 px-1.5 rounded-md">Published</span>
                             <?php elseif ($course['status'] === 'draft'): ?>
-                            <span class="text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-full">Draft</span>
+                            <span class="text-xs text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-md">Draft</span>
                             <?php else: ?>
-                            <span class="text-red-800 bg-red-100 py-1 px-1.5 rounded-full">Unpublished</span>
+                            <span class="text-xs text-red-800 bg-red-100 py-1 px-1.5 rounded-md">Unpublished</span>
                             <?php endif; ?>
                           </span>
                         </div>
@@ -937,11 +937,11 @@
                             class="text-xs dark:text-neutral-400"
                           >
                             <?php if ($lp['status'] === 'published'): ?>
-                            <span class="text-green-800 bg-green-100 py-1 px-1.5 rounded-full">Published</span>
+                            <span class="text-xs text-green-800 bg-green-100 py-1 px-1.5 rounded-md">Published</span>
                             <?php elseif ($lp['status'] === 'draft'): ?>
-                            <span class="text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-full">Draft</span>
+                            <span class="text-xs text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-md">Draft</span>
                             <?php else: ?>
-                            <span class="text-red-800 bg-red-100 py-1 px-1.5 rounded-full">Unpublished</span>
+                            <span class="text-xs text-red-800 bg-red-100 py-1 px-1.5 rounded-md">Unpublished</span>
                             <?php endif; ?>
                           </span>
                         </div>
