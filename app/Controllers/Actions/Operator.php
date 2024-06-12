@@ -34,7 +34,7 @@ class Operator extends BaseController
         $this->learningpathModel = new LearningPathModel();
     }
 
-    // Courses
+    // Courses |check
     public function createCourse()
     {
         $rules = [
@@ -82,6 +82,7 @@ class Operator extends BaseController
         }
     }
 
+    // check
     public function updateCourse($id)
     {
         $course = $this->courseModel->find($id);
@@ -145,6 +146,7 @@ class Operator extends BaseController
         }
     }
 
+    // check
     public function deleteCourse($id)
     {
         $course = $this->courseModel->find($id);
@@ -159,6 +161,7 @@ class Operator extends BaseController
         return redirect()->to('manage-course');
     }
 
+    // check
     public function updateSubcourseSequence() // update urutan subcourse pada course
     {
         /** @var string|null $jsonData */
@@ -188,6 +191,7 @@ class Operator extends BaseController
         return redirect()->back();
     }
 
+    // not yet
     public function publisCourse($id)
     {
         $data = [
@@ -197,7 +201,7 @@ class Operator extends BaseController
         $this->courseModel->update($id, $data);
     }
 
-    // Sub Courses
+    // Sub Courses | not all
     public function createSubCourse()
     {
         $validationRules = [
@@ -298,6 +302,7 @@ class Operator extends BaseController
         }
     }
 
+    // not yet
     public function updateSubCourse($id)
     {
         $validationRules = [
@@ -408,6 +413,7 @@ class Operator extends BaseController
         }
     }
 
+    // not yet
     public function deleteSubCourse($id)
     {
         $model = new SubcourseModel();
@@ -437,6 +443,7 @@ class Operator extends BaseController
         }
     }
 
+    // not yet
     public function updateSubcourseTestSequence() // update urutan soal test material pada subcourse
     {
 
@@ -474,7 +481,8 @@ class Operator extends BaseController
             }
         }
     }
-    // Learning Path
+
+    // Learning Path | check
     public function createLearningPath()
     {
         $rules = [
@@ -514,6 +522,7 @@ class Operator extends BaseController
         }
     }
 
+    // not yet
     public function updateLearningPath($id)
     {
         $rules = [
@@ -558,6 +567,7 @@ class Operator extends BaseController
         }
     }
 
+    // check
     public function deleteLearningPath($id)
     {
         $learningPath = $this->learningpathModel->find($id);
@@ -572,6 +582,7 @@ class Operator extends BaseController
         return redirect()->to('manage-course');
     }
 
+    // not yet
     public function publisLearningPath($id)
     {
         $model = new LearningPathModel();
@@ -582,7 +593,7 @@ class Operator extends BaseController
         $model->update($id, $data);
     }
 
-    // Learning Path Courses
+    // Learning Path Courses | not yet
     public function addCourseToLearningPath($id) //id learning path
     {
         /** @var string|null $jsonData */
@@ -610,6 +621,7 @@ class Operator extends BaseController
         }
     }
 
+    // not yet
     public function updateCourseToLearningPath($id) //id learning path
     {
         /** @var string|null $jsonData */
@@ -642,6 +654,7 @@ class Operator extends BaseController
         }
     }
 
+    // not yet
     public function updateSequenceLearningpathCourses() //id learning path
     {
         /** @var string|null $jsonData */
@@ -664,7 +677,7 @@ class Operator extends BaseController
         }
     }
 
-    // Assign Learning Path
+    // Assign Learning Path | check
     public function assignLearningPath()
     { 
         $rules = [
