@@ -58,6 +58,7 @@ class Auth extends BaseController
             $role = $data['role_name'];
             if ($verify_pass) {
                 $ses_data = [
+                    'id'              => $data['id'],
                     'role'            => $role,
                     'email'           => $data['email'],
                     'fullname'        => $data['fullname'],

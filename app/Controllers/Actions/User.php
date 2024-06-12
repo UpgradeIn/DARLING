@@ -3,11 +3,13 @@
 namespace App\Controllers\Actions;
 
 use App\Controllers\BaseController;
-use App\Models\RequestLearningPathModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\UsersModel;
+use App\Models\LearningPathModel;
+use App\Models\UserLearningPathModel;
 use App\Models\UserSubCourseModel;
 use App\Models\UserAnswerModel;
+use App\Models\RequestLearningPathModel;
 
 class User extends BaseController
 {
@@ -18,32 +20,13 @@ class User extends BaseController
         $this->session = session();
     }
     //leraning path
-    public function getLearningPathsByUserID() // get learning path by user id
-    {
-    }
 
-    public function getLearningPathBySlug($slug) // get learning path by slug and get all courses in learning path
+    public function startCoures($slug, $id) // start learning path by slug
     {
+        
     }
-
-    public function getAllLearningPaths() // get all learning paths
-    {
-    }
-
-    public function startLearningPath($slug) // start learning path by slug
-    {
-    }
-
-    // courses
-    public function getCourseBySlug($slug) // get course by slug and get all sub courses in course
-    {
-    }
-
 
     // sub courses
-    public function getSubCourseById($slug, $id) // get sub course by slug
-    {
-    }
 
     public function statusSubCourse($id) // start sub course by slug
     {
@@ -53,15 +36,10 @@ class User extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $userModel = new UsersModel();
-            $email = session('email');
-            $user = $userModel->where('email', $email)
-                ->first();
-
             $subcourse_model = new UserSubCourseModel();
 
             $data = [
-                'user_id' => $user['id'],
+                'user_id' => session('id'),
                 'subcourse_id' => $id,
                 'status' => $this->request->getVar('status')
             ];
@@ -99,12 +77,6 @@ class User extends BaseController
             return view(`course/$id`, $data);
         }
     }
-
-    public function updateTestAnswer($id) // update answer for sub course
-    {
-    }
-
-
 
     // request learning path
     public function requestLearningPath($slug)
