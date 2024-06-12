@@ -11,14 +11,14 @@
         <div class="w-full grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 lg:gap-5">
           <div class="lg:col-span-3">
             <div class="aspect-w-10 aspect-h-10 lg:aspect-none">
-              <img class="w-full h-100 object-cover shadow-md rounded-xl" src="https://img.freepik.com/free-vector/money-income-attraction_74855-6573.jpg?t=st=1717938878~exp=1717942478~hmac=8dfa8f37cb5c38675655c3306f3cb77a53729a53c7dda74fbd003b20ba2a3659&w=900" alt="Image Description" />
+              <img class="w-full h-100 object-cover shadow-md rounded-xl" src="<?= base_url('images-thumbnail/').$learning_path['thumbnail'] ?>" alt="Image Description" />
             </div>
           </div>
           <div class="col-span-9 flex flex-col justify-between h-full py-5">
             <div>
               <div class="space-y-3">
                 <div class="flex justify-between">
-                  <h1 class="text-2xl font-bold text-gray-800 md:text-3xl lg:text-4xl">Akuntansi</h1>
+                  <h1 class="text-2xl font-bold text-gray-800 md:text-3xl lg:text-4xl"><?= $learning_path['name'] ?></h1>
 
                   <div class="space-x-2">
                     <button
@@ -145,8 +145,7 @@
                   <!-- End Modal edit Learning Path -->
                 </div>
                 <p class="text-md text-gray-600 md:text-lg lg:text-lg dark:text-neutral-400">
-                  Learning Path Akuntansi ini memberikan pemahaman komprehensif tentang prinsip dan praktik akuntansi. Peserta akan mempelajari laporan keuangan, analisis keuangan, dan audit. Jalur ini mempersiapkan peserta menghadapi
-                  tantangan akuntansi profesional dengan percaya diri.
+                  <?= $learning_path['description'] ?>
                 </p>
               </div>
             </div>
@@ -157,7 +156,7 @@
               </div>
               <div class="text-start lg:border-r lg:border-gray-200 lg:text-center">
                 <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Jumlah Materi</p>
-                <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">20</p>
+                <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">10</p>
               </div>
               <div class="text-start lg:border-r lg:border-gray-200s lg:text-center">
                 <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Tanggal Publish</p>

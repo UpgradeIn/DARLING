@@ -13,14 +13,19 @@ Profile Saya | Damri Course
         <div class="w-full mx-auto text-xl text-center">
             <h3>Informasi mengenai profile, divisi, dan jabatan</h3>
         </div>
-        <div >
+        <div>
             <!-- Grid -->
-             <div class="text-center">
-             <div class="relative inline-block">
-                <img class="rounded-full size-24 mx-auto mt-2" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Image Description">
-                <span class="absolute bottom-0 end-0 block size-3.5 rounded-full ring-2 ring-white bg-yellow-400 dark:ring-neutral-900"></span>
+            <div class="text-center">
+                <div class="relative inline-block">
+                    <img class="rounded-full size-24 mx-auto mt-2" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=900&h=900&q=80" alt="Image Description">
+                    <span class="absolute bottom-0 end-0 block rounded-full ring-2 ring-white bg-yellow-400 dark:ring-neutral-900">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil">
+                            <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path>
+                            <path d="m15 5 4 4"></path>
+                        </svg>
+                    </span>
+                </div>
             </div>
-             </div>
             <div class="space-y-2">
                 <label for="af-submit-app-project-name" class="inline-block text-sm font-medium text-gray-800 mt-2.5 dark:text-neutral-200">
                     Nama Lengkap

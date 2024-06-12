@@ -16,7 +16,7 @@
     <?= $this->section('content') ?>
     <?php $role = session('role') ?>
 
-    <section class="w-full mx-auto py-5 px-10 mt-20">
+    <section class="w-full mx-auto py-5 px-10 mt-20 -h-screen">
         <div class="grid grid-cols-3 gap-2">
             <div class="max-w-xs flex flex-col">
                 <div class="border border-gray-300 dark:border-neutral-700 rounded-md">

@@ -88,23 +88,10 @@ class User extends BaseController
 
     public function detailLearningPath($slug)
     {
-        $data_learning_path = $this->learning_path_model->where('slug', $slug)
-            ->where('status', 'publish')
-            ->first();
-        if ($data_learning_path != null) {
-            $builder = $this->learning_path_course_model;
-            $builder->select('tb_learning_path_courses.*, tb_courses.*');
-            $builder->join('tb_courses', 'tb_courses.id = tb_learning_path_courses.course_id');
-            $builder->where('tb_learning_path_courses.learning_path_id', $data_learning_path['id']);
-            $builder->orderBy('tb_learning_path_courses.sequence', 'ASC');
-            $data_learning_path_course = $builder->get()->getResultArray();
-
-            return view('user/datail-learning-path', [
-                'data_learning_path' => $data_learning_path,
-                'data_learning_path_course' => $data_learning_path_course
-            ]);
-        } else {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+        $learning_path = $this->learning_path_model->where('slug', $slug)->first();
+        $data = [
+            'learning_path' => $learning_path
+        ];   
+        return view('user/detail-learning-path', $data);
     }
 }

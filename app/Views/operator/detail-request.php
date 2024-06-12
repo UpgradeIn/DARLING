@@ -1,9 +1,64 @@
 <?= $this->extend('layouts/template') ?>
 
 <?= $this->section('page_title') ?>
-    Manage Assignment | Damri Course
+Detail Request | Damri Course
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-    <h1>Detail Request</h1>
+<section class="w-full mx-auto min-h-screen px-5 mt-12 sm:px-10 md:px-20 lg:px-30 xl:px-40 sm:mt-20">
+    <div class="flex flex-col lg:flex-row items-center bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70 p-5 lg:p-8">
+        <img class="inline-block h-[100px] w-[100px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description">
+        <div class="flex flex-col lg:flex-row justify-between w-full mt-4 lg:mt-0 lg:ml-4">
+            <div class="p-4 lg:p-5 text-center">
+                <h3 class="text-md text-gray-500 dark:text-white">Kode Penugasan</h3>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">12140546789</p>
+            </div>
+            <div class="p-4 lg:p-5 text-center">
+                <h3 class="text-md text-gray-500 dark:text-white">Divisi Saat Ini</h3>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">FINANCE</p>
+            </div>
+            <div class="p-4 lg:p-5 text-center">
+                <h3 class="text-md text-gray-500 dark:text-white">Jabatan Saat Ini</h3>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">MANAJER</p>
+            </div>
+            <div class="p-4 lg:p-5 text-center">
+                <h3 class="text-md text-gray-500 dark:text-white">Learning Path yang Ditugaskan</h3>
+                <p class="mt-1 text-gray-800 font-bold dark:text-neutral-400">ACCOUNTANCY</p>
+            </div>
+            <div class="p-4 lg:p-5 text-center">
+                <h3 class="text-md text-gray-500 dark:text-white">Status</h3>
+                <p class="mt-1 px-2 py-1 text-red-800 font-bold bg-red-400 rounded-md dark:text-neutral-400">Pending</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seksi Biodata -->
+    <div class="flex flex-col lg:flex-row justify-start w-full mt-4 lg:mt-6">
+        <div class="p-4 lg:p-5 text-start">
+            <h3 class="text-lg text-gray-800 font-bold dark:text-white">Dimas Ardianto</h3>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400">dimasardnt6@gmail.com</p>
+        </div>
+        <div class="p-4 lg:p-5 text-start">
+            <p class="mt-1 text-gray-500 dark:text-neutral-400">Bandung, Jawa Barat, Indonesia</p>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400">22 Tahun</p>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400">Laki - Laki</p>
+        </div>
+        <div class="p-4 lg:p-5 text-start lg:ml-auto">
+            <button type="button" class="py-1 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-blue-600 text-blue-600 hover:border-blue-500 hover:text-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:border-blue-500 dark:text-blue-500 dark:hover:text-blue-400 dark:hover:border-blue-400">
+                Terima
+            </button>
+            <button type="button" class="py-1 px-6 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-red-500 text-red-500 hover:border-red-400 hover:text-red-400 disabled:opacity-50 disabled:pointer-events-none">
+                Tolak
+            </button>
+        </div>
+    </div>
+
+    <!-- Seksi Pesan Penugasan -->
+    <div class="flex flex-col justify-start w-full mt-4 lg:mt-6">
+        <div class="p-4 lg:p-5 text-start">
+            <h3 class="text-lg text-gray-800 font-bold dark:text-white">Deskripsi Pengajuan</h3>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400">Selamat datang di Learning Path kami! Pesan kepada Anda adalah untuk tetap berkomitmen dan bersemangat dalam proses belajar ini. Manfaatkan setiap materi dan latihan dengan sepenuh hati, serta jangan ragu untuk bertanya atau berdiskusi dengan instruktur dan sesama peserta. Ingatlah bahwa proses belajar adalah perjalanan yang berkelanjutan, jadi tetaplah terbuka untuk belajar dari setiap pengalaman dan kesalahan. Dengan ketekunan dan dedikasi, Anda akan mencapai kemajuan yang luar biasa dalam pengembangan keterampilan Anda. Selamat belajar, dan semoga sukses!</p>
+        </div>
+    </div>
+</section>
 <?= $this->endSection() ?>

@@ -13,6 +13,12 @@ use App\Models\RequestLearningPathModel;
 
 class User extends BaseController
 {
+    protected $session;
+
+    public function __construct()
+    {
+        $this->session = session();
+    }
     //leraning path
 
     public function startCoures($slug, $id) // start learning path by slug
@@ -75,26 +81,30 @@ class User extends BaseController
     // request learning path
     public function requestLearningPath($slug)
     {
-        $model = new RequestLearningPathModel();
         $rules = [
-            'user_id' => 'required',
-            'learning_path_id' => 'required',
             'message' => 'required',
         ];
 
         if ($this->validate($rules)) {
-            
+            $userModel = new UsersModel();
+            $email = session('email');
+            $user = $userModel->where('email', $email)
+                ->first();
+
+            $requestLearningPathModel = new RequestLearningPathModel();
+
             $data = [
-                'user_id' => session('id'),
-                'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'user_id' => $user['id'],
+                'learning_path_id' => $slug,
                 'status' => 'pending',
-                'message' => $this->request->getVar('message'),
+                'message' => $this->request->getVar('message')
             ];
 
-            $model->save($data);
+            $this->session->setFlashdata('msg', 'Request Learning Path Success');
+            $requestLearningPathModel->save($data);
         } else {
             $data['validation'] = $this->validator;
-            return view(`course/$slug`, $data);
+            return redirect()->back()->withInput($data);
         }
     }
 }
