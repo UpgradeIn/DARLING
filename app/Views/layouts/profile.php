@@ -17,8 +17,8 @@
     <?php $role = session('role') ?>
 
     <section class="w-full mx-auto py-5 px-10 mt-20">
-        <div class="grid grid-cols-2">
-            <div class="row-span-2 max-w-xs flex flex-col">
+        <div class="grid grid-cols-3 gap-2">
+            <div class="max-w-xs flex flex-col">
                 <div class="border border-gray-300 dark:border-neutral-700 rounded-md">
                     <h2 class="text-lg font-semibold px-2 py-2 text-gray-800 dark:text-white">Navigasi Profile</h2>
                     <ul class="max-w-xs flex flex-col ">
@@ -33,7 +33,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="cols-span-4">
+            <div class="col-span-2">
                 <?= $this->renderSection('content') ?>
             </div>
         </div>

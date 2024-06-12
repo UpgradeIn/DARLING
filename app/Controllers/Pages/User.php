@@ -3,10 +3,20 @@
 namespace App\Controllers\Pages;
 
 use App\Controllers\BaseController;
+use App\Models\LearningPathModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class User extends BaseController
 {
+    protected $session;
+    protected $learningPathModel;
+
+    public function __construct()
+    {
+        $this->session = session();
+        $this->learningPathModel = new LearningPathModel();
+    }
+
     public function home()
     {
         return redirect()->to('/');
@@ -34,11 +44,20 @@ class User extends BaseController
 
     public function learningPath()
     {
-        return view('user/learning-path');
+        $learning_paths = $this->learningPathModel->findAll();
+        $data = [
+            'learning_paths' => $learning_paths
+        ];
+
+        return view('user/learning-path', $data);
     }
 
     public function detailLearningPath($slug)
     {
-        return view('user/detail-learning-path');
+        $learning_path = $this->learningPathModel->where('slug', $slug)->first();
+        $data = [
+            'learning_path' => $learning_path
+        ];   
+        return view('user/detail-learning-path', $data);
     }
 }
