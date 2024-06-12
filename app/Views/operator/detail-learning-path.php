@@ -512,6 +512,30 @@
                                           </span>
                                         </div>
                                       </th>
+                                      <th
+                                        scope="col"
+                                        class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start"
+                                      >
+                                        <div class="flex items-center gap-x-2">
+                                          <span
+                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-neutral-200"
+                                          >
+                                            Tipe Skill
+                                          </span>
+                                        </div>
+                                      </th>
+                                      <th
+                                        scope="col"
+                                        class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start"
+                                      >
+                                        <div class="flex items-center gap-x-2">
+                                          <span
+                                            class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-neutral-200"
+                                          >
+                                            Tipe Course
+                                          </span>
+                                        </div>
+                                      </th>
                                     </tr>
                                   </thead>
 
@@ -550,8 +574,35 @@
                                           </div>
                                         </div>
                                       </td>
+                                      <td class="size-px whitespace-nowrap">
+                                        <div
+                                          class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3"
+                                        >
+                                          <div
+                                            class="flex items-center gap-x-3"
+                                          >
+                                            <span
+                                              class="block text-sm font-semibold text-gray-800 dark:text-neutral-200"
+                                              >Soft Skill</span
+                                            >
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td class="size-px whitespace-nowrap">
+                                        <div
+                                          class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3"
+                                        >
+                                          <div
+                                            class="flex items-center gap-x-3"
+                                          >
+                                            <span
+                                              class="block text-sm font-semibold text-gray-800 dark:text-neutral-200"
+                                              >Mandatory</span
+                                            >
+                                          </div>
+                                        </div>
+                                      </td>
                                     </tr>
-
                                     <tr class="hover:bg-blue-100">
                                       <td class="size-px whitespace-nowrap">
                                         <div class="ps-6 py-3">
@@ -584,8 +635,35 @@
                                           </div>
                                         </div>
                                       </td>
+                                      <td class="size-px whitespace-nowrap">
+                                        <div
+                                          class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3"
+                                        >
+                                          <div
+                                            class="flex items-center gap-x-3"
+                                          >
+                                            <span
+                                              class="block text-sm font-semibold text-gray-800 dark:text-neutral-200"
+                                              >Hard Skill</span
+                                            >
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td class="size-px whitespace-nowrap">
+                                        <div
+                                          class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3"
+                                        >
+                                          <div
+                                            class="flex items-center gap-x-3"
+                                          >
+                                            <span
+                                              class="block text-sm font-semibold text-gray-800 dark:text-neutral-200"
+                                              >Opsional</span
+                                            >
+                                          </div>
+                                        </div>
+                                      </td>
                                     </tr>
-
                                     <tr class="hover:bg-blue-100">
                                       <td class="size-px whitespace-nowrap">
                                         <div class="ps-6 py-3">
@@ -614,6 +692,34 @@
                                             <span
                                               class="block text-sm font-semibold text-gray-800 dark:text-neutral-200"
                                               >Microsoft Word</span
+                                            >
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td class="size-px whitespace-nowrap">
+                                        <div
+                                          class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3"
+                                        >
+                                          <div
+                                            class="flex items-center gap-x-3"
+                                          >
+                                            <span
+                                              class="block text-sm font-semibold text-gray-800 dark:text-neutral-200"
+                                              >Soft Skill</span
+                                            >
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td class="size-px whitespace-nowrap">
+                                        <div
+                                          class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3"
+                                        >
+                                          <div
+                                            class="flex items-center gap-x-3"
+                                          >
+                                            <span
+                                              class="block text-sm font-semibold text-gray-800 dark:text-neutral-200"
+                                              >Mandatory</span
                                             >
                                           </div>
                                         </div>

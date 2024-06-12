@@ -31,3 +31,20 @@ function previewImageLearningPath(event) {
   };
   reader.readAsDataURL(input.files[0]);
 }
+
+function previewImageNews(event) {
+  var input = event.target;
+  var reader = new FileReader();
+  reader.onload = function () {
+    var output = document.getElementById("thumbnail_preview_news");
+    output.src = reader.result;
+    output.style.display = "block";
+
+    // Hide the SVG and the text
+    var svgElement = document.getElementById("svg_thumbnail_news");
+    var textElement = document.getElementById("teks_thumbnail_news");
+    svgElement.style.display = "none";
+    textElement.style.display = "none";
+  };
+  reader.readAsDataURL(input.files[0]);
+}

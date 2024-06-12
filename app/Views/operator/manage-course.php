@@ -154,8 +154,7 @@
                         <div
                           class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70">
                           <div
-                            class="py-3 px-4 border-b dark:border-neutral-800"
-                          >
+                            class="py-3 px-4 border-b dark:border-neutral-800">
                             <h2
                               class="text-xl font-bold text-gray-800 dark:text-neutral-200"
                             >
@@ -456,7 +455,7 @@
                           <span
                             class="text-xs dark:text-neutral-400"
                           >
-                            <?php if ($course['status'] === 'published'): ?>
+                            <?php if ($course['status'] === 'publish'): ?>
                             <span class="text-xs text-green-800 bg-green-100 py-1 px-1.5 rounded-md">Published</span>
                             <?php elseif ($course['status'] === 'draft'): ?>
                             <span class="text-xs text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-md">Draft</span>
@@ -936,7 +935,7 @@
                           <span
                             class="text-xs dark:text-neutral-400"
                           >
-                            <?php if ($lp['status'] === 'published'): ?>
+                            <?php if ($lp['status'] === 'publish'): ?>
                             <span class="text-xs text-green-800 bg-green-100 py-1 px-1.5 rounded-md">Published</span>
                             <?php elseif ($lp['status'] === 'draft'): ?>
                             <span class="text-xs text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-md">Draft</span>

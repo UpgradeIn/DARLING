@@ -25,11 +25,13 @@ class Operator extends BaseController
     protected $session;
     protected $courseModel;
     protected $learningpathModel;
+    protected $newsModel;
 
 
     public function __construct()
     {
         $this->session = session();
+        $this->newsModel = new NewsModel();
         $this->courseModel = new CourseModel();
         $this->learningpathModel = new LearningPathModel();
     }
@@ -829,37 +831,28 @@ class Operator extends BaseController
         $rules = [
             'title'          => 'required',
             'content'        => 'required',
-            'thumbnail'      => 'uploaded[thumbnail]|max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-            'status'         => 'required|in_list[publish,draft]',
+            'thumbnail_news'      => 'uploaded[thumbnail_news]|max_size[thumbnail_news,5120]|is_image[thumbnail_news]|mime_in[thumbnail_news,image/jpg,image/jpeg,image/png]',
         ];
 
         if ($this->validate($rules)) {
-            $model = new NewsModel();
-            $thumbnail = $this->request->getFile('thumbnail');
-
-            //generate random name
-            $nameThumbnail = $thumbnail->getRandomName();
-
-            $thumbnail->move('thumbnailNews', $nameThumbnail);
+            $thumbnail = $this->request->getFile('thumbnail_news');
+            $thumbnail->move('images-thumbnail');
+            $nameThumbnail = $thumbnail->getName();
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
                 'title'          => $this->request->getVar('title'),
                 'content'        => $this->request->getVar('content'),
-                'status'         => $this->request->getVar('status'),
-                'created_at'  => Time::now(),
-                'updated_at'  => Time::now(),
+                'status'         => 'draft',
+                'published_at'  => null,
             ];
-            if ($this->request->getVar('status') == 'publish') {
-                $data['published_at'] = Time::now();
-            } else {
-                $data['published_at'] = null;
-            }
-            $model->save($data);
+
+            $this->newsModel->save($data);
+            $this->session->setFlashdata('msg', 'Berhasil menambahkan news baru');
             return redirect()->to('manage-news');
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage-news', $data);
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
