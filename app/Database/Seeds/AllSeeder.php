@@ -68,6 +68,9 @@ class AllSeeder extends Seeder
                 'slug'          => 'codeigniter-4',
                 'description'   => 'Belajar CodeIgniter 4',
                 'module'        => 'base_module.pdf',
+                'status'        => 'publish',
+                'skill_type'    => 'soft-skill',
+                'course_type'   => 'mandatory',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -79,6 +82,9 @@ class AllSeeder extends Seeder
                 'slug'          => 'laravel-8',
                 'description'   => 'Belajar Laravel 8',
                 'module'        => 'base_module.pdf',
+                'status'        => 'publish',
+                'skill_type'    => 'hard-skill',
+                'course_type'   => 'mandatory',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -90,6 +96,9 @@ class AllSeeder extends Seeder
                 'slug'          => 'php-8',
                 'description'   => 'Belajar PHP 8',
                 'module'        => 'base_module.pdf',
+                'status'        => 'publish',
+                'skill_type'    => 'soft-skill',
+                'course_type'   => 'optional',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -101,6 +110,9 @@ class AllSeeder extends Seeder
                 'slug'          => 'public-speaking',
                 'description'   => 'Belajar Public Speaking',
                 'module'        => 'base_module.pdf',
+                'status'        => 'publish',
+                'skill_type'    => 'soft-skill',
+                'course_type'   => 'optional',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -112,6 +124,9 @@ class AllSeeder extends Seeder
                 'slug'          => 'kepemimpinan',
                 'description'   => 'Belajar Kepemimpinan',
                 'module'        => 'base_module.pdf',
+                'status'        => 'publish',
+                'skill_type'    => 'soft-skill',
+                'course_type'   => 'optional',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -123,6 +138,9 @@ class AllSeeder extends Seeder
                 'slug'          => 'perawatan-armada',
                 'description'   => 'Belajar Perawatan Armada',
                 'module'        => 'base_module.pdf',
+                'status'        => 'publish',
+                'skill_type'    => 'hard-skill',
+                'course_type'   => 'mandatory',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -134,6 +152,9 @@ class AllSeeder extends Seeder
                 'slug'          => 'perawatan-server',
                 'description'   => 'Belajar Perawatan Server',
                 'module'        => 'base_module.pdf',
+                'status'        => 'publish',
+                'skill_type'    => 'soft-skill',
+                'course_type'   => 'mandatory',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -305,6 +326,7 @@ class AllSeeder extends Seeder
                 'slug'          => 'it-fundamentals',
                 'description'   => 'Comprehensive bootcamp covering IT fundamentals.',
                 'period'        => 4,
+                'status'        => 'publish', 
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -316,6 +338,7 @@ class AllSeeder extends Seeder
                 'slug'          => 'marketing',
                 'description'   => 'Comprehensive bootcamp covering marketing fundamentals.',
                 'period'        => 6,
+                'status'        => 'publish', 
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
