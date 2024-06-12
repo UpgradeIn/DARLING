@@ -90,7 +90,7 @@ $routes->group('', ['filter' => 'pages:officials'], static function($routes) {
 $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('operator', 'Pages\Operator::dashboard');
     $routes->get('manage-assignment-request', 'Pages\Operator::manageAssigmentRequest');
-    $routes->get('detail-assignment/(:num)', 'Pages\Operator::detailAssigment/$1');
+    $routes->get('detail-assignment/(:num)', 'Pages\Operator::detailAssignment/$1');
     $routes->get('detail-request/(:num)', 'Pages\Operator::detailRequest/$1');
     $routes->get('detail-learning-path/(:any)', 'Pages\Operator::detailLearningPath/$1');
     $routes->get('manage-course', 'Pages\Operator::manageCourse');

@@ -681,9 +681,9 @@ class Operator extends BaseController
     public function assignLearningPath()
     { 
         $rules = [
-            'user_id'                     => 'required',
-            'learning_path_id'            => 'required',
-            'message_assignment'          => 'required',
+            'user'                     => 'required',
+            'learning_path'            => 'required',
+            'message_assignment'       => 'required',
         ];
 
         if ($this->validate($rules)) {
@@ -694,8 +694,8 @@ class Operator extends BaseController
                 ->first();
 
             $data = [
-                'user_id'          => $this->request->getVar('user_id'),
-                'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'user_id'          => $this->request->getVar('user'),
+                'learning_path_id' => $this->request->getVar('learning_path'),
                 'admin_id'         => $user['id'],
                 'message_assignment' => $this->request->getVar('message_assignment'),
             ];
@@ -705,12 +705,12 @@ class Operator extends BaseController
 
             // get data learning path
             $modelLearningPath = new LearningPathModel();
-            $learningPath = $modelLearningPath->find($this->request->getVar('learning_path_id'));
+            $learningPath = $modelLearningPath->find($this->request->getVar('learning_path'));
 
             $userLearningPathModel = new UserLearningPathModel();
             $data = [
-                'user_id' => $this->request->getVar('user_id'),
-                'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'user_id' => $this->request->getVar('user'),
+                'learning_path_id' => $this->request->getVar('learning_path'),
                 'status' => 'not-started',
                 'start_date' => Time::now(),
                 'end_date' => Time::now()->addMonths($learningPath['period']),
