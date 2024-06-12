@@ -6,6 +6,21 @@
 
 <?= $this->section('content') ?>
     <section class="w-full mx-auto min-h-screen px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-14">
+    <?php if (session()->has('errors')): ?>
+        <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+            <?php $errors = session('errors'); echo esc(array_shift($errors))?>
+        </div>
+    <?php endif; ?>
+    <?php if(session()->getFlashdata('msg')):?>
+            <div class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg">
+                <?= session()->getFlashdata('msg') ?>
+            </div>
+        <?php endif;?>
+    <?php if(session()->getFlashdata('msg-failed')):?>
+            <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+                <?= session()->getFlashdata('msg-failed') ?>
+            </div>
+    <?php endif;?>
       <div class="pb-5">
         <h1
           class="text-xl font-semibold text-gray-800 md-text-xl lg:text-2xl dark:text-neutral-200"
@@ -135,7 +150,7 @@
                           class="md:px-4 hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
                         >
                           <form
-                            action="<?= base_url('create-assignment'); ?>"
+                            action="<?= base_url('assign-learningpath'); ?>"
                             method="POST"
                             enctype="multipart/form-data"
                           >
@@ -170,15 +185,15 @@
                                         <!-- Nama Pegawai -->
                                         <div>
                                           <label
-                                            for="nama pegawai"
+                                            for="user"
                                             class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
                                             >Nama Pegawai</label
                                           >
                                           <div class="relative">
                                             <input
                                               type="text"
-                                              id="nama_pegawai"
-                                              name="nama_pegawai"
+                                              id="user"
+                                              name="user"
                                               class="py-2 px-3 ps-11 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                               placeholder="Search"
                                             />
@@ -211,17 +226,17 @@
                                               >Learning Path</label
                                             >
                                             <select
+                                              name="learning_path"
                                               class="py-3 px-3 pe-9 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                            >
-                                              <option selected disabled>
+                                              >
+                                              <option selected disabled value="">
                                                 Pilih Learning Path
                                               </option>
-                                              <option value="learning path 1">
-                                                Learning Path 1
+                                              <?php foreach ($learningPaths as $learningPath) : ?>
+                                              <option value="<?= $learningPath['id'] ?>">
+                                                <?= $learningPath['name']; ?>
                                               </option>
-                                              <option value="learning path 2">
-                                                Learning Path 2
-                                              </option>
+                                              <?php endforeach; ?>
                                             </select>
                                           </div>
                                         </div>
@@ -230,14 +245,14 @@
                                         <!-- Pesan Penugasan -->
                                         <div>
                                           <label
-                                            for="pesan_penugasan"
+                                            for="message_assignment"
                                             class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
                                             >Pesan Penugasan</label
                                           >
                                           <textarea
-                                            id="pesan_penugasan"
+                                            id="message_assignment"
                                             placeholder="Inputkan pesan penugasan"
-                                            name="pesan_penugasan"
+                                            name="message_assignment"
                                             rows="4"
                                             class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                                           ></textarea>
@@ -370,20 +385,21 @@
                           </td>
                         </tr> -->
                         <!-- END KONDISI KALAU GAADA COURSE -->
+                        <?php foreach ($assign_learning_paths as $key => $assign_learning_path) : ?>
                         <tr>
                           <td class="size-px whitespace-nowrap">
                             <div class="px-6 py-3">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >1.</span
-                              >
+                                ><?= $key + 1; ?></span
+                              >.
                             </div>
                           </td>
                           <td class="size-px whitespace-nowrap">
                             <div class="px-6 py-3">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >Dimas Ardianto</span
+                                ><?= $assign_learning_path['user_fullname']; ?></span
                               >
                             </div>
                           </td>
@@ -391,7 +407,7 @@
                             <div class="px-6 py-3 text-start">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >06/01/2024</span
+                                ><?= date('d-m-Y', strtotime($assign_learning_path['created_at'])); ?></span
                               >
                             </div>
                           </td>
@@ -399,7 +415,7 @@
                             <div class="px-6 py-3 text-center">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >Akutansi</span
+                                ><?= $assign_learning_path['learning_path_name']; ?></span
                               >
                             </div>
                           </td>
@@ -408,7 +424,7 @@
                               <div
                                 class="hs-dropdown [--placement:bottom-right] relative inline-block"
                               >
-                                <a href="" type="button" class="block">
+                                <a href="<?= base_url('detail-assignment/').$assign_learning_path['id'] ?>" type="button" class="block">
                                   <span class="px-6 py-1.5">
                                     <span
                                       class="py-1 px-2 inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
@@ -436,6 +452,7 @@
                             </div>
                           </td>
                         </tr>
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                     <!-- End Table -->
