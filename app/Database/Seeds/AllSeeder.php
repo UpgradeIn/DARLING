@@ -9,6 +9,7 @@ class AllSeeder extends Seeder
 {
     public function run()
     {
+        // DATA ROLES
         $data_roles = [
             [
                 'name'           => 'officials',
@@ -30,8 +31,7 @@ class AllSeeder extends Seeder
             ],
         ];
 
-        $this->db->table('tb_roles')->insertBatch($data_roles);
-
+        // DATA USERS
         $data_users = [
             [
                 'email'          => 'officials@gmail.com',
@@ -59,8 +59,7 @@ class AllSeeder extends Seeder
             ],
         ];
 
-        $this->db->table('tb_users')->insertBatch($data_users);
-
+        // DATA COURSES
         $data_courses = [
             [
                 'id'            => 1,
@@ -140,236 +139,164 @@ class AllSeeder extends Seeder
                 'updated_at'    => Time::now()
             ],
         ];
-        
-        $this->db->table('tb_courses')->insertBatch($data_courses);
-        $data_subcourses = [
-            [
-                'id'            => 1,
-                'title'         => 'Introduction to CodeIgniter 4',
-                'course_id'     => 1,
-                'sequence'      => 1,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 2,
-                'title'         => 'Setting Up CodeIgniter 4',
-                'course_id'     => 1,
-                'sequence'      => 2,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 3,
-                'title'         => 'Introduction to Laravel 8',
-                'course_id'     => 2,
-                'sequence'      => 1,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 4,
-                'title'         => 'Setting Up Laravel 8',
-                'course_id'     => 2,
-                'sequence'      => 2,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 5,
-                'title'         => 'Introduction to PHP 8',
-                'course_id'     => 3,
-                'sequence'      => 1,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 6,
-                'title'         => 'PHP 8 New Features',
-                'course_id'     => 3,
-                'sequence'      => 2,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 7,
-                'title'         => 'Public Speaking Basics',
-                'course_id'     => 4,
-                'sequence'      => 1,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 8,
-                'title'         => 'Advanced Public Speaking Techniques',
-                'course_id'     => 4,
-                'sequence'      => 2,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 9,
-                'title'         => 'Introduction to Leadership',
-                'course_id'     => 5,
-                'sequence'      => 1,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 10,
-                'title'         => 'Leadership Styles and Techniques',
-                'course_id'     => 5,
-                'sequence'      => 2,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 11,
-                'title'         => 'Fleet Maintenance Basics',
-                'course_id'     => 6,
-                'sequence'      => 1,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 12,
-                'title'         => 'Advanced Fleet Maintenance',
-                'course_id'     => 6,
-                'sequence'      => 2,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 13,
-                'title'         => 'Introduction to Server Maintenance',
-                'course_id'     => 7,
-                'sequence'      => 1,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 14,
-                'title'         => 'Advanced Server Maintenance Techniques',
-                'course_id'     => 7,
-                'sequence'      => 2,
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-        ];
-        
-        $this->db->table('tb_subcourses')->insertBatch($data_subcourses);
 
-        $data_video_materials = [
-            [
-                'id'            => 1,
-                'subcourse_id'  => 1,
-                'video_url'     => 'XseAIiQY9Hk',
+        // DATA SUBCOURSES
+        $data_subcourses = [];
+        $csc = 1;
+        for ($i = 1; $i <= 28; $i++) {
+            $data_subcourses[] = [
+                'id'            => $i,
+                'title'         => 'Pre Test',
+                'course_id'     => $csc,
+                'sequence'      => 1,
+                'type'          => 'test',
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 2,
-                'subcourse_id'  => 2,
-                'video_url'     => 'XseAIiQY9Hk',
+            ];
+            $i = $i + 1;
+            $data_subcourses[] = [
+                'id'            => $i,
+                'title'         => 'Subcourse 1',
+                'course_id'     => $csc,
+                'sequence'      => 2,
+                'type'          => 'video',
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 3,
-                'subcourse_id'  => 3,
-                'video_url'     => 'XseAIiQY9Hk',
+            ];
+            $i = $i + 1;
+            $data_subcourses[] = [
+                'id'            => $i,
+                'title'         => 'Subcourse 2',
+                'course_id'     => $csc,
+                'sequence'      => 3,
+                'type'          => 'video',
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 4,
-                'subcourse_id'  => 4,
-                'video_url'     => 'XseAIiQY9Hk',
+            ];
+            $i = $i + 1;
+            $data_subcourses[] = [
+                'id'            => $i,
+                'title'         => 'Post Test',
+                'course_id'     => $csc,
+                'sequence'      => 4,
+                'type'          => 'test',
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 5,
-                'subcourse_id'  => 5,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 6,
-                'subcourse_id'  => 6,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 7,
-                'subcourse_id'  => 7,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 8,
-                'subcourse_id'  => 8,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 9,
-                'subcourse_id'  => 9,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 10,
-                'subcourse_id'  => 10,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 11,
-                'subcourse_id'  => 11,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 12,
-                'subcourse_id'  => 12,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 13,
-                'subcourse_id'  => 13,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-            [
-                'id'            => 14,
-                'subcourse_id'  => 14,
-                'video_url'     => 'XseAIiQY9Hk',
-                'created_at'    => Time::now(),
-                'updated_at'    => Time::now()
-            ],
-        ];        
+            ];
+            $csc = $csc + 1;
+        }
 
-        $this->db->table('tb_video_materials')->insertBatch($data_video_materials);
+        // DATA VIDEO MATERIALS
+        $data_video_materials = [];
+        $scv = 1;
+        for ($i = 1; $i <= 14; $i++) {
+            $scv = $scv + 1;
+            $data_video_materials[] = [
+                'id'            => $i,
+                'subcourse_id'  => $scv,
+                'video_url'     => 'XseAIiQY9Hk',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ];
+            $scv = $scv + 1;
+            $i = $i + 1;
+            $data_video_materials[] = [
+                'id'            => $i,
+                'subcourse_id'  => $scv,
+                'video_url'     => 'XseAIiQY9Hk',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ];
+            $scv = $scv + 2;
+        }
 
-        // $data_test_materials = [];
+        // DATA TEST MATERIALS
+        $data_test_materials = [];
 
-        // $this->db->table('tb_test_materials')->insertBatch($data_test_materials);
-        
-        // $data_option_materials = [];
+        $sct = 1;
+        for ($i = 1; $i <= 28; $i++) {
+            $data_test_materials[] = [
+                'id'            => $i,
+                'subcourse_id'  => $sct,
+                'sequence'      => 1,
+                'content'     => 'PIlih jawaban yang benar',
+                'type_test'     => 'pre_test',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ];
+            $i = $i + 1;
+            $data_test_materials[] = [
+                'id'            => $i,
+                'subcourse_id'  => $sct,
+                'sequence'      => 2,
+                'content'     => 'PIlih jawaban yang benar',
+                'type_test'     => 'pre_test',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ];
 
-        // $this->db->table('tb_option_tests')->insertBatch($data_option_materials);
-    
+            $sct = $sct + 3;
+            $i = $i + 1;
+
+            $data_test_materials[] = [
+                'id'            => $i,
+                'subcourse_id'  => $sct,
+                'sequence'      => 1,
+                'content'     => 'PIlih jawaban yang benar',
+                'type_test'     => 'post_test',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ];
+            $i = $i + 1;
+            $data_test_materials[] = [
+                'id'            => $i,
+                'subcourse_id'  => $sct,
+                'sequence'      => 2,
+                'content'     => 'PIlih jawaban yang benar',
+                'type_test'     => 'post_test',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ];
+
+            $sct = $sct + 1;
+        }
+
+        // DATA OPTION MATERIALS
+        $data_option_materials = [];
+        for ($i = 1; $i <= 28; $i++) {
+            $chars = 'abcd';
+            $randomChar = $chars[rand(0, strlen($chars) - 1)];
+            $data_option_materials[] = [
+                'test_material_id'  => $i,
+                'answer'           => 'Pilihan A',
+                'correct'        => ($randomChar === 'a') ? 1 : 0,
+                'created_at'        => Time::now(),
+                'updated_at'        => Time::now()
+            ];
+            $data_option_materials[] = [
+                'test_material_id'  => $i,
+                'answer'           => 'Pilihan B',
+                'correct'        => ($randomChar === 'b') ? 1 : 0,
+                'created_at'        => Time::now(),
+                'updated_at'        => Time::now()
+            ];
+            $data_option_materials[] = [
+                'test_material_id'  => $i,
+                'answer'           => 'Pilihan C',
+                'correct'        => ($randomChar === 'c') ? 1 : 0,
+                'created_at'        => Time::now(),
+                'updated_at'        => Time::now()
+            ];
+            $data_option_materials[] = [
+                'test_material_id'  => $i,
+                'answer'           => 'Pilihan D',
+                'correct'        => ($randomChar === 'd') ? 1 : 0,
+                'created_at'        => Time::now(),
+                'updated_at'        => Time::now()
+            ];
+        }
+
+        // DATA LEARNING PATHS
         $data_learning_paths = [
             [
                 'id'            => 1,
@@ -394,9 +321,8 @@ class AllSeeder extends Seeder
                 'updated_at'    => Time::now()
             ],
         ];
-        
-        $this->db->table('tb_learning_paths')->insertBatch($data_learning_paths);
-    
+
+        // DATA LEARNING PATH COURSES
         $data_learning_path_courses = [
             [
                 'id'                => 1,
@@ -464,6 +390,15 @@ class AllSeeder extends Seeder
             ],
         ];
 
+
+        $this->db->table('tb_roles')->insertBatch($data_roles);
+        $this->db->table('tb_users')->insertBatch($data_users);
+        $this->db->table('tb_courses')->insertBatch($data_courses);
+        $this->db->table('tb_subcourses')->insertBatch($data_subcourses);
+        $this->db->table('tb_video_materials')->insertBatch($data_video_materials);
+        $this->db->table('tb_test_materials')->insertBatch($data_test_materials);
+        $this->db->table('tb_option_tests')->insertBatch($data_option_materials);
+        $this->db->table('tb_learning_paths')->insertBatch($data_learning_paths);
         $this->db->table('tb_learning_path_courses')->insertBatch($data_learning_path_courses);
     }
 }
