@@ -115,6 +115,7 @@ $routes->group('', ['filter' => 'pages:user'], static function($routes) {
     $routes->get('course/(:segment)/sub/(:num)', 'Pages\User::subCourse/$1/$2');
     $routes->get('learning-path', 'Pages\User::learningPath');
     $routes->get('learning-path/(:any)', 'Pages\User::detailLearningPath/$1');
+    $routes->get('my-learning-path', 'Pages\User::learningPathByUserId');
 });
 
 $routes->get('/', 'Index::index');

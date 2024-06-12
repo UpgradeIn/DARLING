@@ -5,38 +5,22 @@ namespace App\Controllers\Actions;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\UsersModel;
+use App\Models\LearningPathModel;
+use App\Models\UserLearningPathModel;
 use App\Models\UserSubCourseModel;
 use App\Models\UserAnswerModel;
+use App\Models\RequestLearningPathModel;
 
 class User extends BaseController
 {
     //leraning path
-    public function getLearningPathsByUserID() // get learning path by user id
-    {
-    }
 
-    public function getLearningPathBySlug($slug) // get learning path by slug and get all courses in learning path
+    public function startCoures($slug, $id) // start learning path by slug
     {
+        
     }
-
-    public function getAllLearningPaths() // get all learning paths
-    {
-    }
-
-    public function startLearningPath($slug) // start learning path by slug
-    {
-    }
-
-    // courses
-    public function getCourseBySlug($slug) // get course by slug and get all sub courses in course
-    {
-    }
-
 
     // sub courses
-    public function getSubCourseById($slug, $id) // get sub course by slug
-    {
-    }
 
     public function statusSubCourse($id) // start sub course by slug
     {
@@ -46,15 +30,10 @@ class User extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $userModel = new UsersModel();
-            $email = session('email');
-            $user = $userModel->where('email', $email)
-                ->first();
-
             $subcourse_model = new UserSubCourseModel();
 
             $data = [
-                'user_id' => $user['id'],
+                'user_id' => session('id'),
                 'subcourse_id' => $id,
                 'status' => $this->request->getVar('status')
             ];
@@ -93,14 +72,29 @@ class User extends BaseController
         }
     }
 
-    public function updateTestAnswer($id) // update answer for sub course
-    {
-    }
-
-
-
     // request learning path
     public function requestLearningPath($slug)
     {
+        $model = new RequestLearningPathModel();
+        $rules = [
+            'user_id' => 'required',
+            'learning_path_id' => 'required',
+            'message' => 'required',
+        ];
+
+        if ($this->validate($rules)) {
+            
+            $data = [
+                'user_id' => session('id'),
+                'learning_path_id' => $this->request->getVar('learning_path_id'),
+                'status' => 'pending',
+                'message' => $this->request->getVar('message'),
+            ];
+
+            $model->save($data);
+        } else {
+            $data['validation'] = $this->validator;
+            return view(`course/$slug`, $data);
+        }
     }
 }
