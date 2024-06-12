@@ -3,6 +3,7 @@
 namespace App\Controllers\Actions;
 
 use App\Controllers\BaseController;
+use App\Models\RequestLearningPathModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\UsersModel;
 use App\Models\UserSubCourseModel;
@@ -10,6 +11,12 @@ use App\Models\UserAnswerModel;
 
 class User extends BaseController
 {
+    protected $session;
+
+    public function __construct()
+    {
+        $this->session = session();
+    }
     //leraning path
     public function getLearningPathsByUserID() // get learning path by user id
     {
@@ -102,5 +109,30 @@ class User extends BaseController
     // request learning path
     public function requestLearningPath($slug)
     {
+        $rules = [
+            'message' => 'required',
+        ];
+
+        if ($this->validate($rules)) {
+            $userModel = new UsersModel();
+            $email = session('email');
+            $user = $userModel->where('email', $email)
+                ->first();
+
+            $requestLearningPathModel = new RequestLearningPathModel();
+
+            $data = [
+                'user_id' => $user['id'],
+                'learning_path_id' => $slug,
+                'status' => 'pending',
+                'message' => $this->request->getVar('message')
+            ];
+
+            $this->session->setFlashdata('msg', 'Request Learning Path Success');
+            $requestLearningPathModel->save($data);
+        } else {
+            $data['validation'] = $this->validator;
+            return redirect()->back()->withInput($data);
+        }
     }
 }
