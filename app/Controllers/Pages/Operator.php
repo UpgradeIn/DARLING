@@ -48,7 +48,7 @@ class Operator extends BaseController
             'users' => $users,
             'learningPaths' => $learningPaths
         ];
-        return view('operator/abs-manage-assignment-request', $data);
+        return view('operator/manage-assignment-request', $data);
     }
 
     public function detailAssigment($id)
