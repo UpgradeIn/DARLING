@@ -157,7 +157,7 @@
               </div>
               <div class="text-start lg:border-r lg:border-gray-200 lg:text-center">
                 <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Jumlah Materi</p>
-                <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">20</p>
+                <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">10</p>
               </div>
               <div class="text-start lg:border-r lg:border-gray-200s lg:text-center">
                 <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Tanggal Publish</p>
