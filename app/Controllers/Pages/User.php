@@ -16,9 +16,9 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class User extends BaseController
 {
-    protected $course_model;
     protected $user_course_model;
     protected $learning_path_model;
+    protected $course_model;
     protected $user_learning_path_model;
     protected $learning_path_course_model;
     protected $request_learning_path_model;
@@ -38,10 +38,16 @@ class User extends BaseController
         return redirect()->to('/');
     }
 
+    public function detailNews($slug)
+    {
+        $data = [
+            'slug' => $slug
+        ];
+        return view('user/detail-news', $data);
+    }
+
     public function course()
     {
-
-
         return view('user/course');
     }
 

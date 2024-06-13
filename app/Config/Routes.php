@@ -120,4 +120,5 @@ $routes->group('', ['filter' => 'pages:user'], static function($routes) {
     $routes->get('my-learning-path', 'Pages\User::learningPathByUserId');
 });
 
+// Public
 $routes->get('/', 'Index::index');
