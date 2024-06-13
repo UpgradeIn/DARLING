@@ -34,17 +34,25 @@ class Index extends BaseController
 
         //GET STATISTIC
         //get total learning path
-        $total_learning_path = $this->learning_path_model->countAll();
+        $total_learning_path = $this->learning_path_model
+        ->where('status', 'publish')
+        ->countAll();
 
         //get total course
-        $total_course = $this->course_model->countAll();
+        $total_course = $this->course_model
+        ->where('status', 'publish')
+        ->countAll();
 
         //get total video
-        $total_video = $this->sub_course_model->where('type', 'video')->countAll();
+        $total_video = $this->sub_course_model
+        ->join('tb_courses', 'tb_courses.id = tb_subcourses.course_id')
+        ->where('tb_courses.status', 'publish')
+        ->where('tb_subcourses.type', 'video')
+        ->countAllResults();
 
         //get 4 newest news
         $data_news =  $this->news_model
-        ->select('tb_news.title, tb_news.thumbnail, tb_categories.name as category_name')
+        ->select('tb_news.title, tb_news.thumbnail, tb_news.published_at, tb_categories.name as category_name')
         ->join('tb_categories', 'tb_categories.id = tb_news.category_id')
         ->orderBy('tb_news.published_at', 'DESC')
         ->findAll(4);
@@ -60,5 +68,34 @@ class Index extends BaseController
         // dd($data);
 
         return view('index', $data);
+    }
+
+    public function news()
+    {
+        $data = [
+            'news' => $this->news_model
+            ->select('tb_news.title, tb_news.thumbnail, tb_news.published_at, tb_categories.name as category_name')
+            ->join('tb_categories', 'tb_categories.id = tb_news.category_id')
+            ->where('status', 'publish')
+            ->orderBy('published_at', 'DESC')
+            ->findAll()
+        ];
+
+        dd($data);
+
+        return view('allNews', $data);
+    }
+
+    public function detailNews($slug)
+    {
+        $news = $this->news_model
+        ->select('tb_news.*, tb_categories.name as category_name')
+        ->join('tb_categories', 'tb_categories.id = tb_news.category_id')
+        ->where('slug', $slug)->first();
+
+        $data = [
+            'news' => $news
+        ];
+        return view('detailNews', $data);
     }
 }

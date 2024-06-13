@@ -122,3 +122,5 @@ $routes->group('', ['filter' => 'pages:user'], static function($routes) {
 
 // Public
 $routes->get('/', 'Index::index');
+$routes->get('news', 'Index::news');
+$routes->get('news/(:segment)', 'Index::detailNews/$1');
