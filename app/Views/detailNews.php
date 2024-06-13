@@ -307,8 +307,7 @@
 
           <!-- Sidebar -->
           <div
-            class="lg:col-span-1 lg:w-full lg:h-full lg:bg-gradient-to-r lg:from-gray-50 lg:via-transparent lg:to-transparent dark:from-neutral-800"
-          >
+            class="lg:col-span-1 lg:w-full lg:h-full lg:bg-gradient-to-r lg:from-gray-50 lg:via-transparent lg:to-transparent dark:from-neutral-800">
             <div class="sticky top-0 start-0 py-8 lg:ps-8">
               <!-- Avatar Media -->
               <div
@@ -329,7 +328,7 @@
                     Leyla Ludic
                   </h5>
                   <p class="text-sm text-gray-500 dark:text-neutral-500">
-                    UI/UX enthusiast
+                    Admin
                   </p>
                 </a>
 
@@ -370,7 +369,7 @@
                     <span
                       class="text-sm font-bold text-gray-800 group-hover:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500"
                     >
-                      5 Reasons to Not start a UX Designer Career in 2022/2023
+                      Berita menarik lainnya
                     </span>
                   </div>
 
@@ -392,8 +391,7 @@
                     <span
                       class="text-sm font-bold text-gray-800 group-hover:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500"
                     >
-                      If your UX Portfolio has this 20% Well Done, it Will Give
-                      You an 80% Result
+                      Berita menarik lainnya
                     </span>
                   </div>
 
@@ -415,7 +413,7 @@
                     <span
                       class="text-sm font-bold text-gray-800 group-hover:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500"
                     >
-                      7 Principles of Icon Design
+                      Berita menarik lainnya
                     </span>
                   </div>
 
