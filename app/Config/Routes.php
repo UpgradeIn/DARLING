@@ -22,7 +22,7 @@ $routes->group('auth', static function($routes) {
 });
 
 // Actions/Officials
-$routes->group('officials', ['filter' => 'actions:officials'], static function($routes) {
+$routes->group('', ['filter' => 'actions:officials'], static function($routes) {
     $routes->post('abc', 'Actions\Officials::abc');
 });
 
@@ -67,8 +67,8 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
 });
 
 // Actions/User
-$routes->group('user', ['filter' => 'actions:user'], static function($routes) {
-    $routes->post('request-learningpath/(:any)', 'Actions\User::requestLearningPath/$1');
+$routes->group('', ['filter' => 'actions:user'], static function($routes) {
+    $routes->post('request-learning-path/(:any)', 'Actions\User::requestLearningPath/$1');
     $routes->post('status-subcourse/(:num)', 'Actions\User::statusSubCourse/$1');
 });
 
