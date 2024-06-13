@@ -326,7 +326,7 @@ class AllSeeder extends Seeder
                 'slug'          => 'it-fundamentals',
                 'description'   => 'Comprehensive bootcamp covering IT fundamentals.',
                 'period'        => 4,
-                'status'        => 'publish', 
+                'status'        => 'publish',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -338,7 +338,7 @@ class AllSeeder extends Seeder
                 'slug'          => 'marketing',
                 'description'   => 'Comprehensive bootcamp covering marketing fundamentals.',
                 'period'        => 6,
-                'status'        => 'publish', 
+                'status'        => 'publish',
                 'published_at'  => Time::now(),
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
@@ -413,6 +413,108 @@ class AllSeeder extends Seeder
             ],
         ];
 
+        //CATEGORY
+        $data_category = [
+            [
+                'id'            => 1,
+                'name'          => 'Berita',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ], [
+                'id'            => 2,
+                'name'          => 'Pengumuman',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ], [
+                'id'            => 3,
+                'name'          => 'Agenda',
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ]
+        ];
+
+        // NEWS
+        $data_news = [
+            [
+                'id'            => 1,
+                'thumbnail'     => 'base_thumbnail.jpg',
+                'title'         => 'Berita 1',
+                'slug'          => 'berita-1',
+                'content'       => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies.',
+                'category_id'   => 1,
+                'admin_id'      => 2,
+                'status'        => 'publish',
+                'published_at'  => Time::now(),
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ],
+            [
+                'id'            => 2,
+                'thumbnail'     => 'base_thumbnail.jpg',
+                'title'         => 'Berita 2',
+                'slug'          => 'berita-2',
+                'content'       => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies.',
+                'category_id'   => 1,
+                'admin_id'      => 3,
+                'status'        => 'publish',
+                'published_at'  => Time::now(),
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ],
+            [
+                'id'            => 3,
+                'thumbnail'     => 'base_thumbnail.jpg',
+                'title'         => 'Pengumuman 1',
+                'slug'          => 'pengumuman-1',
+                'content'       => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies.',
+                'category_id'   => 2,
+                'admin_id'      => 3,
+                'status'        => 'publish',
+                'published_at'  => Time::now(),
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ],
+            [
+                'id'            => 4,
+                'thumbnail'     => 'base_thumbnail.jpg',
+                'title'         => 'Pengumuman 2',
+                'slug'          => 'pengumuman-2',
+                'content'       => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies.',
+                'category_id'   => 2,
+                'admin_id'      => 2,
+                'status'        => 'publish',
+                'published_at'  => Time::now(),
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ],
+            [
+                'id'            => 5,
+                'thumbnail'     => 'base_thumbnail.jpg',
+                'title'         => 'Agenda 1',
+                'slug'          => 'agenda-1',
+                'content'       => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies.',
+                'category_id'   => 3,
+                'admin_id'      => 2,
+                'status'        => 'publish',
+                'published_at'  => Time::now(),
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ],
+            [
+                'id'            => 6,
+                'thumbnail'     => 'base_thumbnail.jpg',
+                'title'         => 'Agenda 2',
+                'slug'          => 'agenda-2',
+                'content'       => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies. Nullam nec purus nec nunc tincidunt ultricies.',
+                'category_id'   => 3,
+                'admin_id'      => 3,
+                'status'        => 'publish',
+                'published_at'  => Time::now(),
+                'created_at'    => Time::now(),
+                'updated_at'    => Time::now()
+            ],
+        ];
+
 
         $this->db->table('tb_roles')->insertBatch($data_roles);
         $this->db->table('tb_users')->insertBatch($data_users);
@@ -423,5 +525,7 @@ class AllSeeder extends Seeder
         $this->db->table('tb_option_tests')->insertBatch($data_option_materials);
         $this->db->table('tb_learning_paths')->insertBatch($data_learning_paths);
         $this->db->table('tb_learning_path_courses')->insertBatch($data_learning_path_courses);
+        $this->db->table('tb_categories')->insertBatch($data_category);
+        $this->db->table('tb_news')->insertBatch($data_news);
     }
 }
