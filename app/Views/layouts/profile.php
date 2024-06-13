@@ -16,19 +16,26 @@
     <?= $this->section('content') ?>
     <?php $role = session('role') ?>
 
-    <section class="w-full mx-auto py-5 px-10 mt-20 -h-screen">
+    <section class="w-full mx-auto py-5 px-10 mt-20 min-h-screen">
         <div class="grid grid-cols-3 gap-2">
+            <?php
+            // Mendapatkan parameter 'page' dari URL
+            $selectedItem = isset($_GET['page']) ? $_GET['page'] : 'my-profile';
+            ?>
             <div class="max-w-xs flex flex-col">
                 <div class="border border-gray-300 dark:border-neutral-700 rounded-md">
                     <h2 class="text-lg font-semibold px-2 py-2 text-gray-800 dark:text-white">Navigasi Profile</h2>
                     <ul class="max-w-xs flex flex-col ">
-                        <li class="inline-flex items-center gap-x-2 py-3 px-4 text-m font-medium odd:bg-gray-100 bg-white border border-gray-200 text-gray-800 -mt-px  dark:odd:bg-neutral-800 dark:bg-neutral-900 dark:border-neutral-700 dark:text-white">
-                            <a href="<?= base_url("profile/my-profile") ?>">Profil Saya</a>
+                        <li class="inline-flex items-center gap-x-2 py-3 px-4 text-m font-medium border border-gray-200 text-gray-800 -mt-px
+                <?= $selectedItem == 'my-profile' ? 'bg-gray-200 dark:bg-neutral-700' : 'bg-white dark:bg-neutral-900' ?> dark:border-neutral-700 dark:text-white">
+                            <a href="<?= base_url("profile/my-profile") ?>?page=my-profile">Profil Saya</a>
                         </li>
+
                         <?php if ($role == 'user') : ?>
-                            <div class="text-m inline-flex items-center gap-x-2 py-3 px-4 text-m font-medium odd:bg-gray-100 bg-white border border-gray-200 text-gray-800 -mt-px  dark:odd:bg-neutral-800 dark:bg-neutral-900 dark:border-neutral-700 dark:text-white">
-                                <a href="<?= base_url('profile/my-activity') ?>">Aktivitas Saya</a>
-                            </div>
+                            <li class="inline-flex items-center gap-x-2 py-3 px-4 text-m font-medium border border-gray-200 text-gray-800 -mt-px
+                    <?= $selectedItem == 'my-activity' ? 'bg-gray-200 dark:bg-neutral-700' : 'bg-white dark:bg-neutral-900' ?> dark:border-neutral-700 dark:text-white">
+                                <a href="<?= base_url('profile/my-activity') ?>?page=my-activity">Aktivitas Saya</a>
+                            </li>
                         <?php endif; ?>
                     </ul>
                 </div>

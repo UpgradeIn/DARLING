@@ -31,7 +31,7 @@
     <?= $this->renderSection('add_js') ?>
 
     <script src="<?= base_url('assets/js/sortable.js') ?>"></script>
-    <script src="<?= base_url('assets/js/preview-thumbnail-course.js') ?>"></script>
+    <script src="<?= base_url('assets/js/preview-thumbnail.js') ?>"></script>
     <script src="<?= base_url('assets/js/search-learningpath.js') ?>"></script>
     <script src="<?= base_url('assets/js/test-materials.js') ?>"></script>
 </body>

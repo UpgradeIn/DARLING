@@ -4,22 +4,28 @@ namespace App\Controllers\Actions;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
-use App\Models\UsersModel;
 use App\Models\LearningPathModel;
-use App\Models\UserLearningPathModel;
 use App\Models\UserSubCourseModel;
 use App\Models\UserAnswerModel;
 use App\Models\RequestLearningPathModel;
+use App\Models\UserLearningPathModel;
 
 class User extends BaseController
 {
     protected $session;
+    protected $learning_path_model;
+    protected $user_learning_path_model;
+    protected $request_learning_path_model;
+    protected $user_answer_model;
 
     public function __construct()
     {
         $this->session = session();
+        $this->learning_path_model = new LearningPathModel();
+        $this->user_learning_path_model = new UserLearningPathModel();
+        $this->request_learning_path_model = new RequestLearningPathModel();
+        $this->user_answer_model = new UserAnswerModel();
     }
-    //leraning path
 
     public function startCoures($slug, $id) // start learning path by slug
     {
@@ -36,7 +42,7 @@ class User extends BaseController
         ];
 
         if ($this->validate($rules)) {
-            $subcourse_model = new UserSubCourseModel();
+            $user_sub_course_model = new UserSubCourseModel();
 
             $data = [
                 'user_id' => session('id'),
@@ -44,7 +50,7 @@ class User extends BaseController
                 'status' => $this->request->getVar('status')
             ];
 
-            $subcourse_model->save($data);
+            $user_sub_course_model->save($data);
         } else {
             $data['validation'] = $this->validator;
             $slug = $this->request->getVar('slug');
@@ -63,14 +69,13 @@ class User extends BaseController
             'contentArray.*.option_test_id' => 'required|numeric',
         ];
         if ($this->validateData($validationData, $rules)) {
-            $model = new UserAnswerModel();
             foreach ($contentArray as $testAnswer) {
                 $data = [
                     'user_id' => session('id'),
                     'test_material_id' => $testAnswer['test_material_id'],
                     'option_test_id' => $testAnswer['option_test_id'],
                 ];
-                $model->save($data);
+                $this->user_answer_model->save($data);
             }
         } else {
             $data['validation'] = $this->validator;
@@ -81,27 +86,34 @@ class User extends BaseController
     // request learning path
     public function requestLearningPath($slug)
     {
+        $user_id = session('id');
+        $user_learning_path = $this->user_learning_path_model->where('user_id', $user_id)->first();
+        if ($user_learning_path != null && $user_learning_path['status'] != 'completed') {
+            $this->session->setFlashdata('msg-failed', 'Kamu sudah memiliki learning path');
+            return redirect()->back();
+        }
+        $user_request = $this->request_learning_path_model->where('user_id', $user_id)->first();
+        if ($user_request != null && $user_request['status'] != 'rejected') {
+            $this->session->setFlashdata('msg-failed', 'Kamu sudah sedang mengajukan learning path lain');
+            return redirect()->back();
+        }
         $rules = [
             'message' => 'required',
         ];
 
         if ($this->validate($rules)) {
-            $userModel = new UsersModel();
-            $email = session('email');
-            $user = $userModel->where('email', $email)
-                ->first();
-
-            $requestLearningPathModel = new RequestLearningPathModel();
+            $learning_path = $this->learning_path_model->where('slug', $slug)->first();
 
             $data = [
-                'user_id' => $user['id'],
-                'learning_path_id' => $slug,
+                'user_id' => $user_id,
+                'learning_path_id' => $learning_path['id'],
                 'status' => 'pending',
                 'message' => $this->request->getVar('message')
             ];
+            $this->request_learning_path_model->save($data);
 
             $this->session->setFlashdata('msg', 'Request Learning Path Success');
-            $requestLearningPathModel->save($data);
+            return redirect()->back();
         } else {
             $data['validation'] = $this->validator;
             return redirect()->back()->withInput($data);

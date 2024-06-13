@@ -22,7 +22,7 @@ $routes->group('auth', static function($routes) {
 });
 
 // Actions/Officials
-$routes->group('officials', ['filter' => 'actions:officials'], static function($routes) {
+$routes->group('', ['filter' => 'actions:officials'], static function($routes) {
     $routes->post('abc', 'Actions\Officials::abc');
 });
 
@@ -58,6 +58,7 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->delete('delete-category-news/(:num)', 'Actions\Operator::deleteCategoryNews/$1');
     // News
     $routes->post('create-news', 'Actions\Operator::createNews');
+    $routes->get('manage-news', 'Pages\Operator::manageNews');
     $routes->post('update-news/(:num)', 'Actions\Operator::updateNews/$1');
     $routes->delete('delete-news/(:num)', 'Actions\Operator::deleteNews/$1');
     $routes->post('publish-news/(:num)', 'Actions\Operator::publishNews/$1');
@@ -66,8 +67,8 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
 });
 
 // Actions/User
-$routes->group('user', ['filter' => 'actions:user'], static function($routes) {
-    $routes->post('request-learningpath/(:any)', 'Actions\User::requestLearningPath/$1');
+$routes->group('', ['filter' => 'actions:user'], static function($routes) {
+    $routes->post('request-learning-path/(:any)', 'Actions\User::requestLearningPath/$1');
     $routes->post('status-subcourse/(:num)', 'Actions\User::statusSubCourse/$1');
 });
 

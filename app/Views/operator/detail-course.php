@@ -243,20 +243,31 @@
               </div>
             </div>
             <div
-              class="grid grid-cols-2 gap-2 shadow-md rounded-lg p-4 mt-5 lg:grid-cols-3"
-            >
+              class="grid grid-cols-2 gap-2 shadow-md rounded-lg p-4 mt-5 lg:grid-cols-4">
               <div
-                class="text-start lg:border-r lg:border-gray-200 lg:text-center"
-              >
+                class="text-start lg:border-r lg:border-gray-200 lg:text-center">
                 <p
                   class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400"
                 >
-                  Kode Course
+                  Tipe Course
                 </p>
                 <p
                   class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"
                 >
-                    <?= $course['id'] ?>
+                    <?= $course['course_type'] ?>
+                </p>
+              </div>
+              <div
+                class="text-start lg:border-r lg:border-gray-200 lg:text-center">
+                <p
+                  class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400"
+                >
+                  Tipe Skill
+                </p>
+                <p
+                  class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"
+                >
+                    <?= $course['skill_type'] ?>
                 </p>
               </div>
               <div
@@ -574,117 +585,6 @@
                     </a>
                     <!-- End Create Post Test -->
 
-                    <!-- Create Module -->
-                    <button
-                      class="py-1 px-2 bg-blue-800 text-white rounded-md hover:bg-blue-900"
-                      data-hs-overlay="#hs-create-module">
-                      + Module
-                    </button>
-
-                    <!-- Modal Create Module -->
-                    <div
-                      id="hs-create-module"
-                      class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
-                      <div
-                        class="md:px-4 hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
-                      >
-                        <form
-                          action="<?= base_url('create-module'); ?>"
-                          method="POST"
-                          enctype="multipart/form-data"
-                        >
-                          <?= csrf_field(); ?>
-                          <div
-                            class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70"
-                          >
-                            <div
-                              class="py-3 px-4 border-b dark:border-neutral-800"
-                            >
-                              <h2
-                                class="text-xl font-bold text-gray-800 dark:text-neutral-200"
-                              >
-                                Tambah Module
-                              </h2>
-                              <p
-                                class="text-sm text-gray-400 md:text-md lg:text-md dark:text-neutral-400"
-                              >
-                                Lengkapi data untuk menambahkan module sub
-                                materi
-                              </p>
-                            </div>
-
-                            <div class="p-4 overflow-y-auto">
-                              <div
-                                class="sm:divide-y divide-gray-200 dark:divide-neutral-700"
-                              >
-                                <div class="py-3 sm:py-5">
-                                  <!-- form -->
-                                  <div class="space-y-4">
-                                    <!-- Judul Module -->
-                                    <div>
-                                      <label
-                                        for="module"
-                                        class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                        >Judul Module</label
-                                      >
-                                      <input
-                                        type="text"
-                                        name="module"
-                                        id="module"
-                                        placeholder="Inputkan judul module"
-                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                      />
-                                    </div>
-                                    <!-- End Judul Materi Teks  -->
-
-                                    <!-- Upload Module -->
-                                    <div>
-                                      <label
-                                        for="module"
-                                        class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                        >Upload Module</label
-                                      >
-                                      <label for="upload_module" class="sr-only"
-                                        >Choose file</label
-                                      >
-                                      <input
-                                        type="file"
-                                        name="upload_module"
-                                        id="upload_module"
-                                        class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-50 file:border-0 file:me-4 file:py-2 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
-                                      />
-                                    </div>
-                                    <!-- End Upload Module -->
-                                  </div>
-                                  <!-- end form -->
-                                </div>
-                              </div>
-                            </div>
-
-                            <div
-                              class="flex justify-end items-center gap-x-2 p-4 sm:px-7 border-t dark:border-neutral-800"
-                            >
-                              <a
-                                type="button"
-                                class="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800"
-                                data-hs-overlay="#hs-create-module"
-                              >
-                                Cancel
-                              </a>
-                              <button
-                                type="submit"
-                                class="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-800 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                              >
-                                Save
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                    <!-- End Modal Create Module -->
-
-                    <!-- End Create Module -->
                   </div>
                   <form id="updateSubcourseSequenceForm" action="<?= base_url('update-subcourses-sequence') ?>" method="POST" class="flex">
                     <?= csrf_field(); ?>
@@ -776,8 +676,7 @@
                         <div class="flex justify-end space-x-2 px-6 py-3">
                           <button
                             type="button"
-                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                          >
+                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -795,10 +694,10 @@
                               />
                             </svg>
                           </button>
+                          <!-- Hapus Sub Course -->
                           <button
                             type="button"
-                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-red-400 text-gray-800 hover:bg-red-500 disabled:opacity-50 disabled:pointer-events-none"
-                          >
+                            class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-red-400 text-gray-800 hover:bg-red-500 disabled:opacity-50 disabled:pointer-events-none" data-hs-overlay="#delete_subcourse">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -818,6 +717,51 @@
                               <line x1="14" x2="14" y1="11" y2="17" />
                             </svg>
                           </button>
+                          <!-- Modal Hapus Sub Course -->
+                          <div id="delete_subcourse" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
+                            <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+                              <div class="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-neutral-900">
+                                <div class="absolute top-2 end-2">
+                                  <button type="button" class="flex justify-center items-center size-7 text-sm font-semibold rounded-lg border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-transparent dark:hover:bg-neutral-700" data-hs-overlay="#delete_subcourse">
+                                    <span class="sr-only">Close</span>
+                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                                  </button>
+                                </div>
+
+                                <div class="p-4 sm:p-10 text-center overflow-y-auto">
+                                  <!-- Icon -->
+                                  <span class="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-red-50 bg-red-100 text-red-500 dark:bg-red-700 dark:border-red-600 dark:text-red-100">
+                                    <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                    </svg>
+                                  </span>
+                                  <!-- End Icon -->
+
+                                  <h3 class="mb-2 text-2xl font-bold text-gray-800 dark:text-neutral-200">
+                                    Hapus Sub Course
+                                  </h3>
+                                  <p class="text-gray-500 dark:text-neutral-500">
+                                    Apakah Anda yakin ingin menghapus subcourse ini?
+                                  </p>
+
+                                  <div class="mt-6 flex justify-center gap-x-4">
+                                    <form action="<?= base_url('delete-delete-subcourses/').$course['id']; ?>" method="POST" class="flex">
+                                      <?= csrf_field(); ?>
+                                      <input type="hidden" name="_method" value="DELETE">
+                                      <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border bg-red-200 border-red-200 text-red-800 shadow-sm hover:bg-red-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-red-200 dark:border-red-800 dark:text-red-800 dark:hover:bg-red-300">
+                                        Hapus
+                                      </button>
+                                    </form>
+                                    <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800" data-hs-overlay="#delete_subcourse">
+                                      Batal
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- End Modal Hapus Sub Course -->
+                          <!-- End Hapus Sub Course -->
                         </div>
                       </td>
                     </tr>

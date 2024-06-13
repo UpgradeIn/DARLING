@@ -21,6 +21,8 @@ class User extends BaseController
     protected $learning_path_model;
     protected $user_learning_path_model;
     protected $learning_path_course_model;
+    protected $request_learning_path_model;
+
     public function __construct()
     {
         $this->course_model = new CourseModel();
@@ -28,6 +30,7 @@ class User extends BaseController
         $this->learning_path_model = new LearningPathModel();
         $this->learning_path_course_model = new LearningPathCourseModel();
         $this->user_learning_path_model = new UserLearningPathModel();
+        $this->request_learning_path_model = new RequestLearningPathModel();
     }
 
     public function home()
@@ -89,8 +92,10 @@ class User extends BaseController
     public function detailLearningPath($slug)
     {
         $learning_path = $this->learning_path_model->where('slug', $slug)->first();
+        $request_learning_path = $this->request_learning_path_model->where('user_id', session('id'))->where('learning_path_id', $learning_path['id'])->first();
         $data = [
-            'learning_path' => $learning_path
+            'learning_path' => $learning_path,
+            'status' => $request_learning_path != null ? $request_learning_path['status'] : null
         ];   
         return view('user/detail-learning-path', $data);
     }

@@ -5,6 +5,7 @@ namespace App\Controllers\Pages;
 use App\Controllers\BaseController;
 use App\Models\AssignLearningPathModel;
 use App\Models\CourseModel;
+use App\Models\NewsModel;
 use App\Models\LearningPathModel;
 use App\Models\RequestLearningPathModel;
 use App\Models\SubcourseModel;
@@ -16,6 +17,7 @@ class Operator extends BaseController
 {
     protected $session;
     protected $usersModel;
+    protected $newsModel;
     protected $courseModel;
     protected $learningPathsModel;
     protected $subcourseModel;
@@ -28,6 +30,7 @@ class Operator extends BaseController
         $this->session = session();
         $this->usersModel = new UsersModel();
         $this->courseModel = new CourseModel();
+        $this->newsModel = new NewsModel();
         $this->learningPathsModel = new LearningPathModel();
         $this->subcourseModel = new SubcourseModel();
         $this->userLearningPathModel = new UserLearningPathModel();
@@ -97,6 +100,15 @@ class Operator extends BaseController
             'learningPaths' => $learningPaths
         ];
         return view('operator/manage-course', $data);
+    }
+
+    public function manageNews()
+    {
+        $news = $this->newsModel->findAll();
+        $data = [
+            'news' => $news
+        ];
+        return view('operator/manage-news', $data);
     }
 
     public function detailCourse($slug)
