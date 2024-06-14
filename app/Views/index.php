@@ -1,6 +1,17 @@
 <?= $this->extend('layouts/template') ?>
-<?= $this->section('content') ?>
 <?php $role = session('role') ?>
+<?= $this->section('page_title') ?>
+    <?php if ($role == 'user') : ?>
+        Home User
+    <?php elseif ($role == 'operator') : ?>
+        Dashboard Operator
+    <?php elseif ($role == 'officials') : ?>
+        Dashboard Officials
+    <?php else : ?>
+        Darling | Belajar buat naik jabatan
+    <?php endif; ?>
+<?= $this->endSection() ?>
+<?= $this->section('content') ?>
 <?php if ($role == 'user') : ?>
     <?= $this->include('user/home') ?>
 <?php elseif ($role == 'operator') : ?>
