@@ -47,7 +47,8 @@ class Operator extends BaseController
     {
         $assign_learning_paths = $this->assignLearningPathModel->getAssignLearningPaths();
         $request_learning_paths = $this->requestLearningPathModel->getRequestLearningPaths();
-        $users = $this->usersModel->getUsers(); 
+        $users = $this->usersModel->getUsersInUserRole();
+        dd($users); 
         // dd($assign_learning_paths);
         $learningPaths = $this->learningPathsModel->findAll();
         $data = [
