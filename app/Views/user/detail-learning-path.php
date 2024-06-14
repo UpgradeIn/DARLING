@@ -35,7 +35,7 @@ Course Page | Damri Course
               <h1 class="text-2xl font-bold text-gray-800 md:text-3xl lg:text-4xl"><?= $learning_path['name'] ?></h1>
               <?php if ($status == 'pending') : ?>
                 <span class="px-3 py-1 text-sm font-semibold text-yellow-800 bg-yellow-200 rounded-md">Pending</span>
-              <?php elseif ($status == 'approved') : ?>
+              <?php elseif ($status == 'approved'|| $isHasLearningPath ) : ?>
                 <span class="px-3 py-1 text-sm font-semibold text-green-800 bg-green-200 rounded-md">Approved</span>
               <?php elseif ($status == 'rejected') : ?>
                 <span class="px-3 py-1 text-sm font-semibold text-red-800 bg-red-200 rounded-md">Rejected</span>

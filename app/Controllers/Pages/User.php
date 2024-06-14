@@ -99,9 +99,11 @@ class User extends BaseController
     {
         $learning_path = $this->learning_path_model->where('slug', $slug)->first();
         $request_learning_path = $this->request_learning_path_model->where('user_id', session('id'))->where('learning_path_id', $learning_path['id'])->first();
+        $user_learning_path = $this->user_learning_path_model->where('user_id', session('id'))->where('learning_path_id', $learning_path['id'])->first();
         $data = [
             'learning_path' => $learning_path,
-            'status' => $request_learning_path != null ? $request_learning_path['status'] : null
+            'status' => $request_learning_path != null ? $request_learning_path['status'] : null,
+            'isHasLearningPath' => $user_learning_path != null ? true : false,
         ];   
         return view('user/detail-learning-path', $data);
     }

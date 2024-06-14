@@ -29,6 +29,7 @@ class CreateRequestLearningPathsTable extends Migration
                 'type'           => 'INT',
                 'constraint'     => 5,
                 'unsigned'       => true,
+                'null'           => true,
             ],
             'status'       => [
                 'type'       => 'ENUM',
@@ -38,6 +39,7 @@ class CreateRequestLearningPathsTable extends Migration
             'message' => [
                 'type' => 'varchar',
                 'constraint' => 255,
+                'null' => true,
             ],
             'responded_at' => [
                 'type' => 'DATETIME',
