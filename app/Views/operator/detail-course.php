@@ -43,6 +43,145 @@
                       >
                         Edit
                       </button>
+
+                      <!-- Modal edit Learning Path -->
+                      <div
+                        id="hs-edit-course"
+                        class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+                        <div
+                          class="flex justify-center items-center hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto">
+                          <div
+                              class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70">
+                              <div
+                                class="py-3 px-4 border-b dark:border-neutral-800"
+                              >
+                                <h2
+                                  class="text-xl font-bold text-gray-800 dark:text-neutral-200"
+                                >
+                                  Edit Course
+                                </h2>
+                                <p
+                                  class="text-sm text-gray-400 md:text-md lg:text-md dark:text-neutral-400"
+                                >
+                                  Lengkapi data untuk mengedit course
+                                </p>
+                              </div>
+
+                              <div class="p-4 overflow-y-auto">
+                                <div
+                                  class="sm:divide-y divide-gray-200 dark:divide-neutral-700"
+                                >
+                                  <div class="py-3 sm:py-6">
+                                    <!-- form -->
+                                    <div
+                                      class="grid gap-4 md:grid lg:gap-6 lg:grid-cols-5"
+                                    >
+                                      <div class="col-span-3 space-y-4">
+                                        <!-- Nama Course -->
+                                        <div>
+                                          <label
+                                            for="course_name"
+                                            class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+                                            >Nama Course</label
+                                          >
+                                          <input
+                                            type="text"
+                                            value="<?= $course['name'] ?>"
+                                            name="course_name"
+                                            id="course_name"
+                                            placeholder="Inputkan nama Course"
+                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                          />
+                                        </div>
+                                        <!-- End Nama Course  -->
+
+                                        <!-- Keterangan -->
+                                        <div>
+                                          <label
+                                            for="course_description"
+                                            class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+                                            >Keterangan Course</label
+                                          >
+                                          <textarea
+                                            id="course_description"
+                                            name="course_description"
+                                            rows="4"
+                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                          ><?= $course['description'] ?></textarea>
+                                        </div>
+                                        <!-- End Keterangan -->
+
+                                        <!-- Learning Path -->
+                                        <div class="">
+                                          <div>
+                                            <label
+                                              for="module"
+                                              class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+                                              >Module</label
+                                            >
+                                            <form>
+                                              <label for="module" class="sr-only"
+                                                >Pilih File</label
+                                              >
+                                              <input
+                                                type="file"
+                                                name="module"
+                                                id="module"
+                                                class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-300 file:border-0 file:me-4 file:py-3 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
+                                                value="<?= $course['module'] ?>"
+                                              />
+                                            </form>
+                                          </div>
+                                        </div>
+                                        <!-- End Learning Path -->
+                                      </div>
+                                      <div class="col-span-2">
+                                          <!-- Thumbnail Course -->
+                                          <div>
+                                            <label for="course_thumbnail" class="inline-block text-sm font-medium text-gray-800 mb-1 dark:text-neutral-200">
+                                              Thumbnail Course
+                                            </label>
+                                            <label for="course_thumbnail" class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700">
+                                              <input id="course_thumbnail" name="course_thumbnail" type="file" class="sr-only" onchange="previewImageCourse(event)" />
+                                              <div id="thumbnail_container" class="flex flex-col items-center justify-center">
+                                                <?php if(isset($course['thumbnail'])): ?>
+                                                  <img id="thumbnail_preview_course" src="<?= base_url('images-thumbnail/').$course['thumbnail'] ?>" class="w-full h-auto object-cover shadow-md rounded-xl" />
+                                                <?php else: ?>
+                                                  <img id="thumbnail_preview_course" src="" style="display: none;" class="w-full h-auto object-cover shadow-md rounded-xl" />
+                                                <?php endif; ?>
+                                              </div>
+                                            </label>
+                                          </div>
+                                          <!-- End Thumbnail Course -->
+                                      </div>
+                                    </div>
+                                    <!-- end form -->
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="flex justify-end items-center gap-x-2 p-4 sm:px-7 border-t dark:border-neutral-800"
+                              >
+                                <a
+                                  type="button"
+                                  class="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800"
+                                  data-hs-overlay="#hs-edit-course"
+                                >
+                                  Cancel
+                                </a>
+                                <button
+                                  type="submit"
+                                  class="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                                >
+                                  Save
+                                </button>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- End Modal edit Learning Path -->
+
                       <button
                         class="py-2 px-4 text-sm font-semibold text-gray-800 bg-red-400 rounded-md shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-500"
                         data-hs-overlay="#delete_course"
@@ -96,145 +235,6 @@
                       <!-- End Modal Hapus -->
                   </div>
 
-                  <!-- Modal edit Learning Path -->
-                  <div
-                    id="hs-edit-course"
-                    class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
-                    <div
-                      class="flex justify-center items-center hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto">
-                      <div
-                          class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70">
-                          <div
-                            class="py-3 px-4 border-b dark:border-neutral-800"
-                          >
-                            <h2
-                              class="text-xl font-bold text-gray-800 dark:text-neutral-200"
-                            >
-                              Edit Course
-                            </h2>
-                            <p
-                              class="text-sm text-gray-400 md:text-md lg:text-md dark:text-neutral-400"
-                            >
-                              Lengkapi data untuk mengedit course
-                            </p>
-                          </div>
-
-                          <div class="p-4 overflow-y-auto">
-                            <div
-                              class="sm:divide-y divide-gray-200 dark:divide-neutral-700"
-                            >
-                              <div class="py-3 sm:py-6">
-                                <!-- form -->
-                                <div
-                                  class="grid gap-4 md:grid lg:gap-6 lg:grid-cols-5"
-                                >
-                                  <div class="col-span-3 space-y-4">
-                                    <!-- Nama Course -->
-                                    <div>
-                                      <label
-                                        for="course_name"
-                                        class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                        >Nama Course</label
-                                      >
-                                      <input
-                                        type="text"
-                                        value="<?= $course['name'] ?>"
-                                        name="course_name"
-                                        id="course_name"
-                                        placeholder="Inputkan nama Course"
-                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                      />
-                                    </div>
-                                    <!-- End Nama Course  -->
-
-                                    <!-- Keterangan -->
-                                    <div>
-                                      <label
-                                        for="course_description"
-                                        class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                        >Keterangan Course</label
-                                      >
-                                      <textarea
-                                        id="course_description"
-                                        name="course_description"
-                                        rows="4"
-                                        class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                      >
-                                        <?= $course['description'] ?>
-                                      </textarea>
-                                    </div>
-                                    <!-- End Keterangan -->
-
-                                    <!-- Learning Path -->
-                                    <div class="">
-                                      <div>
-                                        <label
-                                          for="module"
-                                          class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                          >Module</label
-                                        >
-                                        <form>
-                                          <label for="module" class="sr-only"
-                                            >Pilih File</label
-                                          >
-                                          <input
-                                            type="file"
-                                            name="module"
-                                            id="module"
-                                            class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-300 file:border-0 file:me-4 file:py-3 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
-                                            value="<?= $course['module'] ?>"
-                                          />
-                                        </form>
-                                      </div>
-                                    </div>
-                                    <!-- End Learning Path -->
-                                  </div>
-                                  <div class="col-span-2">
-                                      <!-- Thumbnail Course -->
-                                      <div>
-                                        <label for="course_thumbnail" class="inline-block text-sm font-medium text-gray-800 mb-1 dark:text-neutral-200">
-                                          Thumbnail Course
-                                        </label>
-                                        <label for="course_thumbnail" class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700">
-                                          <input id="course_thumbnail" name="course_thumbnail" type="file" class="sr-only" onchange="previewImage(event)" />
-                                          <div id="thumbnail_container" class="flex flex-col items-center justify-center">
-                                            <?php if(isset($course['thumbnail'])): ?>
-                                              <img id="thumbnail_preview" src="<?= base_url('images-thumbnail/').$course['thumbnail'] ?>" class="w-full h-auto object-cover shadow-md rounded-xl" />
-                                            <?php else: ?>
-                                              <img id="thumbnail_preview" src="" style="display: none;" class="w-full h-auto object-cover shadow-md rounded-xl" />
-                                            <?php endif; ?>
-                                          </div>
-                                        </label>
-                                      </div>
-                                      <!-- End Thumbnail Course -->
-                                  </div>
-                                </div>
-                                <!-- end form -->
-                              </div>
-                            </div>
-                          </div>
-
-                          <div
-                            class="flex justify-end items-center gap-x-2 p-4 sm:px-7 border-t dark:border-neutral-800"
-                          >
-                            <a
-                              type="button"
-                              class="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800"
-                              data-hs-overlay="#hs-edit-course"
-                            >
-                              Cancel
-                            </a>
-                            <button
-                              type="submit"
-                              class="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                            >
-                              Save
-                            </button>
-                          </div>
-                        </div>
-                    </div>
-                  </div>
-                  <!-- End Modal edit Learning Path -->
                 </div>
                 <p
                   class="text-md text-gray-600 md:text-lg lg:text-lg dark:text-neutral-400">
