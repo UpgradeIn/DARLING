@@ -17,7 +17,7 @@ use App\Models\AssignLearningPathModel;
 use App\Models\UsersModel;
 use App\Models\CategoryModel;
 use App\Models\NewsModel;
-
+use App\Models\RoleModel;
 use CodeIgniter\I18n\Time;
 
 class Operator extends BaseController
@@ -682,6 +682,20 @@ class Operator extends BaseController
     // Assign Learning Path | check
     public function assignLearningPath()
     { 
+        $userLearningPathModel = new UserLearningPathModel();
+        $user_learning_path = $userLearningPathModel->where('user_id', $this->request->getVar('user'))
+        ->first();   
+        if ($user_learning_path != null && $user_learning_path['status'] != 'completed') {
+            $this->session->setFlashdata('msg-failed', 'User sedang menjalankan learning path');
+            return redirect()->to('manage-assignment-request');
+        }
+        $userModel = new UsersModel();
+        $user = $userModel->where('id', $this->request->getVar('user'))
+            ->first();   
+        if ($user['role_id'] == 1 || $user['role_id'] == 2) {
+            $this->session->setFlashdata('msg-failed', 'User tidak dapat diberikan learning path');
+            return redirect()->to('manage-assignment-request');
+        }
         $rules = [
             'user'                     => 'required',
             'learning_path'            => 'required',
@@ -709,7 +723,6 @@ class Operator extends BaseController
             $modelLearningPath = new LearningPathModel();
             $learningPath = $modelLearningPath->find($this->request->getVar('learning_path'));
 
-            $userLearningPathModel = new UserLearningPathModel();
             $data = [
                 'user_id' => $this->request->getVar('user'),
                 'learning_path_id' => $this->request->getVar('learning_path'),
