@@ -831,9 +831,11 @@ class Operator extends BaseController
         $rules = [
             'title'          => 'required',
             'content'        => 'required',
+            'category_id'    => 'required|numeric',
             'thumbnail_news'      => 'uploaded[thumbnail_news]|max_size[thumbnail_news,5120]|is_image[thumbnail_news]|mime_in[thumbnail_news,image/jpg,image/jpeg,image/png]',
         ];
 
+        $slug = url_title($this->request->getVar('title'), '-', true);
         if ($this->validate($rules)) {
             $thumbnail = $this->request->getFile('thumbnail_news');
             $thumbnail->move('images-thumbnail');
@@ -842,7 +844,10 @@ class Operator extends BaseController
             $data = [
                 'thumbnail'     => $nameThumbnail,
                 'title'          => $this->request->getVar('title'),
+                'slug'          => $slug,
                 'content'        => $this->request->getVar('content'),
+                'category_id'    => $this->request->getVar('category_id'),
+                'admin_id'       => session('id'),
                 'status'         => 'draft',
                 'published_at'  => null,
             ];
