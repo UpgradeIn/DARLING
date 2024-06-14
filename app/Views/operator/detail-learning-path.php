@@ -39,10 +39,151 @@
                       </button>
                       <button
                         class="py-2 px-6 text-sm font-semibold text-gray-800 bg-yellow-400 rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all dark:bg-yellow-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500"
-                        data-hs-overlay="#hs-edit-course"
+                        data-hs-overlay="#hs-edit-learning-path"
                       >
                         Edit
                       </button>
+                      <!-- Modal edit Learning Path -->
+                      <div
+                        id="hs-edit-learning-path"
+                        class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
+                        <div
+                          class="flex justify-center items-center hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto">
+                          <div
+                              class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70">
+                              <div
+                                class="py-3 px-4 border-b dark:border-neutral-800"
+                              >
+                                <h2
+                                  class="text-xl font-bold text-gray-800 dark:text-neutral-200"
+                                >
+                                  Edit Learning Path
+                                </h2>
+                                <p
+                                  class="text-sm text-gray-400 md:text-md lg:text-md dark:text-neutral-400"
+                                >
+                                  Lengkapi data untuk mengedit learning path
+                                </p>
+                              </div>
+
+                              <div class="p-4 overflow-y-auto">
+                                <div
+                                  class="sm:divide-y divide-gray-200 dark:divide-neutral-700"
+                                >
+                                  <div class="py-3 sm:py-6">
+                                    <!-- Form -->
+                                    <form>
+                                      <div class="grid gap-4 md:grid lg:gap-6 lg:grid-cols-5">
+                                        <div class="col-span-3 space-y-4">
+                                          <!-- Nama Learning Path -->
+                                          <div>
+                                            <label
+                                              for="nama_learning_path"
+                                              class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+                                              >Nama Learning Path</label
+                                            >
+                                            <input
+                                              type="text"
+                                              value=" <?= $learningPaths['name'] ?>"
+                                              name="nama_learning_path"
+                                              id="nama_learning_path"
+                                              placeholder="Inputkan nama learning path"
+                                              class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                            />
+                                          </div>
+                                          <!-- End Nama Learning Path  -->
+
+                                          <!-- Keterangan -->
+                                          <div>
+                                            <label
+                                              for="keterangan_learning_path"
+                                              class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+                                              >Keterangan Learning Path</label
+                                            >
+                                            <textarea
+                                              id="keterangan_learning_path"
+                                              placeholder="Inputkan keterangan learning path"
+                                              name="keterangan_learning_path"
+                                              rows="4"
+                                              class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                                            ><?= $learningPaths['description'] ?></textarea>
+                                          </div>
+                                          <!-- End Keterangan -->
+
+                                          <!-- Periode -->
+                                          <div class="sm:grid grid-cols-2 gap-4">
+                                            <div>
+                                              <label
+                                                for="period"
+                                                class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
+                                                >Periode</label
+                                              >
+                                              <form>
+                                                <label for="period" class="sr-only"
+                                                  >Periode</label
+                                                >
+                                                <input
+                                                  type="number"
+                                                  name="period"
+                                                  id="period"
+                                                  value="<?= $learningPaths['period'] ?>"
+                                                  class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 file:bg-gray-300 file:border-0 file:me-4 file:py-3 file:px-4 dark:file:bg-neutral-700 dark:file:text-neutral-400"
+                                                />
+                                              </form>
+                                            </div>
+                                          </div>
+                                          <!-- End Periode -->
+
+                                        </div>
+                                        <div class="col-span-2">
+                                          <!-- Thumbnail Learning Path -->
+                                          <div>
+                                            <label for="thumbnail_learning_path" class="inline-block text-sm font-medium text-gray-800 mb-1 dark:text-neutral-200">
+                                              Thumbnail Learning Path
+                                            </label>
+                                            <label for="thumbnail_learning_path" class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700">
+                                              <input id="thumbnail_learning_path" name="thumbnail_learning_path" type="file" class="sr-only" onchange="previewImageLearningPath(event)" />
+                                              <div id="thumbnail_container" class="flex flex-col items-center justify-center">
+                                                <?php if(isset($learningPaths['thumbnail'])): ?>
+                                                  <img id="thumbnail_preview_lp" src="<?= base_url('images-thumbnail/').$learningPaths['thumbnail'] ?>" class="w-full h-auto object-cover shadow-md rounded-xl" />
+                                                <?php else: ?>
+                                                  <img id="thumbnail_preview_lp" src="" style="display: none;" class="w-full h-auto object-cover shadow-md rounded-xl" />
+                                                <?php endif; ?>
+                                              </div>
+                                            </label>
+                                          </div>
+                                          <!-- End Thumbnail Learning Path -->
+                                        </div>
+                                      </div>
+                                      <!-- End Grid -->
+                                    </form>
+                                    <!-- End Form -->
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div
+                                class="flex justify-end items-center gap-x-2 p-4 sm:px-7 border-t dark:border-neutral-800"
+                              >
+                                <a
+                                  type="button"
+                                  class="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800"
+                                  data-hs-overlay="#hs-edit-learning-path"
+                                >
+                                  Cancel
+                                </a>
+                                <button
+                                  type="submit"
+                                  class="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                                >
+                                  Save
+                                </button>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- End Modal edit Learning Path -->
+
                       <button
                         class="py-2 px-4 text-sm font-semibold text-gray-800 bg-red-400 rounded-md shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all dark:bg-red-500 dark:hover:bg-red-500 dark:focus:ring-red-500"
                         data-hs-overlay="#delete_learning_path"
@@ -96,190 +237,6 @@
                       <!-- End Modal Hapus -->
                   </div>
 
-                  <!-- Modal edit Learning Path -->
-                  <div
-                    id="hs-edit-learning-path"
-                    class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto pointer-events-none">
-                    <div
-                      class="flex justify-center items-center hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-4xl sm:w-full m-3 h-[calc(100%-3.5rem)] sm:mx-auto"
-                    >
-                      <div
-                        class="max-h-full overflow-hidden flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-900 dark:border-neutral-800 dark:shadow-neutral-700/70"
-                      >
-                        <div class="p-4 overflow-y-auto">
-                          <div
-                            class="sm:divide-y divide-gray-200 dark:divide-neutral-700"
-                          >
-                            <div class="py-3 sm:py-6">
-                              <!-- Form -->
-                              <div class="w-full px-4 sm:px-6 lg:px-8 mx-auto">
-                                <div class="border-b-2 py-5 border-gray-500">
-                                  <h2
-                                    class="text-xl font-bold text-gray-800 dark:text-neutral-200"
-                                  >
-                                    Edit Learning Path
-                                  </h2>
-                                  <p
-                                    class="text-sm text-gray-400 md:text-md lg:text-md dark:text-neutral-400"
-                                  >
-                                    Lengkapi data untuk edit Learning Path
-                                  </p>
-                                </div>
-                                <div class="py-5">
-                                  <!-- Form -->
-                                  <form>
-                                    <div
-                                      class="grid gap-4 md:grid lg:gap-6 lg:grid-cols-5"
-                                    >
-                                      <div class="col-span-3 space-y-4">
-                                        <!-- Nama Learning Path -->
-                                        <div>
-                                          <label
-                                            for="nama_learning_path"
-                                            class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                            >Nama Learning Path</label
-                                          >
-                                          <input
-                                            type="text"
-                                            name="nama_learning_path"
-                                            id="nama_learning_path"
-                                            placeholder="Inputkan nama learning path"
-                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                          />
-                                        </div>
-                                        <!-- End Nama Learning Path  -->
-
-                                        <!-- Keterangan -->
-                                        <div>
-                                          <label
-                                            for="keterangan_learning_path"
-                                            class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                            >Keterangan Learning Path</label
-                                          >
-                                          <textarea
-                                            id="keterangan_learning_path"
-                                            placeholder="Inputkan keterangan learning path"
-                                            name="keterangan_learning_path"
-                                            rows="4"
-                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                          ></textarea>
-                                        </div>
-                                        <!-- End Keterangan -->
-
-                                        <!-- Divisi -->
-                                        <div>
-                                          <label
-                                            for="divisi_learning_path"
-                                            class="block mb-2 text-sm text-gray-700 font-medium dark:text-white"
-                                            >Pilih Divisi</label
-                                          >
-                                          <select
-                                            id="divisi_learning_path"
-                                            name="divisi_learning_path"
-                                            class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                                          >
-                                            <option
-                                              value="Pilih Divisi"
-                                              disabled
-                                              selected
-                                            >
-                                              Pilih Divisi
-                                            </option>
-                                            <option value="Finance">
-                                              Finance
-                                            </option>
-                                            <option value="HRD">HRD</option>
-                                            <option value="IT">IT</option>
-                                            <option value="Marketing">
-                                              Marketing
-                                            </option>
-                                            <option value="Operasional">
-                                              Operasional
-                                            </option>
-                                          </select>
-                                        </div>
-                                        <!-- End Divisi -->
-                                      </div>
-                                      <div class="col-span-2">
-                                        <!-- Thumbnail Learning Path -->
-                                        <div>
-                                          <label
-                                            for="thumbnail_learning_path"
-                                            class="inline-block text-sm font-medium text-gray-800 mb-1 dark:text-neutral-200"
-                                          >
-                                            Thumbnail Learning Path
-                                          </label>
-
-                                          <label
-                                            for="thumbnail_learning_path"
-                                            class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700"
-                                          >
-                                            <input
-                                              id="thumbnail_learning_path"
-                                              name="thumbnail_learning_path"
-                                              type="file"
-                                              class="sr-only"
-                                            />
-                                            <svg
-                                              class="size-10 mx-auto text-gray-400 dark:text-neutral-600"
-                                              xmlns="http://www.w3.org/2000/svg"
-                                              width="16"
-                                              height="16"
-                                              fill="currentColor"
-                                              viewBox="0 0 16 16"
-                                            >
-                                              <path
-                                                fill-rule="evenodd"
-                                                d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2z"
-                                              />
-                                              <path
-                                                d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"
-                                              />
-                                            </svg>
-                                            <span
-                                              class="mt-2 block text-sm text-gray-800 dark:text-neutral-200"
-                                            >
-                                              Browse your device or
-                                              <span
-                                                class="group-hover:text-blue-700 text-blue-800"
-                                                >drag 'n drop'</span
-                                              >
-                                            </span>
-                                          </label>
-                                        </div>
-                                        <!-- End Thumbnail Learning Path -->
-                                      </div>
-                                    </div>
-                                    <!-- End Grid -->
-                                  </form>
-                                  <!-- End Form -->
-                                </div>
-                              </div>
-                              <!-- Form -->
-                            </div>
-                          </div>
-                        </div>
-
-                        <div
-                          class="flex justify-end items-center gap-x-2 p-4 sm:px-7 border-t dark:border-neutral-800"
-                        >
-                          <button
-                            type="button"
-                            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800"
-                            data-hs-overlay="#hs-edit-learning-path"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            class="py-2 px-5 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-                          >
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Modal edit Learning Path -->
                 </div>
                 <p
                   class="text-md text-gray-600 md:text-lg lg:text-lg dark:text-neutral-400"

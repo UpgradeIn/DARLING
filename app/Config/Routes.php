@@ -100,6 +100,7 @@ $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('add-post-test', 'Pages\Operator::addPostTest');
     $routes->get('edit-post-test/(:num)', 'Pages\Operator::editPostTest/$1');
     $routes->get('manage-news', 'Pages\Operator::manageNews');
+    $routes->get('detail-news/(:any)', 'Pages\Operator::detailNews/$1');
 });
 
 // Pages/Profile
