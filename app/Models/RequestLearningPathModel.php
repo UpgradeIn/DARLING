@@ -20,4 +20,13 @@ class RequestLearningPathModel extends Model
                     ->join('tb_learning_paths', 'tb_learning_paths.id = tb_request_learning_paths.learning_path_id')
                     ->findAll();
     }
+
+    public function getDetailRequestLearningPath($id)
+    {
+        return $this->select('tb_request_learning_paths.*, tb_users.*, tb_learning_paths.*, tb_request_learning_paths.id as id, tb_request_learning_paths.status as status')
+                    ->join('tb_users', 'tb_users.id = tb_request_learning_paths.user_id')
+                    ->join('tb_learning_paths', 'tb_learning_paths.id = tb_request_learning_paths.learning_path_id')
+                    ->where('tb_request_learning_paths.id', $id)
+                    ->first();
+    }
 }
