@@ -33,11 +33,11 @@ Course Page | Damri Course
           <div class="space-y-3">
             <div class="flex justify-between items-center">
               <h1 class="text-2xl font-bold text-gray-800 md:text-3xl lg:text-4xl"><?= $learning_path['name'] ?></h1>
-              <?php if ($status == 'pending') : ?>
+              <?php if ($status_request == 'pending') : ?>
                 <span class="px-3 py-1 text-sm font-semibold text-yellow-800 bg-yellow-200 rounded-md">Pending</span>
-              <?php elseif ($status == 'approved'|| $isHasLearningPath ) : ?>
+              <?php elseif ($status_request == 'approved'|| $is_has_learning_path ) : ?>
                 <span class="px-3 py-1 text-sm font-semibold text-green-800 bg-green-200 rounded-md">Approved</span>
-              <?php elseif ($status == 'rejected') : ?>
+              <?php elseif ($status_request == 'rejected') : ?>
                 <span class="px-3 py-1 text-sm font-semibold text-red-800 bg-red-200 rounded-md">Rejected</span>
               <?php else : ?>
                 <button class="py-2 px-3 text-sm font-semibold text-gray-800 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500" data-hs-overlay="#hs-ajukan-learning-path">
@@ -53,15 +53,15 @@ Course Page | Damri Course
         <div class="grid grid-cols-2 gap-2 shadow-md rounded-lg p-4 mt-5 lg:grid-cols-4">
           <div class="text-start lg:border-r lg:border-gray-200 lg:text-center">
             <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Kode Learning Path</p>
-            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">1214054</p>
+            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"><?= $learning_path['id']; ?></p>
           </div>
           <div class="text-start lg:border-r lg:border-gray-200 lg:text-center">
             <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Jumlah Materi</p>
-            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">10</p>
+            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"><?= count($learning_path_courses) ?></p>
           </div>
           <div class="text-start lg:border-r lg:border-gray-200 lg:text-center">
             <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Tanggal Publish</p>
-            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">07/06/24</p>
+            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"><?= date('d/m/Y', strtotime($learning_path['published_at'])); ?></p>
           </div>
           <div class="text-start lg:text-center">
             <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Divisi</p>
@@ -134,53 +134,22 @@ Course Page | Damri Course
     <!-- Grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <!-- Card -->
-      <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="#">
+      <?php foreach ($learning_path_courses as $learning_path_course): ?>
+      <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="<?= base_url('course/').$learning_path_course->course_slug ?>">
         <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
-          <img src="https://img.freepik.com/free-photo/leader-authority-boss-coach-director-manager-concept_53876-133859.jpg?t=st=1717953192~exp=1717956792~hmac=4dd5765ea65682eedc1c253d21d25a05e86a8d1d01f85b03b61d1073303b46a5&w=900" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail" />
+          <img src="<?= base_url('images-thumbnail/').$learning_path_course->course_thumbnail ?>" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail" />
         </div>
         <div class="p-4 md:p-6">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">Kepemimpinan</h3>
+          <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white"><?= $learning_path_course->course_name ?></h3>
           <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-users"></i> 1196 Peserta</p>
           <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-video"></i> 10 Video</p>
         </div>
       </a>
+      <?php endforeach; ?>
       <!-- End Card -->
-      <!-- Card -->
-      <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="#">
-        <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
-          <img src="https://img.freepik.com/free-photo/young-network-engineer-working-server-room_23-2148323441.jpg?t=st=1717953355~exp=1717956955~hmac=61ff9810b79c17ca50af24472750ed57cc66c18bccc3fc842b8c287267047f9b&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail" />
-        </div>
-        <div class="p-4 md:p-6">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">Public Speaking</h3>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-users"></i> 1196 Peserta</p>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-video"></i> 10 Video</p>
-        </div>
-      </a>
-      <!-- End Card -->
-      <!-- Card -->
-      <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="#">
-        <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
-          <img src="https://img.freepik.com/free-photo/businesspeople-working-finance-accounting-analyze-financi_74952-1399.jpg?t=st=1717957554~exp=1717961154~hmac=69ffad48e03964d64fdbef5e119fdba050d0c94a55900b8eaa843b01de675368&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail" />
-        </div>
-        <div class="p-4 md:p-6">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">Tableau</h3>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-users"></i> 1196 Peserta</p>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-video"></i> 10 Video</p>
-        </div>
-      </a>
-      <!-- End Card -->
-      <!-- Card -->
-      <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="#">
-        <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
-          <img src="https://img.freepik.com/free-photo/business-man-working-office-desktop_23-2148194708.jpg?t=st=1717957498~exp=1717961098~hmac=2ce5120caaadfccbb9db0d7f1510f5af9fef71a7739c8b0b4df7cb5bd0710c44&w=996" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail" />
-        </div>
-        <div class="p-4 md:p-6">
-          <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white">Audit Keuangan</h3>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-users"></i> 1196 Peserta</p>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-video"></i> 10 Video</p>
-        </div>
-      </a>
-      <!-- End Card -->
+
+      <!-- hapus dummy -->
+
     </div>
     <!-- End Grid -->
   </div>
