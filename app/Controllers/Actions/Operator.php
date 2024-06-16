@@ -96,7 +96,7 @@ class Operator extends BaseController
         $exists_slug = $this->courseModel->where('slug', $slug)->first();
         if ($exists_slug != null && $exists_slug['id'] != $id) {
             $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
-            return redirect()->to('detail-course/'.$course['slug']);
+            return redirect()->to('detail-course/' . $course['slug']);
         }
 
         $rules = [
@@ -114,7 +114,13 @@ class Operator extends BaseController
             } else {
                 $thumbnail->move('images-thumbnail');
                 $nameThumbnail = $thumbnail->getName();
-                unlink('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'));
+                if ($this->request->getVar('old_course_thumbnail')) {
+                    if (file_exists('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'))) {
+                        if ($this->request->getVar('old_course_thumbnail') != 'base_thumbnail.jpg') {
+                            unlink('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'));
+                        }
+                    }
+                }
             }
 
             $module = $this->request->getFile('module');
@@ -124,7 +130,13 @@ class Operator extends BaseController
             } else {
                 $module->move('module-course');
                 $nameModule = $module->getName();
-                unlink('module-course/' . $this->request->getVar('old_module'));
+                if ($this->request->getVar('old_module')) {
+                    if (file_exists('module-course/' . $this->request->getVar('old_module'))) {
+                        if ($this->request->getVar('old_module') != 'base_module.pdf') {
+                            unlink('module-course/' . $this->request->getVar('old_module'));
+                        }
+                    }
+                }
             }
 
             $data = [
@@ -141,7 +153,7 @@ class Operator extends BaseController
 
             $this->courseModel->update($id, $data);
             $this->session->setFlashdata('msg', 'Berhasil mengubah course');
-            return redirect()->to('detail-course/'.$slug);
+            return redirect()->to('detail-course/' . $slug);
         } else {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -156,7 +168,17 @@ class Operator extends BaseController
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
         }
-        unlink('images-thumbnail/' . $course['thumbnail']);
+        if (file_exists('images-thumbnail/' .  $course['thumbnail'])) {
+            if ( $course['thumbnail'] != 'base_thumbnail.jpg') {
+                unlink('images-thumbnail/' . $course['thumbnail']);
+            }
+        }
+
+        if (file_exists('module-course/' . $course['module'])) {
+            if ($course['module'] != 'base_module.pdf') {
+                unlink('module-course/' . $course['module']);
+            }
+        }
 
         $this->courseModel->delete($id);
         $this->session->setFlashdata('msg', 'Berhasil menghapus course');
@@ -515,7 +537,7 @@ class Operator extends BaseController
                 'published_at'  => null,
             ];
 
-           $this->learningpathModel->save($data);
+            $this->learningpathModel->save($data);
             $this->session->setFlashdata('msg', 'Berhasil menambahkan learning path baru');
             return redirect()->to('manage-course');
         } else {
@@ -681,17 +703,17 @@ class Operator extends BaseController
 
     // Assign Learning Path | check
     public function assignLearningPath()
-    { 
+    {
         $userLearningPathModel = new UserLearningPathModel();
         $user_learning_path = $userLearningPathModel->where('user_id', $this->request->getVar('user'))
-        ->first();   
+            ->first();
         if ($user_learning_path != null && $user_learning_path['status'] != 'completed') {
             $this->session->setFlashdata('msg-failed', 'User sedang menjalankan learning path');
             return redirect()->to('manage-assignment-request');
         }
         $userModel = new UsersModel();
         $user = $userModel->where('id', $this->request->getVar('user'))
-            ->first();   
+            ->first();
         if ($user['role_id'] == 1 || $user['role_id'] == 2) {
             $this->session->setFlashdata('msg-failed', 'User tidak dapat diberikan learning path');
             return redirect()->to('manage-assignment-request');
