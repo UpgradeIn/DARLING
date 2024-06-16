@@ -749,14 +749,10 @@ class Operator extends BaseController
 
         if ($this->validate($rules)) {
             $model = new RequestLearningPathModel();
-            $userModel = new UsersModel();
-            $email = session('email');
-            $user = $userModel->where('email', $email)
-                ->first();
 
             $data = [
                 'status'           => $this->request->getVar('status'),
-                'admin_id'         => $user['id'],
+                'admin_id'         => session('id'),
                 'responded_at'  => Time::now(),
             ];
             $model->update($id, $data);
@@ -772,16 +768,17 @@ class Operator extends BaseController
                 $data = [
                     'user_id' => $request['user_id'],
                     'learning_path_id' => $request['learning_path_id'],
+                    'status' => 'not-started',
                     'start_date' => Time::now(),
                     'end_date' => Time::now()->addMonths($learningPath['period']),
                 ];
                 $userLearningPathModel->save($data);
             }
-
-            return redirect()->to('manage-request-learningpath');
+            $this->session->setFlashdata('msg', 'Berhasil merespon request learning path');
+            return redirect()->back();
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage-request-learningpath', $data);
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
