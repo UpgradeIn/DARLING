@@ -169,7 +169,7 @@ class Operator extends BaseController
             return redirect()->back();
         }
         if (file_exists('images-thumbnail/' .  $course['thumbnail'])) {
-            if ( $course['thumbnail'] != 'base_thumbnail.jpg') {
+            if ($course['thumbnail'] != 'base_thumbnail.jpg') {
                 unlink('images-thumbnail/' . $course['thumbnail']);
             }
         }
@@ -550,44 +550,52 @@ class Operator extends BaseController
     public function updateLearningPath($id)
     {
         $rules = [
-            'name'          => 'required',
-            'description'   => 'required',
+            'nama_learning_path'          => 'required',
+            'keterangan_learning_path'   => 'required',
             'period'        => 'required|numeric',
-            'thumbnail'     => 'max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-            'status'        => 'required|in_list[publish,draft]',
+            'thumbnail_learning_path'     => 'max_size[thumbnail_learning_path,5120]|is_image[thumbnail_learning_path]|mime_in[thumbnail_learning_path,image/jpg,image/jpeg,image/png]',
         ];
 
         if ($this->validate($rules)) {
             $model = new LearningPathModel();
 
-            $thumbnail = $this->request->getFile('thumbnail');
+            $thumbnail = $this->request->getFile('thumbnail_learning_path');
             //caek gambar lama
             if ($thumbnail->getError() == 4) {
-                $nameThumbnail = $this->request->getVar('oldThumbnail');
+                $nameThumbnail = $this->request->getVar('old_learning_path_thumbnail');
             } else {
                 $nameThumbnail = $thumbnail->getRandomName();
-                $thumbnail->move('images', $nameThumbnail);
-                unlink('images/' . $this->request->getVar('oldThumbnail'));
+                $thumbnail->move('images-thumbnail', $nameThumbnail);
+                if ($this->request->getVar('old_course_thumbnail')) {
+                    if (file_exists('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'))) {
+                        if ($this->request->getVar('old_learning_path_thumbnail') != 'base_thumbnail.jpg') {
+                            unlink('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'));
+                        }
+                    }
+                }
             }
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
-                'name'          => $this->request->getVar('name'),
-                'description'   => $this->request->getVar('description'),
+                'name'          => $this->request->getVar('nama_learning_path'),
+                'description'   => $this->request->getVar('keterangan_learning_path'),
                 'period'        => $this->request->getVar('period'),
-                'status'        => $this->request->getVar('status'),
                 'updated_at'    => Time::now(),
             ];
-            if ($this->request->getVar('status') == 'publish') {
+            // dd($data);
+            if ($this->request->getVar('status') && $this->request->getVar('status') == 'publish') {
+                $data['status'] = 'publish';
                 $data['published_at'] = Time::now();
             } else {
                 $data['published_at'] = null;
             }
             $model->update($id, $data);
-            return redirect()->to('manage-learningpath');
+            $this->session->setFlashdata('msg', 'Berhasil merubah learning path');
+            return redirect()->to('manage-course');
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage-learningpath', $data);
+            $validation = $this->validator;
+            dd($validation->getErrors());
+            // return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
