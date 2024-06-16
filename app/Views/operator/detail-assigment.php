@@ -45,7 +45,7 @@ Detail Assignment | Damri Course
     <div class="flex flex-col justify-start w-full mt-4 lg:mt-6">
         <div class="p-4 lg:p-5 text-start">
             <h3 class="text-lg text-gray-800 font-bold dark:text-white">Deskripsi Pengajuan</h3>
-            <p class="mt-1 text-gray-500 dark:text-neutral-400"><?= $detailAssignment['description'] ?></p>
+            <p class="mt-1 text-gray-500 dark:text-neutral-400"><?= $detailAssignment['message_assignment'] ?></p>
         </div>
     </div>
 </section>

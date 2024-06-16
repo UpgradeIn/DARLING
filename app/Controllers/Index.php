@@ -12,13 +12,16 @@ use App\Models\CategoryModel;
 
 class Index extends BaseController
 {
+    protected $session;
     protected $news_model;
     protected $course_model;
     protected $sub_course_model;
     protected $learning_path_model;
     protected $category_model;
+
     public function __construct()
     {
+        $this->session = session();
         $this->news_model = new NewsModel();
         $this->course_model = new UserCourseModel();
         $this->learning_path_model = new LearningPathModel();
@@ -28,7 +31,19 @@ class Index extends BaseController
 
     public function index()
     {
-        
+        $role = $this->session->get('role');
+        if ($role == 'user') {
+            return view('index');
+        }
+        if ($role == 'operator') {
+            $data = [
+                'test' => 'testttt'
+            ];
+            return view('index', $data);
+        }
+        if ($role == 'officials') {
+            return view('index');
+        }
         //get top course
         $top_course = $this->course_model->orderBy('created_at', 'DESC')->findAll(3);
 
@@ -52,7 +67,7 @@ class Index extends BaseController
 
         //get 4 newest news
         $data_news =  $this->news_model
-        ->select('tb_news.title, tb_news.thumbnail, tb_news.published_at, tb_categories.name as category_name')
+        ->select('tb_news.title, tb_news.thumbnail, tb_news.slug, tb_news.published_at, tb_categories.name as category_name')
         ->join('tb_categories', 'tb_categories.id = tb_news.category_id')
         ->orderBy('tb_news.published_at', 'DESC')
         ->findAll(4);
@@ -74,14 +89,14 @@ class Index extends BaseController
     {
         $data = [
             'news' => $this->news_model
-            ->select('tb_news.title, tb_news.thumbnail, tb_news.published_at, tb_categories.name as category_name')
+            ->select('tb_news.title, tb_news.thumbnail, tb_news.slug, tb_news.published_at, tb_categories.name as category_name')
             ->join('tb_categories', 'tb_categories.id = tb_news.category_id')
             ->where('status', 'publish')
             ->orderBy('published_at', 'DESC')
             ->findAll()
         ];
 
-        dd($data);
+        // dd($data);
 
         return view('allNews', $data);
     }
@@ -89,7 +104,7 @@ class Index extends BaseController
     public function detailNews($slug)
     {
         $news = $this->news_model
-        ->select('tb_news.*, tb_categories.name as category_name')
+        ->select('tb_news.title, tb_news.thumbnail, tb_news.slug, tb_news.content, tb_news.published_at, tb_categories.name as category_name')
         ->join('tb_categories', 'tb_categories.id = tb_news.category_id')
         ->where('slug', $slug)->first();
 

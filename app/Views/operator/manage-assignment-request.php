@@ -407,7 +407,7 @@
                             <div class="px-6 py-3 text-start">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                ><?= date('d-m-Y', strtotime($assign_learning_path['created_at'])); ?></span
+                                ><?= date('d/m/Y', strtotime($assign_learning_path['created_at'])); ?></span
                               >
                             </div>
                           </td>
@@ -638,12 +638,13 @@
                       <tbody
                         class="divide-y divide-gray-200 dark:divide-neutral-700"
                       >
+                      <?php foreach ($request_learning_paths as $key => $request_learning_path) : ?>
                         <tr>
                           <td class="size-px whitespace-nowrap">
                             <div class="px-6 py-3">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >1.</span
+                                ><?= $key + 1 ?>.</span
                               >
                             </div>
                           </td>
@@ -651,7 +652,7 @@
                             <div class="px-6 py-3">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >Dimas Ardianto</span
+                                ><?= $request_learning_path['user_fullname']; ?></span
                               >
                             </div>
                           </td>
@@ -659,7 +660,7 @@
                             <div class="px-6 py-3">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >21/06/2024</span
+                                ><?= date('d/m/Y', strtotime($request_learning_path['created_at'])); ?></span
                               >
                             </div>
                           </td>
@@ -667,16 +668,28 @@
                             <div class="px-6 py-3">
                               <span
                                 class="text-sm text-gray-600 dark:text-neutral-400"
-                                >Akutansi</span
+                                ><?= $request_learning_path['learning_path_name']; ?></span
                               >
                             </div>
                           </td>
                           <td class="size-px whitespace-nowrap">
                             <div class="px-6 py-3 text-center">
-                              <span
-                                class="text-xs text-green-800 bg-green-100 py-1 px-1.5 rounded-md"
-                                >Approve</span
-                              >
+                              <?php if ($request_learning_path['status'] == 'pending') : ?>
+                                <span
+                                  class="text-xs text-yellow-800 bg-yellow-100 py-1 px-1.5 rounded-md"
+                                  >Pending</span
+                                >
+                              <?php elseif ($request_learning_path['status'] == 'approved') : ?>
+                                <span
+                                  class="text-xs text-green-800 bg-green-100 py-1 px-1.5 rounded-md"
+                                  >Approve</span
+                                >
+                              <?php else : ?>
+                                <span
+                                  class="text-xs text-red-800 bg-red-100 py-1 px-1.5 rounded-md"
+                                  >Reject</span
+                                >
+                              <?php endif; ?>
                             </div>
                           </td>
                           <td class="size-px whitespace-nowrap">
@@ -685,7 +698,7 @@
                                 class="hs-dropdown [--placement:bottom-right] relative inline-block"
                               >
                                 <a
-                                  href="<?= base_url('detail-learning-path') ?>"
+                                  href="<?= base_url('detail-request/').$request_learning_path['id'] ?>"
                                   type="button"
                                   class="block"
                                   data-hs-overlay="#hs-ai-invoice-modal"
@@ -717,6 +730,7 @@
                             </div>
                           </td>
                         </tr>
+                        <?php endforeach; ?>
                       </tbody>
                     </table>
                     <!-- End Table -->

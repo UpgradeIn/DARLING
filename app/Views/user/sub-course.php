@@ -11,7 +11,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-12 lg:gap-5">
             <!-- Content Section -->
             <?php if ($type == "test"): ?>
-                <?= $this->include('user/content-test') ?>
+                <?= $this->include('user/test-material') ?>
             <?php elseif ($type == "video"): ?>
                 <?= $this->include('user/content-video') ?>
             <?php else: ?>

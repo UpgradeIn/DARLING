@@ -17,7 +17,7 @@
               <div class="space-y-5 lg:space-y-8">
                 <a
                   class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline dark:text-blue-500"
-                  href="#"
+                  href="/"
                 >
                   <svg
                     class="flex-shrink-0 size-4"
@@ -33,12 +33,11 @@
                   >
                     <path d="m15 18-6-6 6-6" />
                   </svg>
-                  Back
+                  Home
                 </a>
 
                 <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
-                  Peluncuran Kursus Online Internal: Upaya Peningkatan
-                  Kompetensi Karyawan
+                  <?= $news['title'] ?>
                 </h2>
 
                 <div class="flex items-center gap-x-5">
@@ -46,25 +45,17 @@
                     class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 dark:bg-neutral-800 dark:hover:bg-neutral-800 dark:text-neutral-200"
                     href="#"
                   >
-                    Darling Platform
+                  <?= $news['category_name'] ?>
                   </a>
                   <p
                     class="text-xs sm:text-sm text-gray-800 dark:text-neutral-200"
                   >
-                    Juni 13, 2024
+                  <?= date('d F Y', strtotime($news['published_at'])) ?>
                   </p>
                 </div>
 
                 <p class="text-lg text-gray-800 dark:text-neutral-200">
-                  Damri, dengan bangga mengumumkan peluncuran platform kursus
-                  online internal baru yang bertujuan untuk meningkatkan
-                  kompetensi dan keterampilan karyawan di seluruh divisi. Dalam
-                  rangka mengikuti perkembangan teknologi dan kebutuhan akan
-                  peningkatan kapasitas SDM, Damri meluncurkan berbagai program
-                  pelatihan yang dirancang khusus untuk karyawan. Program ini
-                  mencakup berbagai topik penting, mulai dari keterampilan
-                  teknis hingga soft skills seperti kepemimpinan, manajemen
-                  waktu, dan komunikasi efektif.
+                  <?= $news['content'] ?>
                 </p>
 
                 <div class="text-center">
@@ -73,7 +64,7 @@
                       <figure class="relative w-full h-60">
                         <img
                           class="size-full absolute top-0 start-0 object-cover rounded-xl"
-                          src="https://images.unsplash.com/photo-1670272505340-d906d8d77d03?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                          src="<?= base_url('images-thumbnail/' . $news['thumbnail']) ?>"
                           alt="Image Description"
                         />
                       </figure>

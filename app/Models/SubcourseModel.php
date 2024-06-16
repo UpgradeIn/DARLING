@@ -7,7 +7,7 @@ class SubcourseModel extends Model
 {
     protected $table            = 'tb_subcourses';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['course_id', 'title', 'sequence', 'type', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['course_id', 'title', 'sequence', 'type'];
 
     // Dates
     protected $useTimestamps = true;
