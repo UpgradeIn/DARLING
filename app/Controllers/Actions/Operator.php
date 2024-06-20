@@ -77,7 +77,7 @@ class Operator extends BaseController
 
             $this->courseModel->save($data);
             $this->session->setFlashdata('msg', 'Berhasil menambahkan course baru');
-            return redirect()->to('manage-course');
+            return redirect()->to('detail-course/' . $slug);
         } else {;
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -539,7 +539,7 @@ class Operator extends BaseController
 
             $this->learningpathModel->save($data);
             $this->session->setFlashdata('msg', 'Berhasil menambahkan learning path baru');
-            return redirect()->to('manage-course');
+            return redirect()->to('detail-learning-path/' . $slug);
         } else {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -566,7 +566,7 @@ class Operator extends BaseController
             } else {
                 $nameThumbnail = $thumbnail->getRandomName();
                 $thumbnail->move('images-thumbnail', $nameThumbnail);
-                if ($this->request->getVar('old_course_thumbnail')) {
+                if ($this->request->getVar('old_learning_path_thumbnail')) {
                     if (file_exists('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'))) {
                         if ($this->request->getVar('old_learning_path_thumbnail') != 'base_thumbnail.jpg') {
                             unlink('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'));
@@ -607,7 +607,13 @@ class Operator extends BaseController
             $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
             return redirect()->back();
         }
-        unlink('images-thumbnail/' . $learningPath['thumbnail']);
+        if ($learningPath['thumbnail']) {
+            if (file_exists('images-thumbnail/' . $learningPath['thumbnail'])) {
+                if ($learningPath['thumbnail'] != 'base_thumbnail.jpg') {
+                    unlink('images-thumbnail/' . $learningPath['thumbnail']);
+                }
+            }
+        }
 
         $this->learningpathModel->delete($id);
         $this->session->setFlashdata('msg', 'Berhasil menghapus Learning Path');
