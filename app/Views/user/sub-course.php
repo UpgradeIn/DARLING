@@ -13,20 +13,28 @@
             <?php if ($type == "test"): ?>
                 <?= $this->include('user/test-material') ?>
             <?php elseif ($type == "video"): ?>
-                <?= $this->include('user/content-video') ?>
+                <?= $this->include('user/video-material') ?>
             <?php else: ?>
-                <?= $this->include('user/content-written') ?>
+                <?= $this->include('user/written-material') ?>
             <?php endif; ?>
             <!-- SubCourse List Section -->
             <div class="lg:col-span-4 flex flex-col justify-between">
               <!-- Checklist Section -->
               <div class="p-5 bg-white rounded-xl shadow-md mb-5">
                 <ul class="space-y-2">
-                  <li>
+                  <?php foreach ($allSubcourse as $subcourse): ?>
+                      <li>
+                        <a href="<?= base_url('course/'.$slug.'/sub/'.$subcourse['id']) ?>" class="flex items center">
+                          <span class="mr-2"><?= $subcourse['sequence'] ?>.</span>
+                          <span><?= $subcourse['title'] ?></span>
+                        </a>
+                      </li>
+                  <?php endforeach; ?>
+                  <!-- <li>
                     <input type="checkbox" id="pre-test" name="pre-test" class="mr-2" />
                     <label for="pre-test">Pre - test</label>
-                  </li>
-                  <li>
+                  </li> -->
+                  <!-- <li>
                     <input type="checkbox" id="video" name="video" class="mr-2" checked />
                     <label for="video">Video</label>
                   </li>
@@ -37,7 +45,7 @@
                   <li>
                     <input type="checkbox" id="post-test" name="post-test" class="mr-2" />
                     <label for="post-test">Post - test</label>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
               <!-- Result Section -->

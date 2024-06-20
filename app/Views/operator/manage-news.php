@@ -373,10 +373,10 @@
                                 </div>
                             </td>
                             <td class="size-px whitespace-nowrap">
-                                <div class="px-6 py-3 text-center">
+                                <div class="px-6 py-3 text-start">
                                 <span
                                     class="text-sm text-gray-600 dark:text-neutral-400"
-                                    ><?= $news['published_at'] ? $news['published_at'] : 'Belum dipublikasi' ?></span
+                                    ><?= $news['published_at'] ? date('d/m/Y', strtotime($news['published_at'])) : 'Belum dipublikasi' ?></span
                                 >
                                 </div>
                             </td>

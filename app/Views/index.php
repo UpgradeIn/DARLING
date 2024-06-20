@@ -296,7 +296,7 @@
                 <?php foreach ($news as $data_news) : ?>
                 <a class="group relative block rounded-xl" href="<?= base_url('news/').$data_news['slug'] ?>">
                     <div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:z-[1] before:size-full before:bg-gradient-to-t before:from-gray-900/70">
-                    <img class="w-full object-cover rounded-t-xl" src="<?= base_url('images-thumbnail/') . $data_news['thumbnail'] ?>" alt="Image Description">
+                    <img class="w-full h-full object-cover rounded-t-xl" src="<?= base_url('images-thumbnail/') . $data_news['thumbnail'] ?>" alt="Image Description">
                     </div>
 
                     <div class="absolute bottom-0 inset-x-0 z-10">
