@@ -218,11 +218,40 @@ class Operator extends BaseController
     // not yet
     public function publishCourse($id)
     {
+        $course = $this->courseModel->find($id);
+        if($course == null){
+            $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
+            return redirect()->back();
+        }
+        if($course['status'] == 'publish'){
+            $this->session->setFlashdata('msg-failed', 'Course sudah dipublish');
+            return redirect()->back();
+        }
         $data = [
             'status' => 'publish',
             'published_at' => Time::now(),
         ];
         $this->courseModel->update($id, $data);
+        return redirect()->to('detail-course/' . $course['slug']);
+    }
+
+    public function unpublishCourse($id)
+    {
+        $course = $this->courseModel->find($id);
+        if($course == null){
+            $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
+            return redirect()->back();
+        }
+        if($course['status'] != 'publish'){
+            $this->session->setFlashdata('msg-failed', 'Course masih belum dipublish');
+            return redirect()->back();
+        }
+        $data = [
+            'status' => 'draft',
+            'published_at' => null,
+        ];
+        $this->courseModel->update($id, $data);
+        return redirect()->to('detail-course/' . $course['slug']);
     }
 
     // Sub Courses | not all

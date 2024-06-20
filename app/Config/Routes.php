@@ -38,7 +38,8 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->post('update-courses/(:num)', 'Actions\Operator::updateCourse/$1');
     $routes->delete('delete-courses/(:num)', 'Actions\Operator::deleteCourse/$1');
     $routes->post('update-subcourses-sequence', 'Actions\Operator::updateSubcourseSequence');
-    $routes->post('publish-courses', 'Actions\Operator::publishCourse');
+    $routes->post('publish-courses/(:num)', 'Actions\Operator::publishCourse/$1');
+    $routes->post('unpublish-courses/(:num)', 'Actions\Operator::unpublishCourse/$1');
     // sub courses
     $routes->post('create-subcourses', 'Actions\Operator::createSubCourse');
     $routes->post('update-subcourses/(:num)', 'Actions\Operator::updateSubCourse/$1');
