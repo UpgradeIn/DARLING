@@ -127,14 +127,33 @@ class Operator extends BaseController
         return view('operator/detail-course', $data);
     }
     
-    public function addPreTest()
+    public function addPreTest($id)
     {
-        return view('operator/add-pre-test');
+        $course = $this->courseModel->find($id);
+        if (!$course) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $subcourses = $this->subcourseModel->where('course_id', $id)->where('title', 'Pre Test')->first();
+        if ($subcourses) {
+            return redirect()->to('/edit-pre-test/' . $course['id']);
+        }
+        $data = [
+            'course_id' => $id
+        ];
+
+        return view('operator/add-pre-test',$data);
     }
 
     public function editPreTest($id)
     {
-        return view('operator/edit-pre-test');
+        $course = $this->courseModel->find($id);
+        if (!$course) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $data = [
+            'course_id' => $id
+        ];
+        return view('operator/edit-pre-test', $data);
     }
 
     public function addPostTest()

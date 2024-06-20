@@ -1,10 +1,31 @@
 let questionCount = 0;
 let questions = [];
-let isEditingOrCreating = false;
+let isCreating = false; // if true, it means the user is creating a new question. if false, it means the user is editing an existing question
 let sortableInstance = null;
 
+const getTest = (type_test) => {
+  let contentQuestion = [];
+
+  contentQuestion = questions.map((question, index) => {
+    return {
+      "sequence": index + 1,
+      "content": question.text,
+      "type_test": type_test,
+      "options": question.options.map((opt, index) => {
+        return {
+          "answer": opt,
+          "correct": (question.correctOption === index?1:0)
+        }
+      })
+    }
+  });
+
+  // console.log(contentQuestion);
+  return contentQuestion;
+}
+
 const addQuestion = () => {
-  if (isEditingOrCreating) {
+  if (isCreating) {
     alert("Please save the current question before adding a new one.");
     return;
   }
@@ -15,9 +36,10 @@ const addQuestion = () => {
   const questionHtml = getUnsavedQuestionHtml(questionId, questionCount);
   container.insertAdjacentHTML("beforeend", questionHtml);
   updateQuestionSequences();
-  isEditingOrCreating = true;
+  isCreating = true;
   destroySortable();
-  console.log(isEditingOrCreating);
+  console.log(isCreating);
+  console.log(questions);
 };
 
 const getUnsavedQuestionHtml = (questionId, questionSequence) => `
@@ -35,8 +57,8 @@ const getUnsavedQuestionHtml = (questionId, questionSequence) => `
     <label class="block py-2 text-md text-gray-700 font-medium dark:text-white">Options:</label>
     <div class="space-y-4">
       ${["A", "B", "C", "D"]
-        .map(
-          (opt) => `
+    .map(
+      (opt) => `
         <div class="flex items-center space-x-5">
           <input type="radio" name="correct-${questionId}" value="${opt}" id="correct-${opt}-${questionId}" />
           <input
@@ -47,8 +69,8 @@ const getUnsavedQuestionHtml = (questionId, questionSequence) => `
           />
         </div>
       `
-        )
-        .join("")}
+    )
+    .join("")}
       <button
         class="py-2 px-3 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-green-500 dark:hover:bg-green-500 dark:focus:ring-green-500"
         onclick="saveQuestion('${questionId}')"
@@ -74,16 +96,15 @@ const getSavedQuestionHtml = (question, questionSequence) => `
     <p class="text-gray-800">${question.text}</p>
     <div class="ml-5">
       ${question.options
-        .map(
-          (opt, index) => `
-        <p class="${
-          question.correctOption === index ? "font-semibold text-green-500" : ""
+    .map(
+      (opt, index) => `
+        <p class="${(question.correctOption === index?1:0) ? "font-semibold text-green-500" : ""
         }">
           ${String.fromCharCode(65 + index)}. ${opt}
         </p>
       `
-        )
-        .join("")}
+    )
+    .join("")}
     </div>
   </div>
 `;
@@ -126,14 +147,57 @@ const saveQuestion = (questionId) => {
     questionData,
     questions.length
   );
-  isEditingOrCreating = false;
-  console.log(isEditingOrCreating);
+  isCreating = false;
+  console.log(isCreating);
+  initializeSortable();
+  updateQuestionSequences();
+};
+const saveQuestionOld = (questionId) => {
+  const questionText = document.getElementById(
+    `question-text-${questionId}`
+  ).value;
+  const options = ["A", "B", "C", "D"].map(
+    (opt) => document.getElementById(`option-${opt}-${questionId}`).value
+  );
+  const correctOption = ["A", "B", "C", "D"].findIndex(
+    (opt) => document.getElementById(`correct-${opt}-${questionId}`).checked
+  );
+
+  if (
+    !questionText ||
+    options.some((option) => !option) ||
+    correctOption === -1
+  ) {
+    alert("Please fill in all fields and select the correct option.");
+    return;
+  }
+
+  const questionData = {
+    id: questionId,
+    text: questionText,
+    options,
+    correctOption,
+  };
+  const questionIndex = questions.findIndex((q) => q.id === questionId);
+
+  if (questionIndex === -1) {
+    questions.push(questionData);
+  } else {
+    questions[questionIndex] = questionData;
+  }
+
+  document.getElementById(questionId).innerHTML = getSavedQuestionHtml(
+    questionData,
+    questions.length
+  );
+  isCreating = false;
+  console.log(isCreating);
   initializeSortable();
   updateQuestionSequences();
 };
 
 const editQuestion = (questionId) => {
-  if (isEditingOrCreating) {
+  if (isCreating) {
     alert("Please save the current question before editing another one.");
     return;
   }
@@ -159,9 +223,9 @@ const editQuestion = (questionId) => {
       )}-${questionId}`
     ).checked = true;
   }
-  isEditingOrCreating = true;
+  isCreating = true;
   destroySortable();
-  console.log(isEditingOrCreating);
+  console.log(isCreating);
 };
 
 const saveMaterialsTest = () => {
@@ -188,7 +252,7 @@ const updateQuestionSequences = () => {
 };
 
 const initializeSortable = () => {
-  if (!isEditingOrCreating && !sortableInstance) {
+  if (!isCreating && !sortableInstance) {
     sortableInstance = new Sortable(
       document.getElementById("question-container"),
       {

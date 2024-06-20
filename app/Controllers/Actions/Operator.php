@@ -219,11 +219,11 @@ class Operator extends BaseController
     public function publishCourse($id)
     {
         $course = $this->courseModel->find($id);
-        if($course == null){
+        if ($course == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
         }
-        if($course['status'] == 'publish'){
+        if ($course['status'] == 'publish') {
             $this->session->setFlashdata('msg-failed', 'Course sudah dipublish');
             return redirect()->back();
         }
@@ -238,11 +238,11 @@ class Operator extends BaseController
     public function unpublishCourse($id)
     {
         $course = $this->courseModel->find($id);
-        if($course == null){
+        if ($course == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
         }
-        if($course['status'] != 'publish'){
+        if ($course['status'] != 'publish') {
             $this->session->setFlashdata('msg-failed', 'Course masih belum dipublish');
             return redirect()->back();
         }
@@ -281,18 +281,21 @@ class Operator extends BaseController
             $jsonData = $this->request->getPost('content');
             $contentArray = json_decode($jsonData, true);
 
-            // $validationRules['content'] = 'required|array';
-            $validationRules['content.sequence'] = 'required|integer';
-            $validationRules['content.content'] = 'required|string';
-            $validationRules['content.type_test'] = 'required|string';
-            $validationRules['content.options'] = 'required|array';
-            $validationRules['content.options.*.content'] = 'required|string';
-            $validationRules['content.options.*.correct'] = 'required|boolean';
+            // $validationRules['content.*'] = 'required';
+            $validationRules['content.*.sequence'] = 'required|integer';
+            $validationRules['content.*.content'] = 'required|string';
+            $validationRules['content.*.type_test'] = 'required|string';
+            // $validationRules['content.*.options.*'] = 'required';
+            $validationRules['content.*.options.*.answer'] = 'required|string';
+            $validationRules['content.*.options.*.correct'] = 'required|integer';
             // $validationData = ['content' => $contentArray];
             $validationData['content'] = $contentArray;
         }
 
+
         if ($this->validateData($validationData, $validationRules)) {
+            $dataCourse = $this->courseModel->select('slug')->where('id', $this->request->getVar('course_id'))->first();
+            // dd($dataCourse['slug']);
             $model = new SubcourseModel();
 
             $data = [
@@ -320,34 +323,30 @@ class Operator extends BaseController
                 } else if ($type === 'test') {
                     $testModel = new TestMaterialModel();
                     $optionModel = new OptionTestModel();
-
-                    $dataMaterial = [
-                        'subcourse_id' => $insertedID,
-                        'content' => $validationData['content']['content'],
-                        'sequence' => $validationData['content']['sequence'],
-                        'type_test' => $validationData['content']['type_test'],
-                        'created_at'  => Time::now(),
-                        'updated_at'  => Time::now(),
-                    ];
-
-                    $testModel->save($dataMaterial);
-                    $insertedMaterialID = $testModel->insertID();
-                    foreach ($validationData['content']['options'] as $key => $option) {
-                        $dataOption = [
-                            'test_material_id' => $insertedMaterialID,
-                            'answer' => $option['answer'],
-                            'correct' => $option['correct'],
-                            'created_at'  => Time::now(),
-                            'updated_at'  => Time::now(),
+                    foreach ($validationData['content'] as $key => $content) {
+                        $dataMaterial = [
+                            'subcourse_id' => $insertedID,
+                            'content' => $content['content'],
+                            'sequence' => $content['sequence'],
+                            'type_test' => $content['type_test'],
                         ];
-                        $optionModel->save($dataOption);
+                        $testModel->save($dataMaterial);
+                        $insertedMaterialID = $testModel->insertID();
+                        foreach ($content['options'] as $key => $option) {
+                            $dataOption = [
+                                'test_material_id' => $insertedMaterialID,
+                                'answer' => $option['answer'],
+                                'correct' => $option['correct'],
+                            ];
+                            $optionModel->save($dataOption);
+                        }
                     }
                 }
                 $this->session->setFlashdata('msg', 'Berhasil menambahkan subcourse baru');
-                return redirect()->back();
+                return redirect()->to('detail-course/' . $dataCourse['slug']);
             } else {
                 $this->session->setFlashdata('msg-failed', 'Gagal menambahkan subcourse baru');
-                return redirect()->back();
+                return redirect()->to('detail-course/' . $dataCourse['slug']);
             }
         } else {
             $validation = $this->validator;
@@ -653,11 +652,11 @@ class Operator extends BaseController
     public function publishLearningPath($id)
     {
         $learningPath = $this->learningpathModel->find($id);
-        if($learningPath == null){
+        if ($learningPath == null) {
             $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
             return redirect()->back();
         }
-        if($learningPath['status'] == 'publish'){
+        if ($learningPath['status'] == 'publish') {
             $this->session->setFlashdata('msg-failed', 'Learning Path sudah dipublish');
             return redirect()->back();
         }
@@ -672,11 +671,11 @@ class Operator extends BaseController
     public function unpublishLearningPath($id)
     {
         $learningPath = $this->learningpathModel->find($id);
-        if($learningPath == null){
+        if ($learningPath == null) {
             $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
             return redirect()->back();
         }
-        if($learningPath['status'] != 'publish'){
+        if ($learningPath['status'] != 'publish') {
             $this->session->setFlashdata('msg-failed', 'Learning Path masih belum dipublish');
             return redirect()->back();
         }

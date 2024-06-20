@@ -353,7 +353,7 @@ Detail Course | Damri Course
             <div class="px-6 py-4 grid gap-3 bg-gray-50 lg:flex md:justify-between lg:items-center border-b border-gray-200 dark:border-neutral-700">
               <div class="flex space-x-2">
                 <!-- Create Pre Test -->
-                <a href="<?= base_url('add-pre-test'); ?>" class="py-1 px-2 cursor-pointer bg-blue-800 text-white rounded-md hover:bg-blue-900">
+                <a href="<?= base_url('add-pre-test/' . $course['id']); ?>" class="py-1 px-2 cursor-pointer bg-blue-800 text-white rounded-md hover:bg-blue-900">
                   + Pre Test
                 </a>
                 <!-- End Create Pre Test -->
@@ -386,7 +386,7 @@ Detail Course | Damri Course
                                 <!-- Judul Sub Materi Video -->
                                 <input type="hidden" name="type" value="video">
                                 <input type="hidden" name="course_id" value="<?= $course['id']; ?>">
-                                <input type="hidden" name="sequence" value="<?= count($subcourses) + 1 ?>">
+                                <input type="hidden" name="sequence" value="<?= (count($subcourses)===0?2:count($subcourses)+1)?>">
                                 <div>
                                   <label for="title" class="block mb-2 text-sm text-gray-700 font-medium dark:text-white">Judul Sub Materi</label>
                                   <input type="text" name="title" id="title" placeholder="Inputkan judul sub materi" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" />

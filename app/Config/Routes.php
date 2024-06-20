@@ -97,7 +97,7 @@ $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('detail-learning-path/(:any)', 'Pages\Operator::detailLearningPath/$1');
     $routes->get('manage-course', 'Pages\Operator::manageCourse');
     $routes->get('detail-course/(:any)', 'Pages\Operator::detailCourse/$1');
-    $routes->get('add-pre-test', 'Pages\Operator::addPreTest');
+    $routes->get('add-pre-test/(:num)', 'Pages\Operator::addPreTest/$1');
     $routes->get('edit-pre-test/(:num)', 'Pages\Operator::editPreTest/$1');
     $routes->get('add-post-test', 'Pages\Operator::addPostTest');
     $routes->get('edit-post-test/(:num)', 'Pages\Operator::editPostTest/$1');
