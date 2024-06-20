@@ -77,7 +77,7 @@ class Operator extends BaseController
 
             $this->courseModel->save($data);
             $this->session->setFlashdata('msg', 'Berhasil menambahkan course baru');
-            return redirect()->to('manage-course');
+            return redirect()->to('detail-course/' . $slug);
         } else {;
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -539,7 +539,7 @@ class Operator extends BaseController
 
             $this->learningpathModel->save($data);
             $this->session->setFlashdata('msg', 'Berhasil menambahkan learning path baru');
-            return redirect()->to('manage-course');
+            return redirect()->to('detail-learning-path/' . $slug);
         } else {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
