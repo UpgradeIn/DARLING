@@ -32,7 +32,8 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->post('create-learningpaths', 'Actions\Operator::createLearningPath');
     $routes->post('update-learningpaths/(:num)', 'Actions\Operator::updateLearningPath/$1');
     $routes->delete('delete-learningpaths/(:num)', 'Actions\Operator::deleteLearningPath/$1');
-    $routes->post('publish-learningpaths', 'Actions\Operator::publishLearningPath');
+    $routes->post('publish-learningpaths/(:num)', 'Actions\Operator::publishLearningPath/$1');
+    $routes->post('unpublish-learningpaths/(:num)', 'Actions\Operator::unpublishLearningPath/$1');
     // courses
     $routes->post('create-courses', 'Actions\Operator::createCourse');
     $routes->post('update-courses/(:num)', 'Actions\Operator::updateCourse/$1');

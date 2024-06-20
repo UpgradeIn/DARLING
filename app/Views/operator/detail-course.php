@@ -36,7 +36,7 @@ Detail Course | Damri Course
                     <?php endif; ?>
                     </button>
 
-                    <!-- Modal Publish Learning Path -->
+                    <!-- Modal Publish Course -->
                     <div id="hs-publish-course" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
                       <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
                         <div class="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-neutral-900">

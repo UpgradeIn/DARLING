@@ -652,12 +652,40 @@ class Operator extends BaseController
     // not yet
     public function publishLearningPath($id)
     {
-        $model = new LearningPathModel();
+        $learningPath = $this->learningpathModel->find($id);
+        if($learningPath == null){
+            $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
+            return redirect()->back();
+        }
+        if($learningPath['status'] == 'publish'){
+            $this->session->setFlashdata('msg-failed', 'Learning Path sudah dipublish');
+            return redirect()->back();
+        }
         $data = [
-            'status' => 'publish',
-            'published_at' => Time::now(),
+            'status' => 'draft',
+            'published_at' => null,
         ];
-        $model->update($id, $data);
+        $this->learningpathModel->update($id, $data);
+        return redirect()->to('detail-learning-path/' . $learningPath['slug']);
+    }
+
+    public function unpublishLearningPath($id)
+    {
+        $learningPath = $this->learningpathModel->find($id);
+        if($learningPath == null){
+            $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
+            return redirect()->back();
+        }
+        if($learningPath['status'] != 'publish'){
+            $this->session->setFlashdata('msg-failed', 'Learning Path masih belum dipublish');
+            return redirect()->back();
+        }
+        $data = [
+            'status' => 'draft',
+            'published_at' => null,
+        ];
+        $this->learningpathModel->update($id, $data);
+        return redirect()->to('detail-learning-path/' . $learningPath['slug']);
     }
 
     // Learning Path Courses | not yet
