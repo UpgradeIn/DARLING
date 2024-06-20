@@ -446,7 +446,7 @@
                         <div class="px-6 py-3 text-start">
                           <span
                             class="text-sm text-gray-600 dark:text-neutral-400"
-                            ><?= $course['published_at'] ? $course['published_at'] : 'Belum dipublikasi' ?></span
+                            ><?= $course['published_at'] ? date('d/m/Y', strtotime($course['published_at'])) : 'Belum dipublikasi' ?></span
                           >
                         </div>
                       </td>
@@ -926,7 +926,7 @@
                         <div class="px-6 py-3 text-start">
                           <span
                             class="text-sm text-gray-600 dark:text-neutral-400"
-                            ><?= $lp['published_at'] ? $lp['published_at'] : 'Belum dipublikasi' ?></span
+                            ><?= $lp['published_at'] ? date('d/m/Y', strtotime($lp['published_at'])) : 'Belum dipublikasi' ?></span
                           >
                         </div>
                       </td>
