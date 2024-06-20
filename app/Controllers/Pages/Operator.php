@@ -50,7 +50,7 @@ class Operator extends BaseController
     {
         $assign_learning_paths = $this->assignLearningPathModel->getAssignLearningPaths();
         $request_learning_paths = $this->requestLearningPathModel->getRequestLearningPaths();
-        $users = $this->usersModel->getUsers(); 
+        $users = $this->usersModel->getUsersInUserRole();
         // dd($assign_learning_paths);
         $learningPaths = $this->learningPathsModel->findAll();
         $data = [
@@ -76,7 +76,14 @@ class Operator extends BaseController
 
     public function detailRequest($id)
     {
-        return view('operator/detail-request');
+        $detailRequest = $this->requestLearningPathModel->getDetailRequestLearningPath($id);
+        if (!$detailRequest) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $data = [
+            'detailRequest' => $detailRequest
+        ];
+        return view('operator/detail-request', $data);
     }
 
     public function detailLearningPath($slug)
