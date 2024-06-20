@@ -566,7 +566,7 @@ class Operator extends BaseController
             } else {
                 $nameThumbnail = $thumbnail->getRandomName();
                 $thumbnail->move('images-thumbnail', $nameThumbnail);
-                if ($this->request->getVar('old_course_thumbnail')) {
+                if ($this->request->getVar('old_learning_path_thumbnail')) {
                     if (file_exists('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'))) {
                         if ($this->request->getVar('old_learning_path_thumbnail') != 'base_thumbnail.jpg') {
                             unlink('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'));
