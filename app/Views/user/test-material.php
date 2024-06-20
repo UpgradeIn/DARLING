@@ -3,6 +3,8 @@
     <div class="text-center">
         <p>
             <h1>TEST</h1>
+            <p><?= $slug ?></p>
+            <p><?= $id ?></p>
         </p>
     </div>
     </div>

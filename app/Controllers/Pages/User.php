@@ -12,22 +12,28 @@ use App\Models\UserLearningPathModel;
 use App\Models\UserSubCourseModel;
 use App\Models\UserAnswerModel;
 use App\Models\RequestLearningPathModel;
+use App\Models\SubcourseModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class User extends BaseController
 {
-    protected $course_model;
     protected $user_course_model;
     protected $learning_path_model;
+    protected $course_model;
+    protected $subcourse_model;
     protected $user_learning_path_model;
     protected $learning_path_course_model;
+    protected $request_learning_path_model;
+
     public function __construct()
     {
-        $this->course_model = new CourseModel();
         $this->user_course_model = new UserCourseModel();
         $this->learning_path_model = new LearningPathModel();
-        $this->learning_path_course_model = new LearningPathCourseModel();
+        $this->course_model = new CourseModel();
+        $this->subcourse_model = new SubcourseModel();
         $this->user_learning_path_model = new UserLearningPathModel();
+        $this->learning_path_course_model = new LearningPathCourseModel();
+        $this->request_learning_path_model = new RequestLearningPathModel();
     }
 
     public function home()
@@ -35,24 +41,31 @@ class User extends BaseController
         return redirect()->to('/');
     }
 
+    public function detailNews($slug)
+    {
+        $data = [
+            'slug' => $slug
+        ];
+        return view('user/detail-news', $data);
+    }
+
     public function course()
     {
-
-
         return view('user/course');
     }
 
     public function detailCourse($slug)
     {
-        $pre_test_id = 1;
-        return redirect()->to("/course/$slug/sub/$pre_test_id");
+        return redirect()->to("/course/$slug/sub/1");
     }
 
     public function subCourse($slug, $id)
     {
+        $subcourse = $this->subcourse_model->where('id', $id)->first();
         $data = [
             'slug' => $slug,
-            'id' => $id
+            'id' => $id,
+            'type' => $subcourse['type']
         ];
         return view('user/sub-course', $data);
     }
@@ -89,9 +102,16 @@ class User extends BaseController
     public function detailLearningPath($slug)
     {
         $learning_path = $this->learning_path_model->where('slug', $slug)->first();
+        $learning_path_courses = $this->learning_path_course_model->getLearningPathCoursesForUserPage($learning_path['id']);
+        // dd($learning_path_courses);
+        $request_learning_path = $this->request_learning_path_model->where('user_id', session('id'))->where('learning_path_id', $learning_path['id'])->first();
+        $user_learning_path = $this->user_learning_path_model->where('user_id', session('id'))->where('learning_path_id', $learning_path['id'])->first();
         $data = [
-            'learning_path' => $learning_path
-        ];   
+            'learning_path' => $learning_path,
+            'learning_path_courses' => $learning_path_courses,
+            'status_request' => $request_learning_path != null ? $request_learning_path['status'] : null,
+            'is_has_learning_path' => $user_learning_path != null ? true : false,
+        ];  
         return view('user/detail-learning-path', $data);
     }
 }

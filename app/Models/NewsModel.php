@@ -8,7 +8,7 @@ class NewsModel extends Model
 {
     protected $table            = 'tb_news';
     protected $primaryKey       = 'id';
-    protected $allowedFields    = ['thumbnail', 'title','slug', 'content','categort_id', 'admin_id', 'published_at', 'status', 'created_at', 'updated_at'];
+    protected $allowedFields    = ['thumbnail', 'title','slug', 'content','category_id', 'admin_id', 'published_at', 'status', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;

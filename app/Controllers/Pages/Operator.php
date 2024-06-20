@@ -11,6 +11,7 @@ use App\Models\RequestLearningPathModel;
 use App\Models\SubcourseModel;
 use App\Models\UserLearningPathModel;
 use App\Models\UsersModel;
+use App\Models\CategoryModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Operator extends BaseController
@@ -19,6 +20,7 @@ class Operator extends BaseController
     protected $usersModel;
     protected $newsModel;
     protected $courseModel;
+    protected $categoryModel;
     protected $learningPathsModel;
     protected $subcourseModel;
     protected $userLearningPathModel;
@@ -31,6 +33,7 @@ class Operator extends BaseController
         $this->usersModel = new UsersModel();
         $this->courseModel = new CourseModel();
         $this->newsModel = new NewsModel();
+        $this->categoryModel = new CategoryModel();
         $this->learningPathsModel = new LearningPathModel();
         $this->subcourseModel = new SubcourseModel();
         $this->userLearningPathModel = new UserLearningPathModel();
@@ -47,7 +50,7 @@ class Operator extends BaseController
     {
         $assign_learning_paths = $this->assignLearningPathModel->getAssignLearningPaths();
         $request_learning_paths = $this->requestLearningPathModel->getRequestLearningPaths();
-        $users = $this->usersModel->getUsersNotInLearningPath(); 
+        $users = $this->usersModel->getUsersInUserRole();
         // dd($assign_learning_paths);
         $learningPaths = $this->learningPathsModel->findAll();
         $data = [
@@ -73,7 +76,14 @@ class Operator extends BaseController
 
     public function detailRequest($id)
     {
-        return view('operator/detail-request');
+        $detailRequest = $this->requestLearningPathModel->getDetailRequestLearningPath($id);
+        if (!$detailRequest) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $data = [
+            'detailRequest' => $detailRequest
+        ];
+        return view('operator/detail-request', $data);
     }
 
     public function detailLearningPath($slug)
@@ -100,15 +110,6 @@ class Operator extends BaseController
             'learningPaths' => $learningPaths
         ];
         return view('operator/manage-course', $data);
-    }
-
-    public function manageNews()
-    {
-        $news = $this->newsModel->findAll();
-        $data = [
-            'news' => $news
-        ];
-        return view('operator/manage-news', $data);
     }
 
     public function detailCourse($slug)
@@ -145,4 +146,32 @@ class Operator extends BaseController
     {
         return view('operator/edit-post-test');
     }
+
+    public function manageNews()
+    {
+        $news = $this->newsModel->findAll();
+        $categories = $this->categoryModel->findAll();
+        $data = [
+            'news' => $news,
+            'categories' => $categories
+        ];
+        return view('operator/manage-news', $data);
+    }
+
+    public function detailNews($slug)
+    {
+        $news = $this->newsModel->where('slug', $slug)->first();
+        $category_news = $this->categoryModel->where('id', $news['category_id'])->first();
+        $categories = $this->categoryModel->findAll();
+        if (!$news) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $data = [
+            'news' => $news,
+            'category_news' => $category_news['name'],
+            'categories' => $categories
+        ];
+        return view('operator/detail-news', $data);
+    }
+
 }

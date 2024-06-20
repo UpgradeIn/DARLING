@@ -17,7 +17,7 @@ use App\Models\AssignLearningPathModel;
 use App\Models\UsersModel;
 use App\Models\CategoryModel;
 use App\Models\NewsModel;
-
+use App\Models\RoleModel;
 use CodeIgniter\I18n\Time;
 
 class Operator extends BaseController
@@ -96,7 +96,7 @@ class Operator extends BaseController
         $exists_slug = $this->courseModel->where('slug', $slug)->first();
         if ($exists_slug != null && $exists_slug['id'] != $id) {
             $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
-            return redirect()->to('detail-course/'.$course['slug']);
+            return redirect()->to('detail-course/' . $course['slug']);
         }
 
         $rules = [
@@ -114,7 +114,13 @@ class Operator extends BaseController
             } else {
                 $thumbnail->move('images-thumbnail');
                 $nameThumbnail = $thumbnail->getName();
-                unlink('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'));
+                if ($this->request->getVar('old_course_thumbnail')) {
+                    if (file_exists('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'))) {
+                        if ($this->request->getVar('old_course_thumbnail') != 'base_thumbnail.jpg') {
+                            unlink('images-thumbnail/' . $this->request->getVar('old_course_thumbnail'));
+                        }
+                    }
+                }
             }
 
             $module = $this->request->getFile('module');
@@ -124,7 +130,13 @@ class Operator extends BaseController
             } else {
                 $module->move('module-course');
                 $nameModule = $module->getName();
-                unlink('module-course/' . $this->request->getVar('old_module'));
+                if ($this->request->getVar('old_module')) {
+                    if (file_exists('module-course/' . $this->request->getVar('old_module'))) {
+                        if ($this->request->getVar('old_module') != 'base_module.pdf') {
+                            unlink('module-course/' . $this->request->getVar('old_module'));
+                        }
+                    }
+                }
             }
 
             $data = [
@@ -141,7 +153,7 @@ class Operator extends BaseController
 
             $this->courseModel->update($id, $data);
             $this->session->setFlashdata('msg', 'Berhasil mengubah course');
-            return redirect()->to('detail-course/'.$slug);
+            return redirect()->to('detail-course/' . $slug);
         } else {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -156,7 +168,17 @@ class Operator extends BaseController
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
         }
-        unlink('images-thumbnail/' . $course['thumbnail']);
+        if (file_exists('images-thumbnail/' .  $course['thumbnail'])) {
+            if ($course['thumbnail'] != 'base_thumbnail.jpg') {
+                unlink('images-thumbnail/' . $course['thumbnail']);
+            }
+        }
+
+        if (file_exists('module-course/' . $course['module'])) {
+            if ($course['module'] != 'base_module.pdf') {
+                unlink('module-course/' . $course['module']);
+            }
+        }
 
         $this->courseModel->delete($id);
         $this->session->setFlashdata('msg', 'Berhasil menghapus course');
@@ -515,7 +537,7 @@ class Operator extends BaseController
                 'published_at'  => null,
             ];
 
-           $this->learningpathModel->save($data);
+            $this->learningpathModel->save($data);
             $this->session->setFlashdata('msg', 'Berhasil menambahkan learning path baru');
             return redirect()->to('manage-course');
         } else {
@@ -528,44 +550,52 @@ class Operator extends BaseController
     public function updateLearningPath($id)
     {
         $rules = [
-            'name'          => 'required',
-            'description'   => 'required',
+            'nama_learning_path'          => 'required',
+            'keterangan_learning_path'   => 'required',
             'period'        => 'required|numeric',
-            'thumbnail'     => 'max_size[thumbnail,5120]|is_image[thumbnail]|mime_in[thumbnail,image/jpg,image/jpeg,image/png]',
-            'status'        => 'required|in_list[publish,draft]',
+            'thumbnail_learning_path'     => 'max_size[thumbnail_learning_path,5120]|is_image[thumbnail_learning_path]|mime_in[thumbnail_learning_path,image/jpg,image/jpeg,image/png]',
         ];
 
         if ($this->validate($rules)) {
             $model = new LearningPathModel();
 
-            $thumbnail = $this->request->getFile('thumbnail');
+            $thumbnail = $this->request->getFile('thumbnail_learning_path');
             //caek gambar lama
             if ($thumbnail->getError() == 4) {
-                $nameThumbnail = $this->request->getVar('oldThumbnail');
+                $nameThumbnail = $this->request->getVar('old_learning_path_thumbnail');
             } else {
                 $nameThumbnail = $thumbnail->getRandomName();
-                $thumbnail->move('images', $nameThumbnail);
-                unlink('images/' . $this->request->getVar('oldThumbnail'));
+                $thumbnail->move('images-thumbnail', $nameThumbnail);
+                if ($this->request->getVar('old_course_thumbnail')) {
+                    if (file_exists('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'))) {
+                        if ($this->request->getVar('old_learning_path_thumbnail') != 'base_thumbnail.jpg') {
+                            unlink('images-thumbnail/' . $this->request->getVar('old_learning_path_thumbnail'));
+                        }
+                    }
+                }
             }
 
             $data = [
                 'thumbnail'     => $nameThumbnail,
-                'name'          => $this->request->getVar('name'),
-                'description'   => $this->request->getVar('description'),
+                'name'          => $this->request->getVar('nama_learning_path'),
+                'description'   => $this->request->getVar('keterangan_learning_path'),
                 'period'        => $this->request->getVar('period'),
-                'status'        => $this->request->getVar('status'),
                 'updated_at'    => Time::now(),
             ];
-            if ($this->request->getVar('status') == 'publish') {
+            // dd($data);
+            if ($this->request->getVar('status') && $this->request->getVar('status') == 'publish') {
+                $data['status'] = 'publish';
                 $data['published_at'] = Time::now();
             } else {
                 $data['published_at'] = null;
             }
             $model->update($id, $data);
-            return redirect()->to('manage-learningpath');
+            $this->session->setFlashdata('msg', 'Berhasil merubah learning path');
+            return redirect()->to('manage-course');
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage-learningpath', $data);
+            $validation = $this->validator;
+            dd($validation->getErrors());
+            // return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
@@ -681,7 +711,21 @@ class Operator extends BaseController
 
     // Assign Learning Path | check
     public function assignLearningPath()
-    { 
+    {
+        $userLearningPathModel = new UserLearningPathModel();
+        $user_learning_path = $userLearningPathModel->where('user_id', $this->request->getVar('user'))
+            ->first();
+        if ($user_learning_path != null && $user_learning_path['status'] != 'completed') {
+            $this->session->setFlashdata('msg-failed', 'User sedang menjalankan learning path');
+            return redirect()->to('manage-assignment-request');
+        }
+        $userModel = new UsersModel();
+        $user = $userModel->where('id', $this->request->getVar('user'))
+            ->first();
+        if ($user['role_id'] == 1 || $user['role_id'] == 2) {
+            $this->session->setFlashdata('msg-failed', 'User tidak dapat diberikan learning path');
+            return redirect()->to('manage-assignment-request');
+        }
         $rules = [
             'user'                     => 'required',
             'learning_path'            => 'required',
@@ -709,7 +753,6 @@ class Operator extends BaseController
             $modelLearningPath = new LearningPathModel();
             $learningPath = $modelLearningPath->find($this->request->getVar('learning_path'));
 
-            $userLearningPathModel = new UserLearningPathModel();
             $data = [
                 'user_id' => $this->request->getVar('user'),
                 'learning_path_id' => $this->request->getVar('learning_path'),
@@ -736,14 +779,10 @@ class Operator extends BaseController
 
         if ($this->validate($rules)) {
             $model = new RequestLearningPathModel();
-            $userModel = new UsersModel();
-            $email = session('email');
-            $user = $userModel->where('email', $email)
-                ->first();
 
             $data = [
                 'status'           => $this->request->getVar('status'),
-                'admin_id'         => $user['id'],
+                'admin_id'         => session('id'),
                 'responded_at'  => Time::now(),
             ];
             $model->update($id, $data);
@@ -759,16 +798,17 @@ class Operator extends BaseController
                 $data = [
                     'user_id' => $request['user_id'],
                     'learning_path_id' => $request['learning_path_id'],
+                    'status' => 'not-started',
                     'start_date' => Time::now(),
                     'end_date' => Time::now()->addMonths($learningPath['period']),
                 ];
                 $userLearningPathModel->save($data);
             }
-
-            return redirect()->to('manage-request-learningpath');
+            $this->session->setFlashdata('msg', 'Berhasil merespon request learning path');
+            return redirect()->back();
         } else {
-            $data['validation'] = $this->validator;
-            return view('manage-request-learningpath', $data);
+            $validation = $this->validator;
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
     }
 
@@ -831,9 +871,11 @@ class Operator extends BaseController
         $rules = [
             'title'          => 'required',
             'content'        => 'required',
+            'category_id'    => 'required|numeric',
             'thumbnail_news'      => 'uploaded[thumbnail_news]|max_size[thumbnail_news,5120]|is_image[thumbnail_news]|mime_in[thumbnail_news,image/jpg,image/jpeg,image/png]',
         ];
 
+        $slug = url_title($this->request->getVar('title'), '-', true);
         if ($this->validate($rules)) {
             $thumbnail = $this->request->getFile('thumbnail_news');
             $thumbnail->move('images-thumbnail');
@@ -842,7 +884,10 @@ class Operator extends BaseController
             $data = [
                 'thumbnail'     => $nameThumbnail,
                 'title'          => $this->request->getVar('title'),
+                'slug'          => $slug,
                 'content'        => $this->request->getVar('content'),
+                'category_id'    => $this->request->getVar('category_id'),
+                'admin_id'       => session('id'),
                 'status'         => 'draft',
                 'published_at'  => null,
             ];
