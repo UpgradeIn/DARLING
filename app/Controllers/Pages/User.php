@@ -56,16 +56,28 @@ class User extends BaseController
 
     public function detailCourse($slug)
     {
-        return redirect()->to("/course/$slug/sub/1");
+        $course = $this->course_model->where('slug', $slug)->first();
+        $subcourse = $this->subcourse_model->where('course_id', $course['id'])->first();
+        if (!$subcourse) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $pre_test = $this->subcourse_model->where('course_id', $course['id'])->where('sequence', 1)->first();
+        return redirect()->to("/course/$slug/sub/".$pre_test['id']);
     }
 
     public function subCourse($slug, $id)
     {
+        $course = $this->course_model->where('slug', $slug)->first();
+        $allSubcourse = $this->subcourse_model->where('course_id', $course['id'])->findAll();
         $subcourse = $this->subcourse_model->where('id', $id)->first();
+        if ($subcourse['course_id'] != $course['id']) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
         $data = [
             'slug' => $slug,
             'id' => $id,
-            'type' => $subcourse['type']
+            'type' => $subcourse['type'],
+            'allSubcourse' => $allSubcourse
         ];
         return view('user/sub-course', $data);
     }
