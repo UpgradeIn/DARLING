@@ -607,7 +607,13 @@ class Operator extends BaseController
             $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
             return redirect()->back();
         }
-        unlink('images-thumbnail/' . $learningPath['thumbnail']);
+        if ($learningPath['thumbnail']) {
+            if (file_exists('images-thumbnail/' . $learningPath['thumbnail'])) {
+                if ($learningPath['thumbnail'] != 'base_thumbnail.jpg') {
+                    unlink('images-thumbnail/' . $learningPath['thumbnail']);
+                }
+            }
+        }
 
         $this->learningpathModel->delete($id);
         $this->session->setFlashdata('msg', 'Berhasil menghapus Learning Path');
