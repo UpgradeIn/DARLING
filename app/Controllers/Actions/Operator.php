@@ -216,7 +216,7 @@ class Operator extends BaseController
     }
 
     // not yet
-    public function publisCourse($id)
+    public function publishCourse($id)
     {
         $data = [
             'status' => 'publish',
@@ -621,7 +621,7 @@ class Operator extends BaseController
     }
 
     // not yet
-    public function publisLearningPath($id)
+    public function publishLearningPath($id)
     {
         $model = new LearningPathModel();
         $data = [
