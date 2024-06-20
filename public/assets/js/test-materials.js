@@ -1,13 +1,23 @@
 let questionCount = 0;
 let questions = [];
+let isEditingOrCreating = false;
+let sortableInstance = null;
 
 const addQuestion = () => {
+  if (isEditingOrCreating) {
+    alert("Please save the current question before adding a new one.");
+    return;
+  }
+
   questionCount++;
   const questionId = `question-${questionCount}`;
   const container = document.getElementById("question-container");
   const questionHtml = getUnsavedQuestionHtml(questionId, questionCount);
   container.insertAdjacentHTML("beforeend", questionHtml);
   updateQuestionSequences();
+  isEditingOrCreating = true;
+  destroySortable();
+  console.log(isEditingOrCreating);
 };
 
 const getUnsavedQuestionHtml = (questionId, questionSequence) => `
@@ -89,6 +99,15 @@ const saveQuestion = (questionId) => {
     (opt) => document.getElementById(`correct-${opt}-${questionId}`).checked
   );
 
+  if (
+    !questionText ||
+    options.some((option) => !option) ||
+    correctOption === -1
+  ) {
+    alert("Please fill in all fields and select the correct option.");
+    return;
+  }
+
   const questionData = {
     id: questionId,
     text: questionText,
@@ -107,10 +126,17 @@ const saveQuestion = (questionId) => {
     questionData,
     questions.length
   );
+  isEditingOrCreating = false;
+  console.log(isEditingOrCreating);
+  initializeSortable();
   updateQuestionSequences();
 };
 
 const editQuestion = (questionId) => {
+  if (isEditingOrCreating) {
+    alert("Please save the current question before editing another one.");
+    return;
+  }
   const questionIndex = questions.findIndex((q) => q.id === questionId);
   if (questionIndex !== -1) {
     const questionData = questions[questionIndex];
@@ -133,6 +159,9 @@ const editQuestion = (questionId) => {
       )}-${questionId}`
     ).checked = true;
   }
+  isEditingOrCreating = true;
+  destroySortable();
+  console.log(isEditingOrCreating);
 };
 
 const saveMaterialsTest = () => {
@@ -158,18 +187,38 @@ const updateQuestionSequences = () => {
   });
 };
 
-new Sortable(document.getElementById("question-container"), {
-  animation: 150,
-  onEnd: () => {
-    const newQuestions = [];
-    document
-      .querySelectorAll("#question-container > div")
-      .forEach((div, index) => {
-        const questionId = div.id;
-        const questionIndex = questions.findIndex((q) => q.id === questionId);
-        newQuestions[index] = questions[questionIndex];
-      });
-    questions = newQuestions;
-    updateQuestionSequences();
-  },
+const initializeSortable = () => {
+  if (!isEditingOrCreating && !sortableInstance) {
+    sortableInstance = new Sortable(
+      document.getElementById("question-container"),
+      {
+        animation: 150,
+        onEnd: () => {
+          const newQuestions = [];
+          document
+            .querySelectorAll("#question-container > div")
+            .forEach((div, index) => {
+              const questionId = div.id;
+              const questionIndex = questions.findIndex(
+                (q) => q.id === questionId
+              );
+              newQuestions[index] = questions[questionIndex];
+            });
+          questions = newQuestions;
+          updateQuestionSequences();
+        },
+      }
+    );
+  }
+};
+
+const destroySortable = () => {
+  if (sortableInstance) {
+    sortableInstance.destroy();
+    sortableInstance = null;
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeSortable();
 });

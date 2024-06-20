@@ -54,7 +54,7 @@
             </div>
         </div>
         <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between sm:ps-7">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <div></div>
                 <div class="flex flex-col sm:flex-row">
                     <?php if(isset($role)) : ?>
@@ -63,7 +63,7 @@
                             <a class="py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500" href="<?= base_url('course') ?>">Course</a>
                         <?php elseif($role == 'operator') : ?>
                             <a class="py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500" href="<?= base_url("$role") ?>">Dashboard</a>
-                            <div class="hs-dropdown [--strategy:static] sm:[--strategy:fixed] [--adaptive:none] sm:[--trigger:hover] px-6 py-3 sm:px-3">
+                            <div class="hs-dropdown [--strategy:static] sm:[--strategy:fixed] [--adaptive:none] sm:[--trigger:hover] py-3 ps-px sm:px-3">
                                 <button type="button" class="flex items-center w-full text-gray-500 hover:text-gray-400 font-medium dark:text-neutral-400 dark:hover:text-neutral-500">
                                     Kelola
                                     <svg class="flex-shrink-0 ms-2 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
