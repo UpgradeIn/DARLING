@@ -28,9 +28,8 @@ Add Pre Test | Damri Course
             onclick="savePreTest()"
             class="py-2 px-3 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500"
           > -->
-      <form action="<?= base_url('create-subcourses'); ?>" method="POST" enctype="multipart/form-data" onsubmit="prepareFormData(event)">
+      <form action="<?= base_url('create-subcourses'); ?>" method="POST" enctype="multipart/form-data" onsubmit="prepareFormData(event, 'pre_test')">
         <?= csrf_field(); ?>
-        <input type="hidden" name="title" value="Pre Test">
         <input type="hidden" name="type" value="test">
         <input type="hidden" name="course_id" value="<?= $course_id; ?>">
         <input type="hidden" name="sequence" value="1">
@@ -45,22 +44,4 @@ Add Pre Test | Damri Course
     </div>
   </div>
 </section>
-<script>
-  // const savePreTest = () => {
-
-  // }
-  const prepareFormData = (event) => {
-    event.preventDefault();
-    const dataTest = getTest('pre_test');
-    if (dataTest.length === 0) {
-      alert('Soal pre-test tidak boleh kosong')
-      console.log('KOSONG')
-      return
-    }
-    const jsonData = JSON.stringify(dataTest)
-    document.getElementById('content').value = jsonData
-    console.log('ISI')
-    event.target.submit();
-  }
-</script>
 <?= $this->endSection() ?>

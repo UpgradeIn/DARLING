@@ -3,26 +3,43 @@ let questions = [];
 let isCreating = false; // if true, it means the user is creating a new question. if false, it means the user is editing an existing question
 let sortableInstance = null;
 
-const getTest = (type_test) => {
+const getTest = () => {
   let contentQuestion = [];
 
   contentQuestion = questions.map((question, index) => {
     return {
-      "sequence": index + 1,
-      "content": question.text,
-      "type_test": type_test,
-      "options": question.options.map((opt, index) => {
+      sequence: index + 1,
+      content: question.text,
+      options: question.options.map((opt, index) => {
         return {
-          "answer": opt,
-          "correct": (question.correctOption === index?1:0)
-        }
-      })
-    }
+          answer: opt,
+          correct: question.correctOption === index ? 1 : 0,
+        };
+      }),
+    };
   });
 
   // console.log(contentQuestion);
   return contentQuestion;
-}
+};
+
+const prepareFormData = (event, type_test) => {
+  event.preventDefault();
+  const dataTest = getTest();
+  if (dataTest.length === 0) {
+    alert("Soal pre-test tidak boleh kosong");
+    console.log("KOSONG");
+    return;
+  }
+  if (isCreating) {
+    alert("Please save the current question before adding a new one.");
+    return;
+  }
+  const jsonData = JSON.stringify({ type_test, dataTest });
+  document.getElementById("content").value = jsonData;
+  console.log("ISI");
+  event.target.submit();
+};
 
 const addQuestion = () => {
   if (isCreating) {
@@ -57,8 +74,8 @@ const getUnsavedQuestionHtml = (questionId, questionSequence) => `
     <label class="block py-2 text-md text-gray-700 font-medium dark:text-white">Options:</label>
     <div class="space-y-4">
       ${["A", "B", "C", "D"]
-    .map(
-      (opt) => `
+        .map(
+          (opt) => `
         <div class="flex items-center space-x-5">
           <input type="radio" name="correct-${questionId}" value="${opt}" id="correct-${opt}-${questionId}" />
           <input
@@ -69,8 +86,8 @@ const getUnsavedQuestionHtml = (questionId, questionSequence) => `
           />
         </div>
       `
-    )
-    .join("")}
+        )
+        .join("")}
       <button
         class="py-2 px-3 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:bg-green-500 dark:hover:bg-green-500 dark:focus:ring-green-500"
         onclick="saveQuestion('${questionId}')"
@@ -96,15 +113,18 @@ const getSavedQuestionHtml = (question, questionSequence) => `
     <p class="text-gray-800">${question.text}</p>
     <div class="ml-5">
       ${question.options
-    .map(
-      (opt, index) => `
-        <p class="${(question.correctOption === index?1:0) ? "font-semibold text-green-500" : ""
+        .map(
+          (opt, index) => `
+        <p class="${
+          (question.correctOption === index ? 1 : 0)
+            ? "font-semibold text-green-500"
+            : ""
         }">
           ${String.fromCharCode(65 + index)}. ${opt}
         </p>
       `
-    )
-    .join("")}
+        )
+        .join("")}
     </div>
   </div>
 `;
