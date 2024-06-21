@@ -98,7 +98,7 @@ Detail Course | Damri Course
                         </div>
                       </div>
                     </div>
-                    <!-- End Modal Hapus -->
+                    <!-- End Modal Publish -->
 
 
                     <button class="py-2 px-6 text-sm font-semibold text-gray-800 bg-yellow-400 rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all dark:bg-yellow-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500" data-hs-overlay="#hs-edit-course">

@@ -1036,11 +1036,41 @@ class Operator extends BaseController
     public function publishNews($id)
     {
         $model = new NewsModel();
+        $dataNews = $model->find($id);
+        if ($dataNews == null) {
+            $this->session->setFlashdata('msg-failed', 'News tidak ditemukan');
+            return redirect()->back();
+        }
+        if ($dataNews['status'] == 'publish') {
+            $this->session->setFlashdata('msg-failed', 'News sudah dipublish');
+            return redirect()->back();
+        }
         $data = [
             'status' => 'publish',
             'published_at' => Time::now(),
         ];
         $model->update($id, $data);
+        return redirect()->to('detail-news/' . $dataNews['slug']);
+    }
+
+    public function unpublishNews($id)
+    {
+        $model = new NewsModel();
+        $dataNews = $model->find($id);
+        if ($dataNews == null) {
+            $this->session->setFlashdata('msg-failed', 'News tidak ditemukan');
+            return redirect()->back();
+        }
+        if ($dataNews['status'] != 'publish') {
+            $this->session->setFlashdata('msg-failed', 'News masih belum dipublish');
+            return redirect()->back();
+        }
+        $data = [
+            'status' => 'draft',
+            'published_at' => null,
+        ];
+        $model->update($id, $data);
+        return redirect()->to('detail-news/' . $dataNews['slug']);
     }
 
     // Upload Image for content wriiten materials
