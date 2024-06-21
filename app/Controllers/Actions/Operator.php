@@ -833,6 +833,22 @@ class Operator extends BaseController
         }
     }
 
+    // User
+    // Search User
+    public function searchUser($fullname)
+    {
+        // get id role user
+        $modelRole = new RoleModel();
+        $role = $modelRole->where('name', 'user')->first();
+
+        $model = new UsersModel();
+        $data = $model
+        ->where('role_id', $role['id'])
+        ->like('fullname', $fullname, 'both')->findAll();
+        dd($data);
+        return $data;
+    }
+
     // Response Request Learning Path
     public function requestLearningPath($id)
     {

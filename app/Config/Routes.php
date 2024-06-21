@@ -63,6 +63,8 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->post('update-news/(:num)', 'Actions\Operator::updateNews/$1');
     $routes->delete('delete-news/(:num)', 'Actions\Operator::deleteNews/$1');
     $routes->post('publish-news/(:num)', 'Actions\Operator::publishNews/$1');
+    // User
+    $routes->get('search-user/(:any)', 'Actions\Operator::searchUser/$1');
     // Upload Image For Written Material
     $routes->post('upload-image', 'Actions\Operator::uploadImage');
 });
