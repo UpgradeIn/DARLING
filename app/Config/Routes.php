@@ -32,13 +32,15 @@ $routes->group('', ['filter' => 'actions:operator'], static function($routes) {
     $routes->post('create-learningpaths', 'Actions\Operator::createLearningPath');
     $routes->post('update-learningpaths/(:num)', 'Actions\Operator::updateLearningPath/$1');
     $routes->delete('delete-learningpaths/(:num)', 'Actions\Operator::deleteLearningPath/$1');
-    $routes->post('publish-learningpaths', 'Actions\Operator::publisLearningPath');
+    $routes->post('publish-learningpaths/(:num)', 'Actions\Operator::publishLearningPath/$1');
+    $routes->post('unpublish-learningpaths/(:num)', 'Actions\Operator::unpublishLearningPath/$1');
     // courses
     $routes->post('create-courses', 'Actions\Operator::createCourse');
     $routes->post('update-courses/(:num)', 'Actions\Operator::updateCourse/$1');
     $routes->delete('delete-courses/(:num)', 'Actions\Operator::deleteCourse/$1');
     $routes->post('update-subcourses-sequence', 'Actions\Operator::updateSubcourseSequence');
-    $routes->post('publish-courses', 'Actions\Operator::publisCourse');
+    $routes->post('publish-courses/(:num)', 'Actions\Operator::publishCourse/$1');
+    $routes->post('unpublish-courses/(:num)', 'Actions\Operator::unpublishCourse/$1');
     // sub courses
     $routes->post('create-subcourses', 'Actions\Operator::createSubCourse');
     $routes->post('update-subcourses/(:num)', 'Actions\Operator::updateSubCourse/$1');
@@ -95,9 +97,9 @@ $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('detail-learning-path/(:any)', 'Pages\Operator::detailLearningPath/$1');
     $routes->get('manage-course', 'Pages\Operator::manageCourse');
     $routes->get('detail-course/(:any)', 'Pages\Operator::detailCourse/$1');
-    $routes->get('add-pre-test', 'Pages\Operator::addPreTest');
+    $routes->get('add-pre-test/(:num)', 'Pages\Operator::addPreTest/$1');
     $routes->get('edit-pre-test/(:num)', 'Pages\Operator::editPreTest/$1');
-    $routes->get('add-post-test', 'Pages\Operator::addPostTest');
+    $routes->get('add-post-test/(:num)', 'Pages\Operator::addPostTest/$1');
     $routes->get('edit-post-test/(:num)', 'Pages\Operator::editPostTest/$1');
     $routes->get('manage-news', 'Pages\Operator::manageNews');
     $routes->get('detail-news/(:any)', 'Pages\Operator::detailNews/$1');

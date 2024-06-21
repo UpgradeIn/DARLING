@@ -1,10 +1,48 @@
 let questionCount = 0;
 let questions = [];
-let isEditingOrCreating = false;
+let isCreating = false; // if true, it means the user is creating a new question. if false, it means the user is editing an existing question
 let sortableInstance = null;
 
+const getTest = () => {
+  let contentQuestion = [];
+
+  contentQuestion = questions.map((question, index) => {
+    return {
+      sequence: index + 1,
+      content: question.text,
+      options: question.options.map((opt, index) => {
+        return {
+          answer: opt,
+          correct: question.correctOption === index ? 1 : 0,
+        };
+      }),
+    };
+  });
+
+  // console.log(contentQuestion);
+  return contentQuestion;
+};
+
+const prepareFormData = (event, type_test) => {
+  event.preventDefault();
+  const dataTest = getTest();
+  if (dataTest.length === 0) {
+    alert("Soal pre-test tidak boleh kosong");
+    console.log("KOSONG");
+    return;
+  }
+  if (isCreating) {
+    alert("Please save the current question before adding a new one.");
+    return;
+  }
+  const jsonData = JSON.stringify({ type_test, dataTest });
+  document.getElementById("content").value = jsonData;
+  console.log("ISI");
+  event.target.submit();
+};
+
 const addQuestion = () => {
-  if (isEditingOrCreating) {
+  if (isCreating) {
     alert("Please save the current question before adding a new one.");
     return;
   }
@@ -15,9 +53,10 @@ const addQuestion = () => {
   const questionHtml = getUnsavedQuestionHtml(questionId, questionCount);
   container.insertAdjacentHTML("beforeend", questionHtml);
   updateQuestionSequences();
-  isEditingOrCreating = true;
+  isCreating = true;
   destroySortable();
-  console.log(isEditingOrCreating);
+  console.log(isCreating);
+  console.log(questions);
 };
 
 const getUnsavedQuestionHtml = (questionId, questionSequence) => `
@@ -77,7 +116,9 @@ const getSavedQuestionHtml = (question, questionSequence) => `
         .map(
           (opt, index) => `
         <p class="${
-          question.correctOption === index ? "font-semibold text-green-500" : ""
+          (question.correctOption === index ? 1 : 0)
+            ? "font-semibold text-green-500"
+            : ""
         }">
           ${String.fromCharCode(65 + index)}. ${opt}
         </p>
@@ -126,14 +167,57 @@ const saveQuestion = (questionId) => {
     questionData,
     questions.length
   );
-  isEditingOrCreating = false;
-  console.log(isEditingOrCreating);
+  isCreating = false;
+  console.log(isCreating);
+  initializeSortable();
+  updateQuestionSequences();
+};
+const saveQuestionOld = (questionId) => {
+  const questionText = document.getElementById(
+    `question-text-${questionId}`
+  ).value;
+  const options = ["A", "B", "C", "D"].map(
+    (opt) => document.getElementById(`option-${opt}-${questionId}`).value
+  );
+  const correctOption = ["A", "B", "C", "D"].findIndex(
+    (opt) => document.getElementById(`correct-${opt}-${questionId}`).checked
+  );
+
+  if (
+    !questionText ||
+    options.some((option) => !option) ||
+    correctOption === -1
+  ) {
+    alert("Please fill in all fields and select the correct option.");
+    return;
+  }
+
+  const questionData = {
+    id: questionId,
+    text: questionText,
+    options,
+    correctOption,
+  };
+  const questionIndex = questions.findIndex((q) => q.id === questionId);
+
+  if (questionIndex === -1) {
+    questions.push(questionData);
+  } else {
+    questions[questionIndex] = questionData;
+  }
+
+  document.getElementById(questionId).innerHTML = getSavedQuestionHtml(
+    questionData,
+    questions.length
+  );
+  isCreating = false;
+  console.log(isCreating);
   initializeSortable();
   updateQuestionSequences();
 };
 
 const editQuestion = (questionId) => {
-  if (isEditingOrCreating) {
+  if (isCreating) {
     alert("Please save the current question before editing another one.");
     return;
   }
@@ -159,9 +243,9 @@ const editQuestion = (questionId) => {
       )}-${questionId}`
     ).checked = true;
   }
-  isEditingOrCreating = true;
+  isCreating = true;
   destroySortable();
-  console.log(isEditingOrCreating);
+  console.log(isCreating);
 };
 
 const saveMaterialsTest = () => {
@@ -188,7 +272,7 @@ const updateQuestionSequences = () => {
 };
 
 const initializeSortable = () => {
-  if (!isEditingOrCreating && !sortableInstance) {
+  if (!isCreating && !sortableInstance) {
     sortableInstance = new Sortable(
       document.getElementById("question-container"),
       {
