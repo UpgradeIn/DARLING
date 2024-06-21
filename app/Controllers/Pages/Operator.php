@@ -119,9 +119,17 @@ class Operator extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         $subcourses = $this->subcourseModel->where('course_id', $course['id'])->orderBy('sequence', 'ASC')->findAll();
+        $hasPreTest = count(array_filter($subcourses, function($subcourse) {
+            return $subcourse['title'] === 'Pre Test';
+        })) > 0;
+        $hasPostTest = count(array_filter($subcourses, function($subcourse) {
+            return $subcourse['title'] === 'Post Test';
+        })) > 0;
         $data = [
             'course' => $course,
-            'subcourses' => $subcourses
+            'subcourses' => $subcourses,
+            'hasPostTest' => $hasPostTest,
+            'hasPreTest' => $hasPreTest
         ];
         // dd($data);
         return view('operator/detail-course', $data);
@@ -156,9 +164,22 @@ class Operator extends BaseController
         return view('operator/edit-pre-test', $data);
     }
 
-    public function addPostTest()
+    public function addPostTest($id)
     {
-        return view('operator/add-post-test');
+        $course = $this->courseModel->find($id);
+        if (!$course) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        $subcourses = $this->subcourseModel->where('course_id', $id)->where('title', 'Post Test')->first();
+        if ($subcourses) {
+            return redirect()->to('/edit-post-test/' . $course['id']);
+        }
+        $subcourses_sequence = $this->subcourseModel->where('course_id', $course['id'])->orderBy('sequence', 'ASC')->findAll();
+        $data = [
+            'course_id' => $id,
+            'subcourses_sequence' => $subcourses_sequence
+        ];
+        return view('operator/add-post-test', $data);
     }
 
     public function editPostTest($id)

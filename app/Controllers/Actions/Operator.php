@@ -258,7 +258,6 @@ class Operator extends BaseController
     public function createSubCourse()
     {
         $validationRules = [
-            'title'     => 'required',
             'course_id' => 'required|numeric',
             'sequence'  => 'required|numeric',
             'type' => 'required|in_list[video,test,written]',
@@ -272,9 +271,12 @@ class Operator extends BaseController
         $validationData = $this->request->getPost();
         // Additional rules based on 'type'
         $type = $this->request->getVar('type');
+        $title = $this->request->getVar('title');
         if ($type === 'video') {
+            $validationRules['title'] = 'required';
             $validationRules['content'] = 'required|string';
         } elseif ($type === 'written') {
+            $validationRules['title'] = 'required';
             $validationRules['content'] = 'required|string';
         } elseif ($type === 'test') {
             /** @var string|null $jsonData */
@@ -282,16 +284,15 @@ class Operator extends BaseController
             $contentArray = json_decode($jsonData, true);
 
             // $validationRules['content.*'] = 'required';
-            $validationRules['content.*.sequence'] = 'required|integer';
-            $validationRules['content.*.content'] = 'required|string';
-            $validationRules['content.*.type_test'] = 'required|string';
+            $validationRules['content.dataTest.*.sequence'] = 'required|integer';
+            $validationRules['content.dataTest.*.content'] = 'required|string';
             // $validationRules['content.*.options.*'] = 'required';
-            $validationRules['content.*.options.*.answer'] = 'required|string';
-            $validationRules['content.*.options.*.correct'] = 'required|integer';
+            $validationRules['content.dataTest.*.options.*.answer'] = 'required|string';
+            $validationRules['content.dataTest.*.options.*.correct'] = 'required|integer';
             // $validationData = ['content' => $contentArray];
             $validationData['content'] = $contentArray;
+            $title = ucwords(str_replace("_", " ", $contentArray['type_test']));
         }
-
 
         if ($this->validateData($validationData, $validationRules)) {
             $dataCourse = $this->courseModel->select('slug')->where('id', $this->request->getVar('course_id'))->first();
@@ -300,9 +301,9 @@ class Operator extends BaseController
 
             $data = [
                 'course_id' => $this->request->getVar('course_id'),
-                'title'     => $this->request->getVar('title'),
+                'title'     => $title,
                 'sequence'  => $this->request->getVar('sequence'),
-                'type'      => $this->request->getVar('type'),
+                'type'      => $type,
             ];
             if ($model->save($data)) {
                 $insertedID = $model->insertID();
@@ -323,12 +324,12 @@ class Operator extends BaseController
                 } else if ($type === 'test') {
                     $testModel = new TestMaterialModel();
                     $optionModel = new OptionTestModel();
-                    foreach ($validationData['content'] as $key => $content) {
+                    foreach ($validationData['content']['dataTest'] as $key => $content) {
                         $dataMaterial = [
                             'subcourse_id' => $insertedID,
                             'content' => $content['content'],
                             'sequence' => $content['sequence'],
-                            'type_test' => $content['type_test'],
+                            'type_test' => $validationData['content']['type_test'],
                         ];
                         $testModel->save($dataMaterial);
                         $insertedMaterialID = $testModel->insertID();
