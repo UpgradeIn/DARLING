@@ -353,8 +353,15 @@ Detail Course | Damri Course
             <div class="px-6 py-4 grid gap-3 bg-gray-50 lg:flex md:justify-between lg:items-center border-b border-gray-200 dark:border-neutral-700">
               <div class="flex space-x-2">
                 <!-- Create Pre Test -->
-                <a href="<?= base_url('add-pre-test/' . $course['id']); ?>" class="py-1 px-2 cursor-pointer bg-blue-800 text-white rounded-md hover:bg-blue-900">
-                  + Pre Test
+                <a href="<?= base_url('add-pre-test/' . $course['id']); ?>" class="flex items-center py-1 px-2 cursor-pointer bg-blue-800 text-white rounded-md hover:bg-blue-900">
+                    <?php if (!$hasPreTest): ?>
+                      <span class="mr-1">+</span>
+                    <?php else: ?>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mr-1">
+                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                      </svg>
+                    <?php endif; ?>
+                    <span>Pre Test</span>
                 </a>
                 <!-- End Create Pre Test -->
 
@@ -485,8 +492,15 @@ Detail Course | Damri Course
                 <!-- End Create Teks -->
 
                 <!-- Create Post Test -->
-                <a class="py-1 px-2 cursor-pointer bg-blue-800 text-white rounded-md hover:bg-blue-900" href="<?= base_url('add-post-test'); ?>">
-                  + Post Test
+                <a href="<?= base_url('add-post-test/' . $course['id']); ?>" class="flex items-center py-1 px-2 cursor-pointer bg-blue-800 text-white rounded-md hover:bg-blue-900">
+                    <?php if (!$hasPostTest): ?>
+                      <span class="mr-1">+</span>
+                    <?php else: ?>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mr-1">
+                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                      </svg>
+                    <?php endif; ?>
+                    <span>Post Test</span>
                 </a>
                 <!-- End Create Post Test -->
 
@@ -554,11 +568,25 @@ Detail Course | Damri Course
                     </td>
                     <td class="size-px whitespace-nowrap">
                       <div class="flex justify-end space-x-2 px-6 py-3">
+                        <?php if ($subcourse['title'] == 'Pre Test') : ?>
+                          <a href="<?= base_url('edit-pre-test/' . $course['id']); ?>" class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 size-4">
+                              <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                            </svg>
+                          </a>
+                        <?php elseif ($subcourse['title'] == 'Post Test') : ?>
+                          <a href="<?= base_url('edit-post-test/' . $course['id']); ?>" class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 size-4">
+                              <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                            </svg>
+                          </a>
+                        <?php else : ?>
                         <button type="button" class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-yellow-400 text-gray-800 hover:bg-yellow-500 disabled:opacity-50 disabled:pointer-events-none">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 size-4">
                             <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
                           </svg>
                         </button>
+                        <?php endif; ?>
                         <!-- Hapus Sub Course -->
                         <button type="button" class="flex flex-shrink-0 justify-center items-center gap-2 size-[38px] text-sm font-semibold rounded-full border border-transparent bg-red-400 text-gray-800 hover:bg-red-500 disabled:opacity-50 disabled:pointer-events-none" data-hs-overlay="#delete_subcourse">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 size-4">

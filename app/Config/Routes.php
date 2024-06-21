@@ -99,7 +99,7 @@ $routes->group('', ['filter' => 'pages:operator'], static function($routes) {
     $routes->get('detail-course/(:any)', 'Pages\Operator::detailCourse/$1');
     $routes->get('add-pre-test/(:num)', 'Pages\Operator::addPreTest/$1');
     $routes->get('edit-pre-test/(:num)', 'Pages\Operator::editPreTest/$1');
-    $routes->get('add-post-test', 'Pages\Operator::addPostTest');
+    $routes->get('add-post-test/(:num)', 'Pages\Operator::addPostTest/$1');
     $routes->get('edit-post-test/(:num)', 'Pages\Operator::editPostTest/$1');
     $routes->get('manage-news', 'Pages\Operator::manageNews');
     $routes->get('detail-news/(:any)', 'Pages\Operator::detailNews/$1');
