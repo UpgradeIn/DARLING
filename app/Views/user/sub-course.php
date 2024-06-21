@@ -5,6 +5,7 @@ Course Page | Damri Course
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+<!-- Menu Sub Course -->
 <section class="w-full mx-auto px-2 sm:px-4 md:px-8 lg:px-16 xl:px-20 mt-6 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-24">
   <div class="w-full">
     <div class="container mx-auto pb-10 px-2 sm:px-3 mt-16 md:px-4 lg:px-5 xl:px-6 py-5">
@@ -63,39 +64,47 @@ Course Page | Damri Course
     </div>
   </div>
 </section>
-<!-- End Deskripsi -->
+<!-- End Menu Sub Course -->
 
-<!-- Daftar Course -->
-<section class="w-full mx-auto pt-8 pb-8 px-5 sm:px-20 sm:pb-10 bg-slate-200">
-  <h1 class="text-2xl font-semibold">Microsoft Excel</h1>
+<!-- Deskripsi Course -->
+<section class="w-full mx-auto pt-8 pb-8 px-5 sm:px-10 md:px-20 sm:pb-10 bg-slate-200">
+  <h1 class="text-2xl font-semibold mb-2">Microsoft Excel</h1>
   <p class="text-gray-700 mb-2">Budi Wati - Pemateri</p>
-  <p class="text-gray-600">
+  <p class="text-gray-600 mb-6">
     Materi Microsoft Excel ini mencakup segala hal dari dasar hingga tingkat lanjutan, termasuk pembuatan dan pengelolaan spreadsheet, penggunaan formula dan fungsi, analisis data, serta visualisasi data dengan grafik dan tabel pivot.
   </p>
 
-  <div class="flex flex-wrap items-center mt-6">
+  <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-between">
     <!-- Benefit Section -->
-    <div class="w-full sm:w-auto flex items-center mb-4 sm:mb-0 sm:mr-6">
-      <span class="text-gray-700 font-semibold mr-2">Benefit:</span>
-      <span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-md mr-2">Sertifikat</span>
-      <span class="px-3 py-1 bg-gray-200 text-gray-700 rounded-md">Modul</span>
+    <div class="flex flex-col sm:w-1/3 mb-4 sm:mb-0">
+      <span class="text-gray-700 font-semibold mb-2">Benefit</span>
+      <div class="flex space-x-2">
+        <button type="button" class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-300 text-gray-800 hover:bg-gray-400 disabled:opacity-50 disabled:pointer-events-none dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:hover:text-white">
+          Sertifikat
+        </button>
+        <button type="button" class="py-2 px-6 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-300 text-gray-800 hover:bg-gray-400 disabled:opacity-50 disabled:pointer-events-none dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:hover:text-white">
+          Modul
+        </button>
+      </div>
     </div>
 
     <!-- Progress Course Section -->
-    <div class="w-full sm:w-auto flex flex-col mb-4 sm:mb-0 sm:mr-6">
-      <span class="text-gray-700 font-semibold mb-1">Progress Course</span>
+    <div class="flex flex-col sm:w-1/3 mb-4 sm:mb-0">
+      <span class="text-gray-700 font-semibold mb-2">Progress Course</span>
       <div class="w-full bg-gray-200 rounded-full h-2.5">
-        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 100%"></div>
+        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
       </div>
-      <span class="text-gray-700 mt-1">100%</span>
+      <span class="text-gray-700 mt-1">75%</span>
     </div>
 
     <!-- Batas Waktu Belajar Section -->
-    <div class="w-full sm:w-auto flex flex-col">
-      <span class="text-gray-700 font-semibold mb-1">Batas Waktu Belajar</span>
+    <div class="flex flex-col sm:w-1/3">
+      <span class="text-gray-700 font-semibold mb-2">Batas Waktu Belajar</span>
       <span class="text-gray-700">Jun 25 - 2024 23:59</span>
       <span class="text-gray-500 text-sm">1 Bulan 1 Hari 1 Jam</span>
     </div>
   </div>
 </section>
+<!-- End Deskripsi Course -->
+
 <?= $this->endSection() ?>
