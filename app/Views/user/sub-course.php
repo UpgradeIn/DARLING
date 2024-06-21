@@ -50,7 +50,7 @@ Course Page | Damri Course
           <!-- Result Section -->
           <div class="p-5 bg-white rounded-xl shadow-md">
             <h3 class="text-lg font-semibold text-center">Hasil Pengerjaan</h3>
-            <div class="flex items-center justify-between mt-3 px-4">
+            <div class="flex items-center justify-between mt-3 px-4 md:px-8">
               <div class="text-center">
                 <div class="text-2xl font-bold text-green-500">70%</div>
                 <div class="text-gray-700">Pre Test</div>
