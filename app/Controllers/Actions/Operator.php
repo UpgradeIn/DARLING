@@ -662,8 +662,8 @@ class Operator extends BaseController
             return redirect()->back();
         }
         $data = [
-            'status' => 'draft',
-            'published_at' => null,
+            'status' => 'publish',
+            'published_at' => Time::now(),
         ];
         $this->learningpathModel->update($id, $data);
         return redirect()->to('detail-learning-path/' . $learningPath['slug']);

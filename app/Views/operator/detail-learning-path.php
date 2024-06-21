@@ -23,9 +23,18 @@ Detail Learning Path | Damri Course
               </h1>
 
               <div class="space-x-2 flex">
-                <button class="py-2 px-4 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-green-500 dark:focus:ring-green-500" data-hs-overlay="#hs-publish-learning-path">
-                  Publish
-                </button>
+              <?php if ($learningPaths['status'] != 'publish') : ?>
+                  <button class="py-2 px-4 text-sm font-semibold text-gray-800 bg-green-400 rounded-md shadow-sm hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all dark:bg-green-500 dark:hover:bg-green-500 dark:focus:ring-green-500" data-hs-overlay="#hs-publish-learning-path">
+                  <?php else : ?>
+                    <button class="py-2 px-4 text-sm font-semibold text-gray-800 bg-neutral-200 rounded-md shadow-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all dark:bg-neutral-200 dark:hover:bg-gray-500 dark:focus:ring-gray-500" data-hs-overlay="#hs-publish-learning-path">
+                    <?php endif; ?>
+
+                    <?php if ($learningPaths['status'] == 'publish') : ?>
+                      Unpublish Course
+                    <?php else : ?>
+                      Publish Course
+                    <?php endif; ?>
+                    </button>
                 <!-- Modal Publish -->
                 <div id="hs-publish-learning-path" class="hs-overlay hidden size-full fixed top-0 start-0 z-[80] overflow-x-hidden overflow-y-auto">
                   <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
