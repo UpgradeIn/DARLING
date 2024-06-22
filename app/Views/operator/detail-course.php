@@ -52,10 +52,16 @@ Detail Course | Damri Course
 
                           <div class="p-4 sm:p-10 text-center overflow-y-auto">
                             <!-- Icon -->
-                            <span class="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 border-red-50 bg-red-100 text-red-500 dark:bg-red-700 dark:border-red-600 dark:text-red-100">
-                              <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                              </svg>
+                            <span class="mb-4 inline-flex justify-center items-center size-[62px] rounded-full border-4 <?php if ($course['status'] == 'publish') : ?>border-gray-50 bg-gray-100 text-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100<?php else : ?>border-green-50 bg-green-100 text-green-500 dark:bg-green-700 dark:border-green-600 dark:text-green-100<?php endif; ?>">
+                              <?php if ($course['status'] == 'publish') : ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 size-5" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M3.22 3.22a.75.75 0 011.06 0L8 6.94l3.72-3.72a.75.75 0 011.06 1.06L9.06 8l3.72 3.72a.75.75 0 01-1.06 1.06L8 9.06l-3.72 3.72a.75.75 0 01-1.06-1.06L6.94 8 3.22 4.28a.75.75 0 010-1.06z"></path>
+                                </svg>
+                              <?php else : ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 size-5" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path>
+                                </svg>
+                              <?php endif; ?>
                             </span>
                             <!-- End Icon -->
 
@@ -73,28 +79,26 @@ Detail Course | Damri Course
                             <div class="mt-6 flex justify-center gap-x-4">
                               <?php if ($course['status'] == 'publish') : ?>
                                 <form action="<?= base_url('unpublish-courses/') . $course['id']; ?>" method="POST" class="flex">
-                                <?php else : ?>
-                                  <form action="<?= base_url('publish-courses/') . $course['id']; ?>" method="POST" class="flex">
-                                  <?php endif; ?>
-                                  <?= csrf_field(); ?>
-                                  <!-- <input type="hidden" name="_method" value="POST"> -->
-                                  <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border bg-red-200 border-red-200 text-red-800 shadow-sm hover:bg-red-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-red-200 dark:border-red-800 dark:text-red-800 dark:hover:bg-red-300">
-                                    <?php if ($course['status'] == 'publish') : ?>
-                                      Unpublish Course
-                                    <?php else : ?>
-                                      Publish Course
-                                    <?php endif; ?>
+                                  <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border bg-gray-200 border-gray-200 text-gray-800 shadow-sm hover:bg-gray-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-200 dark:border-gray-800 dark:text-gray-800 dark:hover:bg-gray-300">
+                                    Unpublish Course
                                   </button>
-                                  </form>
-                                  <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800" data-hs-overlay="#hs-publish-course">
-                                    Batal
+                                </form>
+                              <?php else : ?>
+                                <form action="<?= base_url('publish-courses/') . $course['id']; ?>" method="POST" class="flex">
+                                  <button class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border bg-green-200 border-green-200 text-green-800 shadow-sm hover:bg-green-300 disabled:opacity-50 disabled:pointer-events-none dark:bg-green-200 dark:border-green-800 dark:text-green-800 dark:hover:bg-green-300">
+                                    Publish Course
                                   </button>
+                                </form>
+                              <?php endif; ?>
+                              <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-800 dark:text-white dark:hover:bg-neutral-800" data-hs-overlay="#hs-publish-course">
+                                Batal
+                              </button>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- End Modal Hapus -->
+                    <!-- End Modal Publish -->
 
 
                     <button class="py-2 px-6 text-sm font-semibold text-gray-800 bg-yellow-400 rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all dark:bg-yellow-500 dark:hover:bg-blue-500 dark:focus:ring-blue-500" data-hs-overlay="#hs-edit-course">
