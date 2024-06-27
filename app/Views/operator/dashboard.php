@@ -8,7 +8,6 @@ Dashboard | Damri Course
 <section class="w-full min-h-screen mx-auto px-5 mt-12 sm:px-20 sm:mt-24">
 
     <!-- Start Stat -->
-
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -114,9 +113,58 @@ Dashboard | Damri Course
         </div>
         <!-- End Grid -->
     </div>
+    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+        <section class="col-span-1">
+            <div class="px-3 py-3 bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                <div class="text-lg font-semibold text-gray-800 dark:text-neutral-200">
+                    <h3>Target total</h3>
+                </div>
+                <!-- Legend Indicator -->
+                <div class="flex justify-center sm:justify-end items-center gap-x-4 mb-3 sm:mb-6">
+                    <div class="inline-flex items-center">
+                        <span class="size-2.5 inline-block bg-blue-600 rounded-sm me-2"></span>
+                        <span class="text-[13px] text-gray-600 dark:text-neutral-400">
+                            Income
+                        </span>
+                    </div>
+                    <div class="inline-flex items-center">
+                        <span class="size-2.5 inline-block bg-gray-300 rounded-sm me-2 dark:bg-neutral-700"></span>
+                        <span class="text-[13px] text-gray-600 dark:text-neutral-400">
+                            Outcome
+                        </span>
+                    </div>
+                </div>
+                <!-- End Legend Indicator -->
+                <div id="hs-multiple-bar-charts"></div>
+            </div>
+        </section>
+
+        <section class="col-span-1">
+            <div class="px-3 py-3 bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+                <div class="text-lg font-semibold text-gray-800 dark:text-neutral-200">
+                    <h3>Target/Divisi</h3>
+                </div>
+                <!-- Legend Indicator -->
+                <div class="flex justify-center sm:justify-end items-center gap-x-4 mb-3 sm:mb-6">
+                    <div class="inline-flex items-center">
+                        <span class="size-2.5 inline-block bg-blue-600 rounded-sm me-2"></span>
+                        <span class="text-[13px] text-gray-600 dark:text-neutral-400">
+                            Income
+                        </span>
+                    </div>
+                    <div class="inline-flex items-center">
+                        <span class="size-2.5 inline-block bg-purple-600 rounded-sm me-2"></span>
+                        <span class="text-[13px] text-gray-600 dark:text-neutral-400">
+                            Outcome
+                        </span>
+                    </div>
+                </div>
+                <!-- End Legend Indicator -->
+                <div id="hs-multiple-area-charts-compare-two-tooltip-alt"></div>
+            </div>
+        </section>
+    </div>
 
     <!-- End Stat -->
-    <p><?= $test ?></p>
-
 </section>
 <?= $this->endSection() ?>
