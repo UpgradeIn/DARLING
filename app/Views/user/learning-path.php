@@ -5,7 +5,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<section class="w-full mx-auto px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-20">
+<section class="w-full min-h-screen mx-auto px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-20">
     <div class="flex flex-col sm:flex-row justify-between items-center w-full mx-auto text-3xl font-bold space-y-4 sm:space-y-0">
         <h1 class="w-full sm:w-auto text-center sm:text-left">Daftar Learning Path</h1>
         <div class="w-full sm:w-1/4">
