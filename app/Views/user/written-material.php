@@ -1,12 +1,12 @@
 <div class="flex flex-col bg-gray-200 border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70 p-4 md:p-5">
     <div class="bg-white dark:bg-neutral-900 p-4 md:p-5 rounded-xl shadow-sm dark:shadow-neutral-700/70 h-96 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
         <h3 class="text-lg font-bold text-gray-800 dark:text-white">
-            Microsoft Excel
+            <?= $title ?>
         </h3>
         <p class="mt-2 text-gray-500 dark:text-neutral-400">
-            Microsoft Excel adalah salah satu program spreadsheet paling populer yang digunakan di seluruh dunia. Dikembangkan oleh Microsoft, Excel memungkinkan pengguna untuk melakukan berbagai tugas mulai dari perhitungan dasar hingga analisis data yang kompleks.
+            <?= $content ?>
         </p>
-        <p class="mt-2 text-gray-500 dark:text-neutral-400">
+        <!-- <p class="mt-2 text-gray-500 dark:text-neutral-400">
             Dengan antarmuka berbasis grid, Excel memudahkan pengguna untuk mengatur data dalam baris dan kolom. Fitur-fiturnya yang kuat, seperti fungsi matematika, statistik, dan finansial, memungkinkan pengguna untuk melakukan berbagai jenis perhitungan.
         </p>
         <p class="mt-2 text-gray-500 dark:text-neutral-400">
@@ -32,6 +32,6 @@
         </p>
         <p class="mt-2 text-gray-500 dark:text-neutral-400">
             Baik Anda seorang pemula atau pengguna berpengalaman, selalu ada hal baru yang dapat dipelajari di Excel. Dengan terus berlatih dan mengeksplorasi fitur-fitur baru, Anda dapat memanfaatkan Excel secara maksimal dalam pekerjaan sehari-hari.
-        </p>
+        </p> -->
     </div>
 </div>
