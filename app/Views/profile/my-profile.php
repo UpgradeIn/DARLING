@@ -37,14 +37,11 @@ Profile Saya | Damri Course
                                     <!-- Ganti Foto Profile -->
                                     <div>
                                         <label for="foto_profile" class="block text-sm font-medium text-gray-800 mb-1 dark:text-neutral-200">Foto Profile Baru</label>
-                                        <label for="foto_profile" class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700">
-                                            <input id="foto_profile" name="foto_profile" type="file" class="sr-only" onchange="previewImage(event)" />
+                                        <label for="course_thumbnail" class="group p-4 sm:p-7 block cursor-pointer text-center border-2 border-dashed border-gray-200 rounded-lg focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2 dark:border-neutral-700">
+                                            <input id="course_thumbnail" name="course_thumbnail" type="file" class="sr-only" onchange="previewImage(event)" />
                                             <div id="thumbnail_container" class="flex flex-col items-center justify-center">
-                                                <?php if (isset($course['thumbnail'])) : ?>
-                                                    <img id="thumbnail_preview" src="<?= base_url('images-thumbnail/') . $course['thumbnail'] ?>" class="w-full h-auto object-cover shadow-md rounded-xl" alt="Preview Thumbnail" />
-                                                <?php else : ?>
-                                                    <img id="thumbnail_preview" src="" style="display: none;" class="w-full h-auto object-cover shadow-md rounded-xl" alt="Preview Thumbnail" />
-                                                <?php endif; ?>
+                                                <img id="thumbnail_preview_course" src="#" class="w-full h-auto object-cover shadow-md rounded-xl" />
+                                                <img id="thumbnail_preview_course" src="" style="display: none;" class="w-full h-auto object-cover shadow-md rounded-xl" />
                                             </div>
                                         </label>
                                     </div>

@@ -8,11 +8,15 @@ use App\Models\LearningPathCourseModel;
 use App\Models\UserCourseModel;
 use App\Models\UsersModel;
 use App\Models\LearningPathModel;
+use App\Models\OptionTestModel;
 use App\Models\UserLearningPathModel;
 use App\Models\UserSubCourseModel;
 use App\Models\UserAnswerModel;
 use App\Models\RequestLearningPathModel;
 use App\Models\SubcourseModel;
+use App\Models\TestMaterialModel;
+use App\Models\VideoMaterialModel;
+use App\Models\WrittenMaterialModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class User extends BaseController
@@ -24,6 +28,10 @@ class User extends BaseController
     protected $user_learning_path_model;
     protected $learning_path_course_model;
     protected $request_learning_path_model;
+    protected $video_material_model;
+    protected $written_material_model;
+    protected $test_material_model;
+    protected $option_test_model;
 
     public function __construct()
     {
@@ -34,6 +42,10 @@ class User extends BaseController
         $this->user_learning_path_model = new UserLearningPathModel();
         $this->learning_path_course_model = new LearningPathCourseModel();
         $this->request_learning_path_model = new RequestLearningPathModel();
+        $this->video_material_model = new VideoMaterialModel();
+        $this->written_material_model = new WrittenMaterialModel();
+        $this->test_material_model = new TestMaterialModel();
+        $this->option_test_model = new OptionTestModel();
     }
 
     public function home()
@@ -73,11 +85,59 @@ class User extends BaseController
         if ($subcourse['course_id'] != $course['id']) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $type_subcourse = $subcourse['type'];
+        switch ($type_subcourse) {
+            case 'video':
+                $video = $this->video_material_model->where('subcourse_id', $id)->first();
+                $content = $video['video_url'];
+                break;
+            case 'written':
+                $written = $this->written_material_model->where('subcourse_id', $id)->first();
+                $content = $written['content'];
+                break;
+            case 'test':
+                $builder = $this->test_material_model->builder();
+                $builder->select('tb_test_materials.*, tb_option_tests.id as option_id, tb_option_tests.answer as option_text');
+                $builder->join('tb_option_tests', 'tb_test_materials.id = tb_option_tests.test_material_id');
+                $builder->where('tb_test_materials.subcourse_id', $id);
+                $builder->orderBy('tb_test_materials.sequence', 'ASC');
+
+                $result = $builder->get()->getResult();
+
+                $test_materials = [];
+
+                foreach ($result as $row) {
+                    $test_material_id = $row->id; // Assuming 'id' is the primary key for test_material
+
+                    if (!isset($test_materials[$test_material_id])) {
+                        $test_materials[$test_material_id] = [
+                            'id' => $row->id,
+                            'content' => $row->content,
+                            'sequence' => $row->sequence,
+                            'subcourse_id' => $row->subcourse_id,
+                            'options' => []
+                        ];
+                    }
+
+                    $test_materials[$test_material_id]['options'][] = [
+                        'option_id' => $row->option_id,
+                        'option_text' => $row->option_text
+                    ];
+                }
+                $content = $test_materials;
+                break;
+            default:
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+                break;
+        }
+        // dd($content);
         $data = [
             'slug' => $slug,
             'id' => $id,
+            'title' => $subcourse['title'],
             'type' => $subcourse['type'],
-            'allSubcourse' => $allSubcourse
+            'allSubcourse' => $allSubcourse,
+            'content' => $content
         ];
         return view('user/sub-course', $data);
     }

@@ -24,20 +24,21 @@ Course Page | Damri Course
         <!-- SubCourse List Section -->
         <div class="lg:col-span-4 flex flex-col justify-between mt-8 lg:mt-0">
           <!-- Checklist Section -->
-          <div class="space-y-2 p-5 bg-white rounded-xl shadow-md mb-5">
-            <h1 class="text-lg font-semibold text-start">Materi</h1>
+          <div class="space-y-2 py-5 bg-white rounded-xl shadow-md mb-5">
+            <h1 class="ms-5 text-lg font-semibold text-start">Materi</h1>
             <div class="bg-white hover:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800">
               <ul class="divide-y divide-gray-200 dark:divide-neutral-700">
                 <?php foreach ($allSubcourse as $subcourse) : ?>
-                  <li class="group flex items-center justify-between p-3 transition-colors duration-200 ease-in-out bg-white hover:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+                  <?php $isActive = $id == $subcourse['id']; ?>
+                  <li class="group flex items-center justify-between py-3 px-5 transition-colors duration-200 ease-in-out <?php echo $isActive ? 'bg-gray-200 hover:bg-gray-300' : 'bg-white hover:bg-gray-100 dark:bg-neutral-900 dark:hover:bg-neutral-800' ?>">
                     <a href="<?= base_url('course/' . $slug . '/sub/' . $subcourse['id']) ?>" class="flex items-center flex-grow">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-play w-6 h-6 group-hover:text-blue-600 dark:text-neutral-300 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-play w-6 h-6 group-hover:text-blue-800 dark:text-neutral-300 mr-2">
                         <circle cx="12" cy="12" r="10" />
                         <polygon points="10 8 16 12 10 16 10 8" />
                       </svg>
-                      <span class="text-gray-800 dark:text-neutral-200 group-hover:text-blue-600"><?= $subcourse['sequence'] ?>. <?= $subcourse['title'] ?></span>
+                      <span class="text-gray-800 dark:text-neutral-200 group-hover:text-blue-800"><?= $subcourse['sequence'] ?>. <?= $subcourse['title'] ?></span>
                     </a>
-                    <svg id="statusBadge" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check text-slate-300">
+                    <svg id="statusBadge" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check <?php echo $isActive ? 'text-green-500' : 'text-slate-300' ?>">
                       <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
                       <path d="m9 12 2 2 4-4" />
                     </svg>
@@ -49,7 +50,7 @@ Course Page | Damri Course
           <!-- Result Section -->
           <div class="p-5 bg-white rounded-xl shadow-md">
             <h3 class="text-lg font-semibold text-center">Hasil Pengerjaan</h3>
-            <div class="flex items-center justify-between mt-3 px-4">
+            <div class="flex items-center justify-between mt-3 px-4 md:px-8">
               <div class="text-center">
                 <div class="text-2xl font-bold text-green-500">70%</div>
                 <div class="text-gray-700">Pre Test</div>
@@ -95,7 +96,7 @@ Course Page | Damri Course
     <div class="flex flex-col sm:w-1/3 mb-4 sm:mb-0">
       <span class="text-gray-700 font-semibold mb-2">Progress Course</span>
       <div class="w-full bg-gray-200 rounded-full h-2.5">
-        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
+        <div class="bg-blue-800 h-2.5 rounded-full" style="width: 75%"></div>
       </div>
       <span class="text-gray-700 mt-1">75%</span>
     </div>

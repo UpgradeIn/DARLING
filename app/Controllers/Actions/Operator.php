@@ -662,8 +662,8 @@ class Operator extends BaseController
             return redirect()->back();
         }
         $data = [
-            'status' => 'draft',
-            'published_at' => null,
+            'status' => 'publish',
+            'published_at' => Time::now(),
         ];
         $this->learningpathModel->update($id, $data);
         return redirect()->to('detail-learning-path/' . $learningPath['slug']);
@@ -831,6 +831,22 @@ class Operator extends BaseController
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
+    }
+
+    // User
+    // Search User
+    public function searchUser($fullname)
+    {
+        // get id role user
+        $modelRole = new RoleModel();
+        $role = $modelRole->where('name', 'user')->first();
+
+        $model = new UsersModel();
+        $data = $model
+        ->where('role_id', $role['id'])
+        ->like('fullname', $fullname, 'both')->findAll();
+        dd($data);
+        return $data;
     }
 
     // Response Request Learning Path
@@ -1020,11 +1036,41 @@ class Operator extends BaseController
     public function publishNews($id)
     {
         $model = new NewsModel();
+        $dataNews = $model->find($id);
+        if ($dataNews == null) {
+            $this->session->setFlashdata('msg-failed', 'News tidak ditemukan');
+            return redirect()->back();
+        }
+        if ($dataNews['status'] == 'publish') {
+            $this->session->setFlashdata('msg-failed', 'News sudah dipublish');
+            return redirect()->back();
+        }
         $data = [
             'status' => 'publish',
             'published_at' => Time::now(),
         ];
         $model->update($id, $data);
+        return redirect()->to('detail-news/' . $dataNews['slug']);
+    }
+
+    public function unpublishNews($id)
+    {
+        $model = new NewsModel();
+        $dataNews = $model->find($id);
+        if ($dataNews == null) {
+            $this->session->setFlashdata('msg-failed', 'News tidak ditemukan');
+            return redirect()->back();
+        }
+        if ($dataNews['status'] != 'publish') {
+            $this->session->setFlashdata('msg-failed', 'News masih belum dipublish');
+            return redirect()->back();
+        }
+        $data = [
+            'status' => 'draft',
+            'published_at' => null,
+        ];
+        $model->update($id, $data);
+        return redirect()->to('detail-news/' . $dataNews['slug']);
     }
 
     // Upload Image for content wriiten materials

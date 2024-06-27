@@ -24,23 +24,22 @@
             $uri = service('uri');
             $selectedItem = $uri->getSegment(2); // Mengambil segmen kedua dari URI
             ?>
-            <div class="sm:max-w-xs flex flex-col">
-                <div class="border border-gray-300 dark:border-neutral-700 rounded-md">
-                    <h2 class="text-lg font-semibold px-2 py-2 text-gray-800 dark:text-white">Navigasi Profile</h2>
-                    <ul class="flex flex-col">
-                        <li class="inline-flex items-center gap-x-2 py-3 px-4 text-m font-medium border border-gray-200 text-gray-800 -mt-px
-                    <?= $selectedItem == 'my-profile' ? 'bg-gray-200 dark:bg-neutral-700' : 'bg-white dark:bg-neutral-900' ?> dark:border-neutral-700 dark:text-white">
-                            <a href="<?= base_url('profile/my-profile') ?>">Profil Saya</a>
-                        </li>
+            <div class="sm:max-w-xs w-full flex flex-col">
+                <div class="border border-gray-300 dark:border-neutral-700 rounded-md gap-4">
+                    <div class="w-full flex flex-col">
+                        <h2 class="text-lg font-semibold px-2 py-2 text-gray-800 dark:text-white">Navigasi Profile</h2>
+                        <a class="inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-lg hover:text-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:border-neutral-700 dark:text-white dark:hover:text-blue-600 <?= $selectedItem == 'my-profile' ? 'bg-gray-200 dark:bg-neutral-700' : 'bg-white dark:bg-neutral-900' ?>" href="<?= base_url('profile/my-profile') ?>">
+                            Profil Saya
+                        </a>
                         <?php if ($role == 'user') : ?>
-                            <li class="inline-flex items-center gap-x-2 py-3 px-4 text-m font-medium border border-gray-200 text-gray-800 -mt-px
-                        <?= $selectedItem == 'my-activity' ? 'bg-gray-200 dark:bg-neutral-700' : 'bg-white dark:bg-neutral-900' ?> dark:border-neutral-700 dark:text-white">
-                                <a href="<?= base_url('profile/my-activity') ?>">Aktivitas Saya</a>
-                            </li>
+                            <a class="inline-flex items-center gap-x-3.5 py-3 px-4 text-sm font-medium text-gray-800 -mt-px first:rounded-t-lg first:mt-0 last:rounded-b-md hover:text-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 dark:border-neutral-700 dark:text-white dark:hover:text-blue-600 <?= $selectedItem == 'my-activity' ? 'bg-gray-200 dark:bg-neutral-700' : 'bg-white dark:bg-neutral-900' ?>" href="<?= base_url('profile/my-activity') ?>">
+                                Aktivitas Saya
+                            </a>
                         <?php endif; ?>
-                    </ul>
+                    </div>
                 </div>
             </div>
+
             <div class="sm:col-span-2">
                 <?= $this->renderSection('content') ?>
             </div>

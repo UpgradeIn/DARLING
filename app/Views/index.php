@@ -8,7 +8,7 @@
     <?php elseif ($role == 'officials') : ?>
         Dashboard Officials
     <?php else : ?>
-        Darling | Belajar buat naik jabatan
+        Darling | E-Learning DAMRI
     <?php endif; ?>
 <?= $this->endSection() ?>
 <?= $this->section('content') ?>
