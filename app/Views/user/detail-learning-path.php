@@ -6,18 +6,18 @@ Course Page | Damri Course
 
 <?= $this->section('content') ?>
 <section class="w-full mx-auto px-5 pt-12 mt-12 sm:px-20 sm:mt-24">
-  <?php if (session()->has('errors')): ?>
-        <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+    <?php if (session()->has('errors')): ?>
+        <div class="text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg mb-5">
             <?php $errors = session('errors'); echo esc(array_shift($errors))?>
         </div>
     <?php endif; ?>
     <?php if(session()->getFlashdata('msg')):?>
-            <div class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg">
+            <div class="text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg mb-5">
                 <?= session()->getFlashdata('msg') ?>
             </div>
         <?php endif;?>
     <?php if(session()->getFlashdata('msg-failed')):?>
-            <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+            <div class="text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg mb-5">
                 <?= session()->getFlashdata('msg-failed') ?>
             </div>
     <?php endif;?>
@@ -64,8 +64,8 @@ Course Page | Damri Course
             <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"><?= date('d/m/Y', strtotime($learning_path['published_at'])); ?></p>
           </div>
           <div class="text-start lg:text-center">
-            <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Divisi</p>
-            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400">Finance</p>
+            <p class="text-md text-gray-400 md:text-lg lg:text-lg dark:text-neutral-400">Periode</p>
+            <p class="text-md text-gray-800 md:text-lg lg:text-lg dark:text-neutral-400"><?= $learning_path['period']; ?> bulan</p>
           </div>
         </div>
       </div>
@@ -135,14 +135,14 @@ Course Page | Damri Course
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <!-- Card -->
       <?php foreach ($learning_path_courses as $learning_path_course): ?>
-      <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="<?= base_url('course/').$learning_path_course->course_slug ?>">
+      <a class="group flex flex-col h-full bg-white border border-gray-200 shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" href="<?= base_url('course/').$learning_path_course->course_slug ?>" onclick="return confirm('Mulai course?');">
         <div class="h-52 flex flex-col justify-center items-center bg-amber-500 rounded-t-xl">
           <img src="<?= base_url('images-thumbnail/').$learning_path_course->course_thumbnail ?>" class="rounded-t-lg h-full w-full object-cover" alt="Thumbnail" />
         </div>
         <div class="p-4 md:p-6">
           <h3 class="text-xl font-semibold text-gray-800 dark:text-neutral-300 dark:hover:text-white"><?= $learning_path_course->course_name ?></h3>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-users"></i> 1196 Peserta</p>
-          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-video"></i> 10 Video</p>
+          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-users"></i><?= $learning_path_course->skill_type_course == 'soft-skill' ? 'Soft Skill' : 'Hard Skill' ?></p>
+          <p class="mt-3 text-gray-500 dark:text-neutral-500"><i class="fas fa-video"></i><?= $learning_path_course->course_type == 'optional' ? 'Opsional' : 'Wajib' ?></p>
         </div>
       </a>
       <?php endforeach; ?>

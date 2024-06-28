@@ -7,17 +7,17 @@
 <?= $this->section('content') ?>
     <section class="w-full mx-auto min-h-screen px-5 mt-12 py-8 sm:px-20 sm:py-10 sm:mt-14">
     <?php if (session()->has('errors')): ?>
-        <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+        <div class="text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg mb-5">
             <?php $errors = session('errors'); echo esc(array_shift($errors))?>
         </div>
     <?php endif; ?>
     <?php if(session()->getFlashdata('msg')):?>
-            <div class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg">
+            <div class="text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg mb-5">
                 <?= session()->getFlashdata('msg') ?>
             </div>
         <?php endif;?>
     <?php if(session()->getFlashdata('msg-failed')):?>
-            <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+            <div class="text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg mb-5">
                 <?= session()->getFlashdata('msg-failed') ?>
             </div>
     <?php endif;?>

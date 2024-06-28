@@ -6,21 +6,21 @@ Detail Request | Damri Course
 
 <?= $this->section('content') ?>
 <section class="w-full mx-auto min-h-screen px-5 mt-12 sm:px-10 md:px-20 lg:px-30 xl:px-40 sm:mt-20">
-<?php if (session()->has('errors')): ?>
-            <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
-                <?php $errors = session('errors'); echo esc(array_shift($errors))?>
+    <?php if (session()->has('errors')): ?>
+        <div class="text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg mb-5">
+            <?php $errors = session('errors'); echo esc(array_shift($errors))?>
+        </div>
+    <?php endif; ?>
+    <?php if(session()->getFlashdata('msg')):?>
+            <div class="text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg mb-5">
+                <?= session()->getFlashdata('msg') ?>
             </div>
-        <?php endif; ?>
-        <?php if(session()->getFlashdata('msg')):?>
-                <div class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg">
-                    <?= session()->getFlashdata('msg') ?>
-                </div>
-            <?php endif;?>
-        <?php if(session()->getFlashdata('msg-failed')):?>
-                <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
-                    <?= session()->getFlashdata('msg-failed') ?>
-                </div>
         <?php endif;?>
+    <?php if(session()->getFlashdata('msg-failed')):?>
+            <div class="text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg mb-5">
+                <?= session()->getFlashdata('msg-failed') ?>
+            </div>
+    <?php endif;?>
     <div class="flex flex-col lg:flex-row items-center bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70 p-5 lg:p-8">
         <img class="inline-block h-[100px] w-[100px] rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description">
         <div class="flex flex-col lg:flex-row justify-between w-full mt-4 lg:mt-0 lg:ml-4">

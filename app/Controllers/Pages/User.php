@@ -21,6 +21,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class User extends BaseController
 {
+    protected $session;
     protected $user_course_model;
     protected $learning_path_model;
     protected $course_model;
@@ -35,6 +36,7 @@ class User extends BaseController
 
     public function __construct()
     {
+        $this->session = session();
         $this->user_course_model = new UserCourseModel();
         $this->learning_path_model = new LearningPathModel();
         $this->course_model = new CourseModel();
@@ -79,6 +81,11 @@ class User extends BaseController
 
     public function subCourse($slug, $id)
     {
+        $user_learning_path = $this->user_learning_path_model->where('user_id', session('id'))->where('learning_path_id', $id)->first();
+        if (!$user_learning_path) {
+            $this->session->setFlashdata('msg-failed', 'Anda belum terdaftar pada learning path ini');
+            return redirect()->back();
+        }
         $course = $this->course_model->where('slug', $slug)->first();
         $allSubcourse = $this->subcourse_model->where('course_id', $course['id'])->findAll();
         $subcourse = $this->subcourse_model->where('id', $id)->first();
