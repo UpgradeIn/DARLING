@@ -32,7 +32,7 @@
 
                     <!-- Buttons -->
                     <div class="mt-7 grid gap-3 w-full sm:inline-flex">
-                        <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-900 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
+                        <a href="#PROGRAM" class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-900 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
                             Get started
                         </a>
                     </div>
@@ -52,7 +52,7 @@
     <!-- End Hero Section -->
 
     <!-- Program kami -->
-    <section class="w-full mx-auto py-8 px-5 sm:px-20 sm:py-10">
+    <section id="PROGRAM" class="w-full mx-auto py-8 px-5 sm:px-20 sm:py-10">
         <div class="w-full mx-auto">
             <!-- Title -->
             <div class="w-full mb-5 lg:mb-10">
@@ -179,7 +179,7 @@
     <!-- End Stats -->
 
     <!-- Top Course -->
-    <section class="w-full mx-auto px-5 py-8 sm:px-20 sm:py-10">
+    <section id="COURSE" class="w-full mx-auto px-5 py-8 sm:px-20 sm:py-10">
         <div class="w-full mx-auto">
             <!-- Grid -->
             <div class="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
@@ -192,7 +192,7 @@
                         Temukan kursus terbaik untuk karir Anda. Tingkatkan keterampilan Anda dengan materi relevan dan inovatif
                     </p>
                     <p class="mt-5">
-                        <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-900 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
+                        <a href="<?= base_url('auth/login') ?> class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-900 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="#">
                             Mulai Course
                         </a>
                     </p>
@@ -206,73 +206,30 @@
                         <div class="overflow-x-auto">
                             <!-- Grid -->
                             <div class="flex lg:grid lg:grid-cols-3 gap-6 mb-10">
-
                                 <!-- START TOP COURSE -->
                                 <!-- Card -->
                                 <?php foreach ($top_course as $course) : ?>
                                     <a class="group flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-auto bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800" href="#">
-                                        <div class="aspect-w-16 aspect-h-9">
-                                            <img class="w-full object-cover rounded-t-xl" src="<?= base_url('images-thumbnail/') . $course['thumbnail'] ?>" alt="Image Description">
+                                        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+                                            <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="<?= base_url('images-thumbnail/') . $course['thumbnail'] ?>" alt="Course-Image">
                                         </div>
                                         <div class="p-4 md:p-5">
-                                            <p class="mt-2 text-xs uppercase text-gray-600 dark:text-neutral-400">
-                                                Product
-                                            </p>
-                                            <h3 class="mt-2 text-lg font-medium text-gray-800 group-hover:text-blue-600 dark:text-neutral-300 dark:group-hover:text-white">
+                                            <h3 class="text-lg font-bold text-gray-800 dark:text-white">
                                                 <?= $course['name'] ?>
                                             </h3>
+                                            <div class="flex gap-x-2">
+                                                <svg class="lex-shrink-0 size-4 text-gray-500 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="16" height="16" rx="2"/>
+                                                </svg>
+                                                <p class="text-sm text-gray-600 dark:text-neutral-400">
+                                                    10 Video
+                                                </p>
+                                            </div>
                                         </div>
                                     </a>
                                 <?php endforeach; ?>
                                 <!-- End Card -->
                                 <!-- END TOP COURSE -->
-
-
-                                <!-- Card -->
-                                <!-- <a class="group flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-auto bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800" href="#">
-                                <div class="aspect-w-16 aspect-h-9">
-                                    <img class="w-full object-cover rounded-t-xl" src="https://images.unsplash.com/photo-1668869713519-9bcbb0da7171?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80" alt="Image Description">
-                                </div>
-                                <div class="p-4 md:p-5">
-                                    <p class="mt-2 text-xs uppercase text-gray-600 dark:text-neutral-400">
-                                        Product
-                                    </p>
-                                    <h3 class="mt-2 text-lg font-medium text-gray-800 group-hover:text-blue-600 dark:text-neutral-300 dark:group-hover:text-white">
-                                        Better is when everything works together
-                                    </h3>
-                                </div>
-                            </a> -->
-                                <!-- End Card -->
-                                <!-- Card -->
-                                <!-- <a class="group flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-auto bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800" href="#">
-                                <div class="aspect-w-16 aspect-h-9">
-                                    <img class="w-full object-cover rounded-t-xl" src="https://images.unsplash.com/photo-1668869713519-9bcbb0da7171?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80" alt="Image Description">
-                                </div>
-                                <div class="p-4 md:p-5">
-                                    <p class="mt-2 text-xs uppercase text-gray-600 dark:text-neutral-400">
-                                        Product
-                                    </p>
-                                    <h3 class="mt-2 text-lg font-medium text-gray-800 group-hover:text-blue-600 dark:text-neutral-300 dark:group-hover:text-white">
-                                        Better is when everything works together
-                                    </h3>
-                                </div>
-                            </a> -->
-                                <!-- End Card -->
-                                <!-- Card -->
-                                <!-- <a class="group flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-auto bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-neutral-900 dark:border-neutral-800" href="#">
-                                <div class="aspect-w-16 aspect-h-9">
-                                    <img class="w-full object-cover rounded-t-xl" src="https://images.unsplash.com/photo-1668869713519-9bcbb0da7171?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80" alt="Image Description">
-                                </div>
-                                <div class="p-4 md:p-5">
-                                    <p class="mt-2 text-xs uppercase text-gray-600 dark:text-neutral-400">
-                                        Product
-                                    </p>
-                                    <h3 class="mt-2 text-lg font-medium text-gray-800 group-hover:text-blue-600 dark:text-neutral-300 dark:group-hover:text-white">
-                                        Better is when everything works together
-                                    </h3>
-                                </div>
-                            </a> -->
-                                <!-- End Card -->
                             </div>
                             <!-- End Grid -->
                         </div>
@@ -311,83 +268,33 @@
                     </div>
                 </a>
                 <?php endforeach; ?>
-
-                <!-- Card -->
-                <!-- <a class="group relative block rounded-xl" href="#">
-                    <div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:z-[1] before:size-full before:bg-gradient-to-t before:from-gray-900/70">
-                        <img class="size-full absolute top-0 start-0 object-cover" src="https://images.unsplash.com/photo-1669828230990-9b8583a877ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1062&q=80" alt="Image Description">
-                    </div>
-
-                    <div class="absolute bottom-0 inset-x-0 z-10">
-                        <div class="flex flex-col h-full p-4 sm:p-6">
-                        <h3 class="text-2xl sm:text-lg font-semibold text-white group-hover:text-white/80">
-                            Damri is breaking news
-                        </h3>
-                        <p class="mt-2 text-xl text-white/80 sm:text-sm">
-                            Damri launched the Watch platform in August
-                        </p>
-                        </div>
-                    </div>
-                </a> -->
-                <!-- End Card -->
-                <!-- Card -->
-                <!-- <a class="group relative block rounded-xl" href="#">
-                    <div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:z-[1] before:size-full before:bg-gradient-to-t before:from-gray-900/70">
-                        <img class="size-full absolute top-0 start-0 object-cover" src="https://images.unsplash.com/photo-1669828230990-9b8583a877ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1062&q=80" alt="Image Description">
-                    </div>
-
-                    <div class="absolute bottom-0 inset-x-0 z-10">
-                        <div class="flex flex-col h-full p-4 sm:p-6">
-                        <h3 class="text-2xl sm:text-lg font-semibold text-white group-hover:text-white/80">
-                            Damri is breaking news
-                        </h3>
-                        <p class="mt-2 text-xl text-white/80 sm:text-sm">
-                            Damri launched the Watch platform in August
-                        </p>
-                        </div>
-                    </div>
-                </a> -->
-                <!-- End Card -->
-                <!-- Card -->
-                <!-- <a class="group relative block rounded-xl" href="#">
-                    <div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:z-[1] before:size-full before:bg-gradient-to-t before:from-gray-900/70">
-                        <img class="size-full absolute top-0 start-0 object-cover" src="https://images.unsplash.com/photo-1669828230990-9b8583a877ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1062&q=80" alt="Image Description">
-                    </div>
-
-                    <div class="absolute bottom-0 inset-x-0 z-10">
-                        <div class="flex flex-col h-full p-4 sm:p-6">
-                        <h3 class="text-2xl sm:text-lg font-semibold text-white group-hover:text-white/80">
-                            Damri is breaking news
-                        </h3>
-                        <p class="mt-2 text-xl text-white/80 sm:text-sm">
-                            Damri launched the Watch platform in August
-                        </p>
-                        </div>
-                    </div>
-                </a> -->
-                <!-- End Card -->
-                <!-- Card -->
-                <!-- <a class="group relative block rounded-xl" href="#">
-                    <div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[350px] before:absolute before:inset-x-0 before:z-[1] before:size-full before:bg-gradient-to-t before:from-gray-900/70">
-                        <img class="size-full absolute top-0 start-0 object-cover" src="https://images.unsplash.com/photo-1669828230990-9b8583a877ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1062&q=80" alt="Image Description">
-                    </div>
-
-                    <div class="absolute bottom-0 inset-x-0 z-10">
-                        <div class="flex flex-col h-full p-4 sm:p-6">
-                        <h3 class="text-2xl sm:text-lg font-semibold text-white group-hover:text-white/80">
-                            Damri is breaking news
-                        </h3>
-                        <p class="mt-2 text-xl text-white/80 sm:text-sm">
-                            Damri launched the Watch platform in August
-                        </p>
-                        </div>
-                    </div>
-                </a> -->
-                <!-- End Card -->
             </div>
             <!-- End Grid -->
+            <!-- Card -->
+            <div class="text-center pt-5">
+                <div class="inline-block bg-white border shadow-sm rounded-full dark:bg-neutral-900 dark:border-neutral-800">
+                <div class="py-3 px-4 flex items-center gap-x-2">
+                    <p class="text-gray-600 dark:text-neutral-400">
+                    Ingin mengetahui lebih lanjut?
+                    </p>
+                    <a href="<?= base_url('news') ?>" class="inline-flex items-center gap-x-1.5 text-blue-800 decoration-2 hover:underline font-medium dark:text-blue-500" href="../docs/index.html">
+                    Klik disini
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </a>
+                </div>
+                </div>
+            </div>
+            <!-- End Card -->
         </div>
     </section>
+    
+    <!-- Button to scroll to top -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-5 right-5 p-3 bg-blue-800 text-white rounded-full shadow-lg hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:ring-opacity-50">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 2l-8 8h6v8h4v-8h6z"/>
+        </svg>
+    </button>
+
     <!-- End Berita -->
 
 <?php endif; ?>

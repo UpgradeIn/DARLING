@@ -59,31 +59,12 @@
                 </p>
 
                 <div class="text-center">
-                  <div class="grid lg:grid-cols-2 gap-3">
-                    <div class="grid grid-cols-2 lg:grid-cols-1 gap-3">
-                      <figure class="relative w-full h-60">
-                        <img
-                          class="size-full absolute top-0 start-0 object-cover rounded-xl"
-                          src="<?= base_url('images-thumbnail/' . $news['thumbnail']) ?>"
-                          alt="Image Description"
-                        />
-                      </figure>
-                      <figure class="relative w-full h-60">
-                        <img
-                          class="size-full absolute top-0 start-0 object-cover rounded-xl"
-                          src="https://images.unsplash.com/photo-1671726203638-83742a2721a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-                          alt="Image Description"
-                        />
-                      </figure>
-                    </div>
-                    <figure class="relative w-full h-72 sm:h-96 lg:h-full">
-                      <img
-                        class="size-full absolute top-0 start-0 object-cover rounded-xl"
-                        src="https://images.unsplash.com/photo-1671726203394-491c8b574a0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80"
-                        alt="Image Description"
-                      />
-                    </figure>
-                  </div>
+                  <figure>
+                    <img class="w-full object-cover rounded-xl" src="<?= base_url('images-thumbnail/' . $news['thumbnail']) ?>" alt="Image Description">
+                    <figcaption class="mt-3 text-sm text-center text-gray-500 dark:text-neutral-500">
+                      A man and a woman looking at a cell phone.
+                    </figcaption>
+                  </figure>
                 </div>
 
                 <div class="space-y-3">
