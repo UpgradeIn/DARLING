@@ -26,7 +26,7 @@ class ActionsFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // cek role
-        if(session('role') != $arguments[0]){
+        if(session()->get('role') != $arguments[0]){
             return response()->setJSON([
                 'message' => 'Anda tidak memiliki akses.',
             ]);

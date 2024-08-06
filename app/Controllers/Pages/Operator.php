@@ -30,12 +30,12 @@ class Operator extends BaseController
     public  function __construct()
     {
         $this->session = session();
+        $this->newsModel = new NewsModel();
         $this->usersModel = new UsersModel();
         $this->courseModel = new CourseModel();
-        $this->newsModel = new NewsModel();
         $this->categoryModel = new CategoryModel();
-        $this->learningPathsModel = new LearningPathModel();
         $this->subcourseModel = new SubcourseModel();
+        $this->learningPathsModel = new LearningPathModel();
         $this->userLearningPathModel = new UserLearningPathModel();
         $this->assignLearningPathModel = new AssignLearningPathModel();
         $this->requestLearningPathModel = new RequestLearningPathModel();
@@ -43,6 +43,7 @@ class Operator extends BaseController
 
     public function dashboard()
     {
+        // redirect to dashboard
         return redirect()->to('/');
     }
 
@@ -50,8 +51,7 @@ class Operator extends BaseController
     {
         $assign_learning_paths = $this->assignLearningPathModel->getAssignLearningPaths();
         $request_learning_paths = $this->requestLearningPathModel->getRequestLearningPaths();
-        $users = $this->usersModel->getUsersInUserRole();
-        // dd($assign_learning_paths);
+        $users = $this->usersModel->getUsersInUserRole(3);
         $learningPaths = $this->learningPathsModel->findAll();
         $data = [
             'assign_learning_paths' => $assign_learning_paths,
@@ -115,7 +115,7 @@ class Operator extends BaseController
     public function detailCourse($slug)
     {
         $course = $this->courseModel->where('slug', $slug)->first();
-        if (!$course) {
+        if ($course === null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         $subcourses = $this->subcourseModel->where('course_id', $course['id'])->orderBy('sequence', 'ASC')->findAll();
@@ -125,6 +125,7 @@ class Operator extends BaseController
         $hasPostTest = count(array_filter($subcourses, function($subcourse) {
             return $subcourse['title'] === 'Post Test';
         })) > 0;
+        // dd(end($subcourses)['title']);
         $data = [
             'course' => $course,
             'subcourses' => $subcourses,
@@ -138,11 +139,11 @@ class Operator extends BaseController
     public function addPreTest($id)
     {
         $course = $this->courseModel->find($id);
-        if (!$course) {
+        if ($course === null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        $subcourses = $this->subcourseModel->where('course_id', $id)->where('title', 'Pre Test')->first();
-        if ($subcourses) {
+        $pre_test = $this->subcourseModel->where('course_id', $id)->where('title', 'Pre Test')->first();
+        if ($pre_test !== null) {
             return redirect()->to('/edit-pre-test/' . $course['id']);
         }
         $data = [
@@ -155,7 +156,7 @@ class Operator extends BaseController
     public function editPreTest($id)
     {
         $course = $this->courseModel->find($id);
-        if (!$course) {
+        if ($course === null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         $data = [
@@ -167,11 +168,11 @@ class Operator extends BaseController
     public function addPostTest($id)
     {
         $course = $this->courseModel->find($id);
-        if (!$course) {
+        if ($course === null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-        $subcourses = $this->subcourseModel->where('course_id', $id)->where('title', 'Post Test')->first();
-        if ($subcourses) {
+        $post_test = $this->subcourseModel->where('course_id', $id)->where('title', 'Post Test')->first();
+        if ($post_test !== null) {
             return redirect()->to('/edit-post-test/' . $course['id']);
         }
         $subcourses_sequence = $this->subcourseModel->where('course_id', $course['id'])->orderBy('sequence', 'ASC')->findAll();
@@ -201,11 +202,11 @@ class Operator extends BaseController
     public function detailNews($slug)
     {
         $news = $this->newsModel->where('slug', $slug)->first();
-        $category_news = $this->categoryModel->where('id', $news['category_id'])->first();
-        $categories = $this->categoryModel->findAll();
-        if (!$news) {
+        if ($news === null) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
+        $category_news = $this->categoryModel->where('id', $news['category_id'])->first();
+        $categories = $this->categoryModel->findAll();
         $data = [
             'news' => $news,
             'category_news' => $category_news['name'],

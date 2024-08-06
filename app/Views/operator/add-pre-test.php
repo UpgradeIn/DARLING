@@ -6,6 +6,21 @@ Add Pre Test | Damri Course
 
 <?= $this->section('content') ?>
 <section class="w-full min-h-screen mx-auto px-5 mt-12 pb-8 sm:px-20 sm:mt-24 sm:pb-10">
+<?php if (session()->has('errors')): ?>
+        <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+            <?php $errors = session('errors'); echo esc(array_shift($errors))?>
+        </div>
+    <?php endif; ?>
+    <?php if(session()->getFlashdata('msg')):?>
+            <div class="mt-2 text-sm text-center text-green-800 bg-green-200 py-2 rounded-lg">
+                <?= session()->getFlashdata('msg') ?>
+            </div>
+        <?php endif;?>
+    <?php if(session()->getFlashdata('msg-failed')):?>
+            <div class="mt-2 text-sm text-center text-red-800 bg-red-200 py-2 rounded-lg">
+                <?= session()->getFlashdata('msg-failed') ?>
+            </div>
+    <?php endif;?>
   <div class="pb-5">
     <h1 class="text-xl font-semibold text-gray-800 md-text-xl lg:text-2xl dark:text-neutral-200">
       Tambah Pre-Test

@@ -81,13 +81,8 @@ class User extends BaseController
 
     public function subCourse($slug, $id)
     {
-        $user_learning_path = $this->user_learning_path_model->where('user_id', session('id'))->where('learning_path_id', $id)->first();
-        if (!$user_learning_path) {
-            $this->session->setFlashdata('msg-failed', 'Anda belum terdaftar pada learning path ini');
-            return redirect()->back();
-        }
         $course = $this->course_model->where('slug', $slug)->first();
-        $allSubcourse = $this->subcourse_model->where('course_id', $course['id'])->findAll();
+        $allSubcourse = $this->subcourse_model->where('course_id', $course['id'])->orderBy('sequence', 'ASC')->findAll();
         $subcourse = $this->subcourse_model->where('id', $id)->first();
         if ($subcourse['course_id'] != $course['id']) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
