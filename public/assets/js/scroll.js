@@ -1,22 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
   const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-link");
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 200) {
-      // Tampilkan tombol setelah scroll 200px ke bawah
-      scrollToTopBtn.classList.remove("hidden");
-    } else {
-      scrollToTopBtn.classList.add("hidden");
+  // Function to handle the scroll events
+  function onScroll() {
+    // Show or hide the scroll-to-top button
+    if (scrollToTopBtn) {
+      if (window.scrollY > 200) {
+        scrollToTopBtn.classList.remove("hidden");
+      } else {
+        scrollToTopBtn.classList.add("hidden");
+      }
     }
-  });
 
-  scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+    // Highlight the active link
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+    let currentSectionId = "";
+
+    sections.forEach((section) => {
+      if (
+        section.offsetTop <= scrollPosition &&
+        section.offsetTop + section.offsetHeight > scrollPosition
+      ) {
+        currentSectionId = section.id;
+      }
     });
-  });
 
+    navLinks.forEach((link) => {
+      if (link.getAttribute("href").substring(1) === currentSectionId) {
+        link.classList.add("active-link");
+      } else {
+        link.classList.remove("active-link");
+      }
+    });
+  }
+
+  // Event listener for scroll events
+  window.addEventListener("scroll", onScroll);
+
+  // Initial call to set the active link on page load
+  onScroll();
+
+  // Smooth scroll for internal links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", (event) => {
       event.preventDefault();
@@ -26,4 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+
+  // Smooth scroll to top button
+  if (scrollToTopBtn) {
+    scrollToTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
 });

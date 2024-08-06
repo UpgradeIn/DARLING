@@ -3,7 +3,7 @@
 <header class="fixed top-0 shadow-md flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-neutral-800 dark:border-neutral-700">
     <nav class="w-full px-5 sm:flex sm:py-2 sm:items-center sm:justify-between sm:px-20" aria-label="Global">
         <div class="flex items-center justify-between">
-            <img class="w-full" src="<?php echo base_url('assets/images/damri.png'); ?>" alt="Card Image" style="max-width: 120px; max-height: 120px;">
+            <img class="w-full" src="<?php echo base_url('assets/images/damri.png'); ?>" alt="Card Image" style="max-width: 130px; max-height: 130px;">
             <div class="flex items-center gap-2 sm:hidden">
                 <?php if(isset($role)) : ?>
                     <div class="hs-dropdown [--placement:bottom-right] relative inline-flex">
@@ -83,10 +83,10 @@
                             </div>
                         <?php endif; ?>
                     <?php else : ?>
-                        <a class="py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500" href="/">Home</a>
-                        <a class="py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500" href="#PROGRAM">Program</a>
-                        <a class="py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500" href="#COURSE">Course</a>
-                        <a class="py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500" href="<?= base_url('news') ?>">Berita</a>
+                        <a class="nav-link py-3 ps-px sm:px-3 font-semibold text-base text-gray-500 hover:text-blue-900 dark:text-neutral-400 dark:hover:text-neutral-500" href="#HOME">Home</a>
+                        <a class="nav-link py-3 ps-px sm:px-3 font-semibold text-base text-gray-500 hover:text-blue-900 dark:text-neutral-400 dark:hover:text-neutral-500" href="#PROGRAM">Program</a>
+                        <a class="nav-link py-3 ps-px sm:px-3 font-semibold text-base text-gray-500 hover:text-blue-900 dark:text-neutral-400 dark:hover:text-neutral-500" href="#COURSE">Course</a>
+                        <a class="nav-link py-3 ps-px sm:px-3 font-semibold text-base text-gray-500 hover:text-blue-900 dark:text-neutral-400 dark:hover:text-neutral-500" href="#BERITA">Berita</a>
                     <?php endif; ?>
                 </div>
                 <div>
