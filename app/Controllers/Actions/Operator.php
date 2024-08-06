@@ -57,7 +57,7 @@ class Operator extends BaseController
             'course_thumbnail'     => 'uploaded[course_thumbnail]|max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
         
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -66,7 +66,7 @@ class Operator extends BaseController
         // set course slug
         $slug = url_title($this->request->getVar('course_name'), '-', true);
 
-        // check exist course slug
+        // check if course slug already exists
         if ($this->courseModel->where('slug', $slug)->first() != null) {
             $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
             return redirect()->to('manage-course');
@@ -106,7 +106,7 @@ class Operator extends BaseController
         // get course by id
         $course = $this->courseModel->find($id);
 
-        // check exist course
+        // check if course is not exist
         if ($course == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
@@ -120,7 +120,7 @@ class Operator extends BaseController
             'course_thumbnail'     => 'max_size[course_thumbnail,5120]|is_image[course_thumbnail]|mime_in[course_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -129,9 +129,11 @@ class Operator extends BaseController
         // set course slug
         $slug = url_title($this->request->getVar('course_name'), '-', true);
 
-        // check exist course slug
-        $exists_slug = $this->courseModel->where('slug', $slug)->first();
-        if ($exists_slug != null && $exists_slug['id'] != $id) {
+        // get course by slug
+        $exists_course = $this->courseModel->where('slug', $slug)->first();
+
+        // check if course slug already exists and is not the same course
+        if ($exists_course != null && $exists_course['id'] != $id) {
             $this->session->setFlashdata('msg-failed', 'Judul course sudah ada');
             return redirect()->to('detail-course/' . $course['slug']);
         }
@@ -196,7 +198,7 @@ class Operator extends BaseController
         // get course by id
         $course = $this->courseModel->find($id);
 
-        // check exist course
+        // check if course is not exist
         if ($course == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
@@ -242,7 +244,7 @@ class Operator extends BaseController
             'result.*.sequence' => 'required|numeric',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validateData($validationData, $rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -267,7 +269,7 @@ class Operator extends BaseController
         // get course by id
         $course = $this->courseModel->find($id);
 
-        // check exist course
+        // check if course is not exist
         if ($course == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
@@ -298,7 +300,7 @@ class Operator extends BaseController
         // get course by id
         $course = $this->courseModel->find($id);
 
-        // check exist course
+        // check if course is not exist
         if ($course == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
@@ -373,7 +375,7 @@ class Operator extends BaseController
                 break;
         }
 
-        // check validation
+        // check if data is not validate
         if (!$this->validateData($validationData, $validationRules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -382,7 +384,7 @@ class Operator extends BaseController
         // get course by id
         $dataCourse = $this->courseModel->select('slug')->where('id', $this->request->getVar('course_id'))->first();
 
-        // check exist course
+        // check if course is not exist
         if ($dataCourse == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
@@ -483,7 +485,7 @@ class Operator extends BaseController
         // get course by id
         $dataCourse = $this->courseModel->select('slug')->where('id', $this->request->getVar('course_id'))->first();
 
-        // check exist course
+        // check if course is not exist
         if ($dataCourse == null) {
             $this->session->setFlashdata('msg-failed', 'Course tidak ditemukan');
             return redirect()->back();
@@ -556,7 +558,7 @@ class Operator extends BaseController
                 $validationRules['content.dataTest.*.options.*.correct'] = 'required|integer';
                 $validationRules['content.type_test'] = 'required|in_list[pre_test,post_test]';
                 
-                // check validation
+                // check if data is not validate
                 if (!$this->validateData($validationData, $validationRules)) {
                     $validation = $this->validator;
                     return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -650,7 +652,7 @@ class Operator extends BaseController
         // find subcourse by id
         $subcourse = $this->subcourseModel->find($id);
 
-        // check exist subcourse
+        // check if subcourse is not found
         if ($subcourse == null) {
             $this->session->setFlashdata('msg-failed', 'Subcourse tidak ditemukan');
             return redirect()->back();
@@ -730,7 +732,7 @@ class Operator extends BaseController
             'contentArray.*.sequence' => 'required|numeric',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validateData($validationData, $rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -761,7 +763,7 @@ class Operator extends BaseController
             'learning_path_thumbnail'       => 'uploaded[learning_path_thumbnail]|max_size[learning_path_thumbnail,5120]|is_image[learning_path_thumbnail]|mime_in[learning_path_thumbnail,image/jpg,image/jpeg,image/png]',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -810,7 +812,7 @@ class Operator extends BaseController
             'thumbnail_learning_path'     => 'max_size[thumbnail_learning_path,5120]|is_image[thumbnail_learning_path]|mime_in[thumbnail_learning_path,image/jpg,image/jpeg,image/png]',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $validation = $this->validator;
             dd($validation->getErrors());
@@ -865,7 +867,7 @@ class Operator extends BaseController
         // get learning path by id
         $learningPath = $this->learningpathModel->find($id);
 
-        // check exist learning path
+        // check if learning path is not exist
         if ($learningPath == null) {
             $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
             return redirect()->back();
@@ -894,7 +896,7 @@ class Operator extends BaseController
         // get learning path by id
         $learningPath = $this->learningpathModel->find($id);
 
-        // check exist learning path
+        // check if learning path is not exist
         if ($learningPath == null) {
             $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
             return redirect()->back();
@@ -925,7 +927,7 @@ class Operator extends BaseController
         // get learning path by id
         $learningPath = $this->learningpathModel->find($id);
 
-        // check exist learning path
+        // check if learning path is not exist
         if ($learningPath == null) {
             $this->session->setFlashdata('msg-failed', 'Learning Path tidak ditemukan');
             return redirect()->back();
@@ -970,7 +972,7 @@ class Operator extends BaseController
             'contentArray.*.sequence' => 'required|numeric',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($validationData, $rules)) {
             // ?
         }
@@ -1009,7 +1011,7 @@ class Operator extends BaseController
             'contentArray.*.sequence' => 'required|numeric',
         ];
 
-        // check validation
+        // check if data is not validate
         if ($this->validate($validationData, $rules)) {
             // ?
         }
@@ -1100,7 +1102,7 @@ class Operator extends BaseController
             'message_assignment'       => 'required',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -1162,7 +1164,7 @@ class Operator extends BaseController
             'status'           => 'required|in_list[approved,rejected]'
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -1211,7 +1213,7 @@ class Operator extends BaseController
             'name'          => 'required',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $data['validation'] = $this->validator;
             return view('manage-category', $data);
@@ -1239,7 +1241,7 @@ class Operator extends BaseController
             'name'          => 'required',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $data['validation'] = $this->validator;
             return view('manage-category', $data);
@@ -1281,7 +1283,7 @@ class Operator extends BaseController
             'thumbnail_news'      => 'uploaded[thumbnail_news]|max_size[thumbnail_news,5120]|is_image[thumbnail_news]|mime_in[thumbnail_news,image/jpg,image/jpeg,image/png]',
         ];
         
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $validation = $this->validator;
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
@@ -1330,7 +1332,7 @@ class Operator extends BaseController
             'status'         => 'required|in_list[publish,draft]',
         ];
 
-        // check validation
+        // check if data is not validate
         if (!$this->validate($rules)) {
             $data['validation'] = $this->validator;
             return view('manage-news', $data);
@@ -1393,7 +1395,7 @@ class Operator extends BaseController
         // get news by id
         $dataNews = $this->newsModel->find($id);
 
-        // check exist news
+        // check if news is not exist
         if ($dataNews == null) {
             $this->session->setFlashdata('msg-failed', 'News tidak ditemukan');
             return redirect()->back();
@@ -1424,7 +1426,7 @@ class Operator extends BaseController
         // get news by id
         $dataNews = $this->newsModel->find($id);
 
-        // check exist news
+        // check if news is not exist
         if ($dataNews == null) {
             $this->session->setFlashdata('msg-failed', 'News tidak ditemukan');
             return redirect()->back();
