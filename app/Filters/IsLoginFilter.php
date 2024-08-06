@@ -25,7 +25,7 @@ class IsLoginFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $role = session('role');
+        $role = session()->get('role');
         if (isset($role)) 
         {
             return redirect()->to('/');
